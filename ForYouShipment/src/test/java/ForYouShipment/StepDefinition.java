@@ -23,11 +23,6 @@ public class StepDefinition {
         throw new io.cucumber.java.PendingException();
     }
     
-    @Given("a database of size n")
-    public void a_database_of_size_n() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
     
     @When("it is registered")
     public void it_is_registered() {
@@ -35,8 +30,8 @@ public class StepDefinition {
         throw new io.cucumber.java.PendingException();
     }
     
-    @Then("database is of size n+1")
-    public void database_is_of_size_n_1() {
+    @Then("database has the client")
+    public void database_has_the_client() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
