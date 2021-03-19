@@ -3,7 +3,6 @@
 
 Welcome to our repository! 
 We will use this repository for our Agile project.
-More
 
 ## BDD Assignment
 In this assignment we only inluded user stories related to `Clients management`. 
