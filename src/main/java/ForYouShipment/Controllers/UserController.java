@@ -6,10 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.IdGenerator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import ForYouShipment.Models.Storage;
 import ForYouShipment.Models.UserModel;
@@ -19,7 +17,7 @@ import ForYouShipment.Workers.IDGenerator;
 @RequestMapping("/Users")
 public class UserController {
     
-    @RequestMapping("/Index")
+    @RequestMapping(value={ "/Index", "/", "" })
     public String Index(HttpServletRequest req, Model m) {
         List <UserModel> users = Storage.GetInstance().getUsers();
 
