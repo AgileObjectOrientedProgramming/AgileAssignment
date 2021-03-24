@@ -1,5 +1,5 @@
 package ForYouShipment;
 
-public class CompanyUser {
+public class ComDepUser {
     
 }
