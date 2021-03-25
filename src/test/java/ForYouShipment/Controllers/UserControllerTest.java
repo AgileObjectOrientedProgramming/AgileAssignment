@@ -98,11 +98,80 @@ public class UserControllerTest {
             .andExpect(status().is(302))
             .andReturn();
         
+        assertTrue(Storage.GetInstance().getUsers().size() == 0);
+    }
+
+    @Test
+	public void CreateNewUser() throws Exception {
+        Storage.GetInstance().setUsers(new ArrayList<>());
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Users/New")
+                .param("FirstName", "Alex")
+                .param("LastName", "Doe")
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        assertTrue(Storage.GetInstance().getUsers().size() == 1);
+        assertTrue(Storage.GetInstance()
+                    .getUsers()
+                    .get(0)
+                    .getFirstName()
+                    .equals("Alex"));
+    }
+
+    @Test
+	public void CanOpenEditForm() throws Exception {
+        Storage.GetInstance().setUsers(new ArrayList<>());
+        Storage.GetInstance().getUsers().add(new UserModel());
+        Storage.GetInstance().getUsers().get(0).setFirstName("Hello");
+        Storage.GetInstance().getUsers().get(0).setID("1234");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Users/Edit")
+                .param("ID", "1234")
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
         String view_name = resultActions.getModelAndView().getViewName();
         Map<String, Object> model = resultActions.getModelAndView().getModel();
 
         
-        assertTrue(Storage.GetInstance().getUsers().size() == 0);
+        assertTrue(view_name.equals("Users/Edit"));
+
+        assertTrue(model.containsKey("user"));
+        UserModel user = (UserModel)model.get("user");
+
+        assertTrue(user.getID().equals("1234"));
     }
 
+    @Test
+	public void CanEditUser() throws Exception {
+        Storage.GetInstance().setUsers(new ArrayList<>());
+        Storage.GetInstance().getUsers().add(new UserModel());
+        Storage.GetInstance().getUsers().get(0).setFirstName("Hello");
+        Storage.GetInstance().getUsers().get(0).setID("1234");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Users/Edit")
+                .param("ID", "1234")
+                .param("FirstName", "Alex")
+                .param("LastName", "Doe")
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        assertTrue(Storage
+                .GetInstance()
+                .getUsers()
+                .get(0)
+                .getFirstName()
+                .equals("Alex"));
+        
+    }
 }
