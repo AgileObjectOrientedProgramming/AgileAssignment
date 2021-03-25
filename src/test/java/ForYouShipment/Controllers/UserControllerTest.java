@@ -2,14 +2,15 @@ package ForYouShipment.Controllers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 // https://spring.io/guides/gs/testing-web/
-
+@SpringBootApplication
 @SpringBootTest
-public class UserControllerTests {
+public class UserControllerTest {
     @Autowired
     UserController controller;
 
