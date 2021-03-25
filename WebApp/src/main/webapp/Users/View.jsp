@@ -5,12 +5,6 @@
     List Of Registered Users:
 </h1>
 
-<style>
-    .demo-list-icon {
-      width: 300px;
-    }
-</style>
-
 <div style="width: 80%;" class="card">
     <div class="card-header">
         <h5>User ${user.getFirstName()}</h5>
@@ -28,6 +22,6 @@
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     </div>
-</form>
+</div>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
