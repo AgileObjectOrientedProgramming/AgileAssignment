@@ -8,19 +8,20 @@
         </div>
     </c:if>
 
-    <form action="/Users/New" method="post" class="card">
+    <form action="/Users/Edit" method="post" class="card">
         <div class="card-header">
-            <h5>Create New User</h5>
+            <h5>Edit a User</h5>
         </div>
         <div class="card-body">
             <label for="FirstName">First Name:</label>
             <br>
-            <input type="text" class="form-control" name="FirstName" required>
+            <input type="text" class="form-control" name="FirstName" value="${user.getFirstName()}" required>
             </br>
             <label for="LastName">Last Name:</label>
             <br>
-            <input type="text" class="form-control" name="LastName" required>
+            <input type="text" class="form-control" name="LastName" value="${user.getLastName()}" required>
             <br>
+            <input type="hidden" name="ID" value="${user.getID()}">
         </div>    
         <div style="display: flex; justify-content: space-between;" class="card-footer">
             <input type="submit" class="btn btn-success" value="Submit">

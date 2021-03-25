@@ -11,12 +11,14 @@
     }
 </style>
 
-<ul class="demo-list-icon mdl-list">
+<ul>
     <c:forEach items="${users}" var="user">
-        <li class="mdl-list__item">
-            <span class="mdl-list__item-primary-content">
-                <i class="material-icons mdl-list__item-icon">person</i>
-                ${user.getFirstName()} ${user.getLastName()}
+        <li>
+            <span>
+                <a href="/Users/View?ID=${user.getID()}">
+                    <i>person</i>
+                    ${user.getFirstName()} ${user.getLastName()}
+                </a>
             </span>
         </li>   
     </c:forEach>
