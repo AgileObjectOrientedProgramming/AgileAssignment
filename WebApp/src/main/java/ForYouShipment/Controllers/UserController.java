@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,22 +26,78 @@ public class UserController {
         return "Users/Index";
     }
 
+    @RequestMapping("/View")
+    public String  DisplayUser(HttpServletRequest req, Model m) {
+        List <UserModel> users = Storage.GetInstance().getUsers();
+        UserModel user = null;
+        String id = req.getParameter("ID");
+
+        for (UserModel u : users)
+            if (u.getID().equals(id))
+                user = u;
+
+        if (user == null)
+            return "redirect:/Users/Index";
+        
+        m.addAttribute("user", user);
+        return "Users/View";
+    }
     
     @RequestMapping("/New")
     public String  ReturnNewForm(HttpServletRequest req, Model m) {
+        // m.addAttribute("warning", "");
         return "Users/New";
     }
 
-    // @RequestMapping("/New")
-    // public ModelAndView  ReturnNewForm(HttpServletRequest req, Model m) {
-    //     return new ModelAndView("Users/New", "UserModel", new UserModel());
-    // }
+    @RequestMapping("/Edit")
+    public String ReturnEditForm(HttpServletRequest req, Model m) {
+        String id = req.getParameter("ID");
+        UserModel user = null;
+        List <UserModel> users = Storage.GetInstance().getUsers();
+        for (int i = 0; i < users.size(); i++) 
+            if (users.get(i).getID().equals(id))
+                user = users.get(i);
+        
+        m.addAttribute("user", user);
+        return "Users/Edit";
+    }
 
-    @RequestMapping(value = "/New", method = RequestMethod.POST)
-    public String submit(HttpServletRequest req, Model m) {
+    @RequestMapping(value = "/Edit", method = RequestMethod.POST)
+    public String EditUser(HttpServletRequest req, Model m) {
         UserModel user = new UserModel();
         user.setFirstName(req.getParameter("FirstName"));
         user.setLastName(req.getParameter("LastName"));
+
+        if (user.getFirstName().length() > 15) {
+            m.addAttribute("warning", "Please enter a shorter first name");
+
+            m.addAttribute("user", user);
+            return "Users/Edit";
+        }
+
+        user.setID(req.getParameter("ID"));
+        List <UserModel> users = Storage.GetInstance().getUsers();
+        for(int i = 0; i < users.size(); i++)
+            if (users.get(i).getID().equals(user.getID())) 
+                users.set(i, user);
+
+        System.out.println("Saved new user: name = " + user.getFirstName() +
+            ", last name = " + user.getLastName());
+
+        return "redirect:/Users/Index";
+    }
+    
+
+    @RequestMapping(value = "/New", method = RequestMethod.POST)
+    public String CreateUser(HttpServletRequest req, Model m) {
+        UserModel user = new UserModel();
+        user.setFirstName(req.getParameter("FirstName"));
+        user.setLastName(req.getParameter("LastName"));
+
+        if (user.getFirstName().length() > 15) {
+            m.addAttribute("warning", "Please enter a shorter first name");
+            return "Users/New";
+        }
 
         user.setID(IDGenerator.GetInstance().GenerateID());
 
@@ -51,19 +108,13 @@ public class UserController {
         return "redirect:/Users/Index";
     }
 
-    // @RequestMapping(value = "/New", method = RequestMethod.POST)
-    // public String submit(@Validated @ModelAttribute("UserModel") UserModel user, 
-    //   BindingResult result, Model m) {
-    //     if (result.hasErrors()) {
-    //         System.out.println("Unable to match!");
-    //         return "error";
-    //     }
-
-    //     Storage.GetInstance().getUsers().add(user);
-    //     System.out.println("Saved new user: name = " + user.getFirstName() +
-    //         ", last name = " + user.getLastName());
-
-    //     m.addAttribute("users", Storage.GetInstance().getUsers());
-    //     return "Users/Index";
-    // }
+    @RequestMapping(value = "/Delete", method = RequestMethod.POST)
+    public String DeleteUser(HttpServletRequest req, Model m) {
+        String id = req.getParameter("ID");
+        List <UserModel> users = Storage.GetInstance().getUsers();
+        for (int i = 0; i < users.size(); i++) 
+            if (users.get(i).getID().equals(id))
+                users.remove(i);
+        return "redirect:/Users/Index";
+    }
 }
