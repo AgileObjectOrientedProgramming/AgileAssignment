@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/Home")
-public class HomeController {
+public class HomeController123 {
 
     @RequestMapping("/Index")
     public String Index(HttpServletRequest req, Model m) {
