@@ -33,6 +33,7 @@ public class UserControllerTest {
     
 	@Test
 	public void IndexShouldReturnTheUsers() throws Exception {
+        Storage.GetInstance().setUsers(new ArrayList<>());
         Storage.GetInstance().getUsers().add(new UserModel());
         Storage.GetInstance().getUsers().get(0).setFirstName("Hello");
 
