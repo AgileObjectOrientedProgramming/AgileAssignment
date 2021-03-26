@@ -40,6 +40,7 @@ public class UserControllerTest {
 		MvcResult resultActions = 
             this.mockMvc.perform(
                 get("/Users/Index")
+                // .sessionAttr("username", "idk")
             )
             .andExpect(status().isOk())
             .andReturn();
