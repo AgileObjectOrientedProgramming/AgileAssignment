@@ -21,8 +21,8 @@
       <div class="d-flex flex-column flex-md-row align-items-center">
         <nav class="my-2 my-md-0 mr-md-3">
           <c:if test="${param.TopBarUsername != null}">
-            <a class="p-2 text-dark" href="#">Orders</a>
-            <a class="p-2 text-dark" href="#">${param.TopBarUsername}</a>
+            <a class="btn btn-outline-secondary" href="#">Orders</a>
+            <a class="btn btn-outline-secondary" href="#">${param.TopBarUsername}</a>
           </c:if>
           <!-- <a class="p-2 text-dark" href="/Users/Index">Users</a>
           <a class="p-2 text-dark" href="/Users/New">New User</a> -->

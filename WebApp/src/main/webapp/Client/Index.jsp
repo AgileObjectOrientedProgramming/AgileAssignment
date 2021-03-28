@@ -5,8 +5,12 @@
 
 
 
-<h3>Welcome ${client.GenerateName()}!</h3> 
+<h2>Welcome ${client.GenerateName()}!</h2> 
 
+
+<h4>
+    This is your wall senpai :3!
+</h4>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
 
