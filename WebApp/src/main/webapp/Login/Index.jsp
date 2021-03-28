@@ -8,23 +8,23 @@
         </div>
     </c:if>
 
-    <form action="/Login/New" method="post" class="card">
+    <form action="/Login/Login" method="post" class="card">
         <div class="card-header">
             <h5>Login</h5>
         </div>
         <div class="card-body">
-            <label for="username">Username:</label>
+            <label for="Username">Username:</label>
             <br>
-            <input type="text" class="form-control" name="username" required>
+            <input type="text" class="form-control" name="Username" required>
             </br>
-            <label for="password">Password:</label>
+            <label for="Password">Password:</label>
             <br>
-            <input type="password" class="form-control" name="password" required>
+            <input type="password" class="form-control" name="Password" required>
             <br>
         </div>    
         <div style="display: flex; justify-content: space-between;" class="card-footer">
             <input type="submit" class="btn btn-success" value="Login">
-            <a class="btn btn-danger" href="/Users/Index">Cancel</a>
+            <a class="btn btn-danger" href="/">Cancel</a>
         </div>
     </form>
 </div>

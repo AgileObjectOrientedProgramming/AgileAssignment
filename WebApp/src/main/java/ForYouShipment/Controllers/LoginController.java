@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ForYouShipment.Models.Storage;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Workers.ClientModelWorker;
 import ForYouShipment.Workers.IDGenerator;
 
 @Controller
@@ -20,19 +22,30 @@ public class LoginController {
     
     @RequestMapping(value={ "/Index", "/", "" })
     public String Index(HttpServletRequest req, Model m, HttpSession session) {
-        System.out.println("ASDASD");
         return "Login/Index";
     }
 
-    @RequestMapping(value = "/New", method = RequestMethod.POST)
-    public String Login(HttpServletRequest req, Model m, HttpSession session) {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+    @RequestMapping(value = "/Login", method = RequestMethod.POST)
+    public String Login(HttpServletRequest req, Model m, HttpSession session,
+                @RequestParam("Username") String Username, 
+                @RequestParam("Password") String Password) {
 
-        session.setAttribute("username", username);
+        String ID = ClientModelWorker.GetInstance().Authenticate(Username, Password);
+    
+        if (ID == null) {
+            m.addAttribute("warning", "Invalid Username or Password!");
+            return "Login/Index";
+        }
 
-        System.out.println("Received user " + username + " and password " + password);
-        return "redirect:/Users/Index";
+        session.setAttribute("SignedUser", ID);
+
+        return "redirect:/Client";
+    }
+
+    @RequestMapping(value={ "/Logout"})
+    public String Logout(HttpServletRequest req, Model m, HttpSession session) {
+        session.setAttribute("SignedUser", null);
+        return "redirect:/";
     }
 
 }

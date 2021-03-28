@@ -9,18 +9,18 @@ import java.util.List;
 public class ClientStorage {
 
     // Items to save.
-    private List <ClientModel> Users;
+    private List <ClientModel> Clients;
 
     private ClientStorage() {
-        Users = new ArrayList<>();
+        Clients = new ArrayList<>();
     }
 
     public List<ClientModel> getUsers() {
-        return Users;
+        return Clients;
     }
 
-    public void setUsers(List<ClientModel> users) {
-        Users = users;
+    public void setUsers(List<ClientModel> clients) {
+        Clients = clients;
     }
 
     private static ClientStorage instance = null;
