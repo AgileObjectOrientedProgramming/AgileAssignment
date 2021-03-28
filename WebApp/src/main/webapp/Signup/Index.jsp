@@ -36,7 +36,7 @@
         </div>    
         <div style="display: flex; justify-content: space-between;" class="card-footer">
             <input type="submit" class="btn btn-success" value="Submit">
-            <a class="btn btn-danger" href="/Users/Index">Cancel</a>
+            <a class="btn btn-danger" href="/">Cancel</a>
         </div>
     </form>
 </div>
