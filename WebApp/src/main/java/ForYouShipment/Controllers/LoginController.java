@@ -20,6 +20,7 @@ public class LoginController {
     
     @RequestMapping(value={ "/Index", "/", "" })
     public String Index(HttpServletRequest req, Model m, HttpSession session) {
+        System.out.println("ASDASD");
         return "Login/Index";
     }
 
