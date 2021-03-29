@@ -1,7 +1,5 @@
 package ForYouShipment.Controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,11 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ForYouShipment.Models.Storage;
-import ForYouShipment.Models.UserModel;
-import ForYouShipment.Workers.AuthenticateClient;
-import ForYouShipment.Workers.ClientModelWorker;
-import ForYouShipment.Workers.IDGenerator;
+import ForYouShipment.Workers.Login;
 
 @Controller
 @RequestMapping("/Login")
@@ -32,7 +26,7 @@ public class LoginController {
                 @RequestParam("Password") String Password) {
 
         // String ID = ClientModelWorker.GetInstance().Authenticate(Username, Password);
-        String ID = AuthenticateClient.Authenticate(Username, Password);
+        String ID = Login.Authenticate(Username, Password);
     
         if (ID == null) {
             m.addAttribute("warning", "Invalid Username or Password!");

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Singleton class storing all informations.
+ * Singleton class storing all ForYouShipment Users.
  */
 public class Storage {
 

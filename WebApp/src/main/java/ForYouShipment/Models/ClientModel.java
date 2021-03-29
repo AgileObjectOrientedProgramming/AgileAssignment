@@ -1,8 +1,11 @@
 package ForYouShipment.Models;
 
+import ForYouShipment.Interfaces.ClientUI;
 import ForYouShipment.Workers.IDGenerator;
 
-public class ClientModel {
+
+//** This is the Client Model */
+public class ClientModel implements ClientUI{
     private String FirstName, LastName, Username, Password, ID;
     
     public ClientModel() {
@@ -17,7 +20,7 @@ public class ClientModel {
         return FirstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         FirstName = firstName;
     }
 
@@ -25,7 +28,7 @@ public class ClientModel {
         return LastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         LastName = lastName;
     }
 
@@ -33,7 +36,7 @@ public class ClientModel {
         return Username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         Username = username;
     }
 
@@ -41,7 +44,7 @@ public class ClientModel {
         return Password;
     }
 
-    public void setPassword(String Password) {
+    public void setPassword(final String Password) {
         this.Password = Password;
     }
 
@@ -49,7 +52,7 @@ public class ClientModel {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(final String ID) {
         this.ID = ID;
     }
 }

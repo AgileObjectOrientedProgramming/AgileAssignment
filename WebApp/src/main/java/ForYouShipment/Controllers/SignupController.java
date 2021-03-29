@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ForYouShipment.Workers.ClientModelWorker;
+import ForYouShipment.Workers.Login;
 
 @Controller
 @RequestMapping("/Signup")
@@ -33,18 +33,18 @@ public class SignupController {
         m.addAttribute("Username", Username);
 
         System.out.println("Got " + FirstName);
-        String UsernameCheckResult = ClientModelWorker.GetInstance().UsernameIsValid(Username);
+        String UsernameCheckResult = Login.UsernameIsValid(Username);
         if (UsernameCheckResult != null) {
             m.addAttribute("warning", UsernameCheckResult);
             return "Signup/Index";
         }
-        String PasswordCheckResult = ClientModelWorker.GetInstance().PasswordIsValid(Password, PasswordRetype);
+        String PasswordCheckResult = Login.PasswordIsValid(Password, PasswordRetype);
         if (PasswordCheckResult != null) {
             m.addAttribute("warning", PasswordCheckResult);
             return "Signup/Index";
         }
 
-        String ID = ClientModelWorker.GetInstance().GenerateClient(FirstName, LastName, Username, Password);
+        String ID = Login.GenerateClient(FirstName, LastName, Username, Password);
 
         session.setAttribute("SignedUser", ID);
 
