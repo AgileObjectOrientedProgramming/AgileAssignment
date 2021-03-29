@@ -13,14 +13,14 @@
             <h5>Create New User</h5>
         </div>
         <div class="card-body">
-            <label for="FirstName">First Name:</label>
+            <!-- <label for="FirstName">First Name:</label>
             <br>
             <input type="text" value="${FirstName}" class="form-control" name="FirstName" required>
             </br>
             <label for="LastName">Last Name:</label>
             <br>
             <input type="text" value="${LastName}" class="form-control" name="LastName" required>
-            <br>
+            <br> -->
             <label for="Username">Username:</label>
             <br>
             <input type="text" value="${Username}" class="form-control" name="Username" required>

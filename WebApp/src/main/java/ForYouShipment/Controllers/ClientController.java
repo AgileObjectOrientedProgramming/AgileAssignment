@@ -1,20 +1,15 @@
 package ForYouShipment.Controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import ForYouShipment.Models.ClientModel;
-import ForYouShipment.Models.Storage;
 import ForYouShipment.Models.UserModel;
-import ForYouShipment.Workers.ClientModelWorker;
-import ForYouShipment.Workers.IDGenerator;
+import ForYouShipment.Workers.AuthenticateUserWorker;
+
 
 @Controller
 @RequestMapping("/Client")
@@ -27,9 +22,16 @@ public class ClientController {
         
         String ID = (String) session.getAttribute("SignedUser");
 
-        ClientModel client = ClientModelWorker.GetInstance().GetClientByID(ID);
+        UserModel user = AuthenticateUserWorker.GetUserByID(ID);
 
-        m.addAttribute("client", client);
+        // Checking if the user has access
+        if (!user.HasAccessTo("/Client/Index"))
+            return "redirect:/Login"; 
+        
+        m.addAttribute("Profile", user.getProfile());
+
+        // Send Username to the view
+        m.addAttribute("Username", user.getUsername());
         
         return "Client/Index";
     }
