@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ForYouShipment.Models.Storage;
 import ForYouShipment.Models.UserModel;
-import ForYouShipment.Workers.AuthenticateClient;
+import ForYouShipment.Workers.AuthenticateClientWorker;
 import ForYouShipment.Workers.ClientModelWorker;
 import ForYouShipment.Workers.IDGenerator;
 
@@ -32,7 +32,7 @@ public class LoginController {
                 @RequestParam("Password") String Password) {
 
         // String ID = ClientModelWorker.GetInstance().Authenticate(Username, Password);
-        String ID = AuthenticateClient.Authenticate(Username, Password);
+        String ID = AuthenticateClientWorker.Authenticate(Username, Password);
     
         if (ID == null) {
             m.addAttribute("warning", "Invalid Username or Password!");

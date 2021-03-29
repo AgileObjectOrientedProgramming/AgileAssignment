@@ -4,10 +4,10 @@ import ForYouShipment.Models.ClientModel;
 import ForYouShipment.Models.ClientStorage;
 
 /** This is  */
-public class AuthenticateClient {
+public class AuthenticateClientWorker {
 
     
-    private AuthenticateClient() {} //Emma it works as private
+    private AuthenticateClientWorker() {} //Emma it works as private
 
     /**  */
     public static String Authenticate(String Username, String Password) {

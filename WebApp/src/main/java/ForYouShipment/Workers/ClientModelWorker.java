@@ -5,16 +5,8 @@ import ForYouShipment.Models.*;
 public class ClientModelWorker {
 
     private ClientModelWorker() {}
-    
-    private static ClientModelWorker instance = null;
 
-    public static ClientModelWorker GetInstance() {
-        if (instance == null)
-            instance = new ClientModelWorker();
-        return instance;
-    }
-
-    public String UsernameIsValid(String Username) {
+    public static String UsernameIsValid(String Username) {
         /**
          * This function verifies if the username is valid is not already taken.
          * Returns null if the username is ok, otherwise returns why it is not ok.
@@ -33,7 +25,7 @@ public class ClientModelWorker {
         return null;
     }
 
-    public String PasswordIsValid(String Password, String PasswordRetype) {
+    public static String PasswordIsValid(String Password, String PasswordRetype) {
         /**
          * This function verifies if the password and the retyped passowrd are valid.
          * Returns null if the password is ok, otherwise returns why it is not ok.
@@ -48,7 +40,7 @@ public class ClientModelWorker {
     }
 
 
-    public String GenerateClient(String FirstName, String LastName, String Username, String Password){
+    public static String GenerateClient(String FirstName, String LastName, String Username, String Password){
         /**
          *  This function creates the user, adds it in the Client Storage and returns it's ID.
          */
@@ -65,7 +57,7 @@ public class ClientModelWorker {
         return user.getID();
     }
 
-    public ClientModel GetClientByID(String ID) {
+    public static ClientModel GetClientByID(String ID) {
         for (ClientModel i : ClientStorage.GetInstance().getUsers())
             if (i.getID().equals(ID))
                 return i;
