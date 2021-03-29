@@ -28,9 +28,7 @@ public class SignupController {
             @RequestParam("Password") String Password,
             @RequestParam("PasswordRetype") String PasswordRetype) {
         
-        m.addAttribute("FirstName", FirstName);
-        m.addAttribute("LastName", LastName);
-        m.addAttribute("Username", Username);
+        UserModel user = new ClientUserModel();
 
         System.out.println("Got " + FirstName);
         String UsernameCheckResult = ClientModelWorker.GetInstance().UsernameIsValid(Username);
