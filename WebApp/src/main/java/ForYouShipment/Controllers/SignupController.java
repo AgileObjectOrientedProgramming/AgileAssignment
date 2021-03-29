@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+<<<<<<< HEAD
 import ForYouShipment.Models.ClientProfileModel;
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.Workers.IDGenerator;
 import ForYouShipment.Workers.ValidationWorker;
+=======
+import ForYouShipment.Workers.Login;
+>>>>>>> 9ea1561... testing
 
 @Controller
 @RequestMapping("/Signup")
@@ -38,18 +42,31 @@ public class SignupController extends BaseController {
 
         UserModel user = new ClientUserModel();
 
+<<<<<<< HEAD
         String UsernameCheckResult = ValidationWorker.UsernameIsValid(Username);
+=======
+        System.out.println("Got " + FirstName);
+        String UsernameCheckResult = Login.UsernameIsValid(Username);
+>>>>>>> 9ea1561... testing
         if (UsernameCheckResult != null) {
             m.addAttribute("warning", UsernameCheckResult);
             return "Signup/Index";
         }
+<<<<<<< HEAD
         String PasswordCheckResult = ValidationWorker.PasswordIsValid(Password, PasswordRetype);
+=======
+        String PasswordCheckResult = Login.PasswordIsValid(Password, PasswordRetype);
+>>>>>>> 9ea1561... testing
         if (PasswordCheckResult != null) {
             m.addAttribute("warning", PasswordCheckResult);
             return "Signup/Index";
         }
 
+<<<<<<< HEAD
         String ID = IDGenerator.GenerateID();
+=======
+        String ID = Login.GenerateClient(FirstName, LastName, Username, Password);
+>>>>>>> 9ea1561... testing
 
         user.setID(ID);
         user.setUsername(Username);

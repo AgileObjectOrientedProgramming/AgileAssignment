@@ -7,9 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+<<<<<<< HEAD
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Workers.AuthenticateUserWorker;
 
+=======
+import ForYouShipment.Models.ClientModel;
+import ForYouShipment.Workers.Login;
+>>>>>>> 9ea1561... testing
 
 @Controller
 @RequestMapping("/Client")
@@ -22,6 +27,7 @@ public class ClientController {
         
         String ID = (String) session.getAttribute("SignedUser");
 
+<<<<<<< HEAD
         UserModel user = AuthenticateUserWorker.GetUserByID(ID);
 
         // Checking if the user has access
@@ -29,6 +35,9 @@ public class ClientController {
             return "redirect:/Login"; 
         
         m.addAttribute("Profile", user.getProfile());
+=======
+        ClientModel client = Login.GetClientByID(ID);
+>>>>>>> 9ea1561... testing
 
         // Send Username to the view
         m.addAttribute("Username", user.getUsername());

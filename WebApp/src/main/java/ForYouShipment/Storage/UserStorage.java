@@ -6,7 +6,7 @@ import java.util.List;
 import ForYouShipment.Models.UserModel;
 
 /**
- * Singleton class storing all informations.
+ * Singleton class storing all ForYouShipment Users.
  */
 public class UserStorage implements Storage {
 
