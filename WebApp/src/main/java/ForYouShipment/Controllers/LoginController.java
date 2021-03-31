@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ForYouShipment.Workers.AuthenticateUserWorker;
 
 =======
 import ForYouShipment.Workers.Login;
 >>>>>>> 9ea1561... testing
+=======
+import ForYouShipment.Workers.Login;
+>>>>>>> 9ea15615b9cf880c7adab899e9a7ddb0a52a457b
 
 @Controller
 @RequestMapping("/Login")
@@ -42,7 +46,10 @@ public class LoginController {
 =======
         // String ID = ClientModelWorker.GetInstance().Authenticate(Username, Password);
         String ID = Login.Authenticate(Username, Password);
+<<<<<<< HEAD
 >>>>>>> 9ea1561... testing
+=======
+>>>>>>> 9ea15615b9cf880c7adab899e9a7ddb0a52a457b
     
         if (ID == null) {
             m.addAttribute("warning", "Invalid Username or Password!");

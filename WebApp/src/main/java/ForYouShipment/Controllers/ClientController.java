@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Workers.AuthenticateUserWorker;
 
@@ -15,6 +16,10 @@ import ForYouShipment.Workers.AuthenticateUserWorker;
 import ForYouShipment.Models.ClientModel;
 import ForYouShipment.Workers.Login;
 >>>>>>> 9ea1561... testing
+=======
+import ForYouShipment.Models.ClientModel;
+import ForYouShipment.Workers.Login;
+>>>>>>> 9ea15615b9cf880c7adab899e9a7ddb0a52a457b
 
 @Controller
 @RequestMapping("/Client")
@@ -28,6 +33,7 @@ public class ClientController {
         String ID = (String) session.getAttribute("SignedUser");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         UserModel user = AuthenticateUserWorker.GetUserByID(ID);
 
         // Checking if the user has access
@@ -38,6 +44,9 @@ public class ClientController {
 =======
         ClientModel client = Login.GetClientByID(ID);
 >>>>>>> 9ea1561... testing
+=======
+        ClientModel client = Login.GetClientByID(ID);
+>>>>>>> 9ea15615b9cf880c7adab899e9a7ddb0a52a457b
 
         // Send Username to the view
         m.addAttribute("Username", user.getUsername());
