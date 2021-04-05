@@ -120,5 +120,26 @@ public class LoginControllerTest {
         );
     }
 
+    @Test
+	public void TestLogout() throws Exception {
 
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Login/Logout")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+        
+        assertTrue(
+            session
+            .getAttribute("SignedUser") == null
+        );
+    }
 }
