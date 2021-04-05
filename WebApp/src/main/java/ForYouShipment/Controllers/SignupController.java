@@ -22,8 +22,15 @@ public class SignupController extends BaseController {
 
     @RequestMapping(value={ "/Index", "/", "" })
     public String  ReturnSignupForm(HttpServletRequest req, Model m, HttpSession session) {
-        if (!HasAccess("/Signup", session)) 
+        if (!HasAccess("/Signup", session, req)) 
             return "redirect:/Login";
+        
+        UserModel user = new ClientUserModel();
+        user.setProfile(new ClientProfileModel());
+
+        m.addAttribute("SignUpUser", user);
+
+        m.addAttribute("SignedUser", GetUser(session));
         return "Signup/Index";
     }
 
@@ -33,31 +40,42 @@ public class SignupController extends BaseController {
                             @RequestParam("Password") String Password,
                             @RequestParam("PasswordRetype") String PasswordRetype) {
         
-        if (!HasAccess("/Signup", session)) 
+        if (!HasAccess("/Signup", session, req)) 
             return "redirect:/Login";
 
         UserModel user = new ClientUserModel();
+        user.setProfile(new ClientProfileModel());
+
+        user.setUsername(Username);
+        user.setPassword(Password);
+        user.setProfile(new ClientProfileModel());
+
+        for (String Param : user.getProfile().getAllParameters()) {
+            String value = req.getParameter(Param);
+            user.getProfile().setParameter(Param, value);
+        }
+
+        m.addAttribute("SignUpUser", user);
 
         String UsernameCheckResult = ValidationWorker.UsernameIsValid(Username);
         if (UsernameCheckResult != null) {
             m.addAttribute("warning", UsernameCheckResult);
+            m.addAttribute("SignedUser", GetUser(session));
             return "Signup/Index";
         }
         String PasswordCheckResult = ValidationWorker.PasswordIsValid(Password, PasswordRetype);
         if (PasswordCheckResult != null) {
             m.addAttribute("warning", PasswordCheckResult);
+            m.addAttribute("SignedUser", GetUser(session));
             return "Signup/Index";
         }
 
         String ID = IDGenerator.GenerateID();
 
         user.setID(ID);
-        user.setUsername(Username);
-        user.setPassword(Password);
-        user.setProfile(new ClientProfileModel());
         
         UserStorage.GetInstance().getUsers().add(user);
 
-        return "redirect:/Client";
+        return "redirect:/Logistics";
     }
 }

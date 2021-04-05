@@ -10,18 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ForYouShipment.Models.UserModel;
 import ForYouShipment.Workers.AuthenticateUserWorker;
 
 
 @Controller
 @RequestMapping("/Login")
-public class LoginController {
+public class LoginController extends BaseController {
     
     /**
      * This function sends the user to the authentification form where he/she can log in as a client or as a logistics user.
      */
     @RequestMapping(value={ "/Index", "/", "" })
     public String Index(HttpServletRequest req, Model m, HttpSession session) {
+
+        m.addAttribute("SignedUser", GetUser(session));
         return "Login/Index";
     }
 
@@ -38,10 +41,16 @@ public class LoginController {
     
         if (ID == null) {
             m.addAttribute("warning", "Invalid Username or Password!");
+            m.addAttribute("SignedUser", GetUser(session));
             return "Login/Index";
         }
 
         session.setAttribute("SignedUser", ID);
+
+        UserModel SignedUser = GetUser(session);
+
+        if (SignedUser.IsLogisticUser())
+            return "redirect:/Logistics";
 
         return "redirect:/Client";
     }
