@@ -22,7 +22,7 @@ public class ValidationWorker {
             return "Please only use letters and numbers!";
         for (UserModel i : UserStorage.GetInstance().getUsers()) 
             if (Username.equals(i.getUsername()))
-                return "Username is already taken";
+                return "Username is already taken!";
         return null;
     }
 
@@ -36,7 +36,7 @@ public class ValidationWorker {
         if (Password.length() < 4)
             return "Password is too short!";
         if (!Password.equals(PasswordRetype))
-            return "The passwords do not match";
+            return "The passwords do not match!";
         return null;
     }
 }
