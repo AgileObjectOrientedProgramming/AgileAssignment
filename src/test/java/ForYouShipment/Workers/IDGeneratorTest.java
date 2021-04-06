@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 public class IDGeneratorTest {
     @Test
     public void TestRandomGenerator() {
-        String a = IDGenerator.GetInstance().GenerateID();
-        String b = IDGenerator.GetInstance().GenerateID();
+        String a = IDGenerator.GenerateID();
+        String b = IDGenerator.GenerateID();
 
         assertNotEquals(a, b);
     }

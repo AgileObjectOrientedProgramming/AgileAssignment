@@ -20,12 +20,20 @@
       <h5 class="my-0 mr-md-auto font-weight-normal">ForYouShipment</h5>
       <div class="d-flex flex-column flex-md-row align-items-center">
         <nav class="my-2 my-md-0 mr-md-3">
-          <a class="p-2 text-dark" href="/Users/Index">Users</a>
-          <a class="p-2 text-dark" href="/Users/New">New User</a>
-          <a class="p-2 text-dark" href="#">Support</a>
-          <a class="p-2 text-dark" href="#">Pricing</a>
+          <c:if test="${param.TopBarUsername != null}">
+            <a class="btn btn-outline-secondary" href="#">Orders</a>
+            <a class="btn btn-outline-secondary" href="#">${param.TopBarUsername}</a>
+          </c:if>
+          <!-- <a class="p-2 text-dark" href="/Users/Index">Users</a>
+          <a class="p-2 text-dark" href="/Users/New">New User</a> -->
         </nav>
-        <a class="btn btn-outline-primary" href="#">Sign up</a>
+        <c:if test="${param.TopBarUsername != null}">
+          <a class="btn btn-outline-primary" href="/Login/Logout">Log out</a>
+        </c:if>
+        <c:if test="${param.TopBarUsername == null}">
+          <a class="btn btn-outline-primary" href="/Signup">Sign up</a>
+          <a class="btn btn-outline-primary" href="/Login">Log in</a>
+        </c:if>
       </div>
     </div>
     <div>

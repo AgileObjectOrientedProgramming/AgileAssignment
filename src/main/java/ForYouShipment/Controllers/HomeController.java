@@ -7,17 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/Home")
-public class HomeController123 {
+@RequestMapping("/")
+public class HomeController {
 
-    @RequestMapping("/Index")
+    @RequestMapping("")
     public String Index(HttpServletRequest req, Model m) {
 
         return "Home/Index";
     }
 
-    @RequestMapping("/About")
-    public String About() {
-        return "Home/About";
-    }
 }
