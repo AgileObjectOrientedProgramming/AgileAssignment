@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="../Shared/MainLayoutTop.jsp"></jsp:include>
+<jsp:include page="../Shared/MainLayoutTop.jsp"> 
+    <jsp:param name="SignedUser" value="${SignedUser}"/>
+</jsp:include>
 
 <h2>Welcome to ForYouShippment!</h2> 
 

@@ -6,4 +6,6 @@ public class LogisticsUserModel extends UserModel {
         return true;
         // TODO: 
     }
+
+    public boolean IsLogisticUser() { return true; }
 }

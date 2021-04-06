@@ -1,5 +1,6 @@
 package ForYouShipment.Controllers;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import ForYouShipment.Models.UserModel;
@@ -9,7 +10,7 @@ public class BaseController {
     /**
      * This function returs true if the user has access to a specific page. 
      */
-    protected boolean HasAccess(String Path, HttpSession session) {
+    protected boolean HasAccess(String Path, HttpSession session, HttpServletRequest req) {
 
         if (session.getAttribute("SignedUser") == null)
             return false;
@@ -17,6 +18,8 @@ public class BaseController {
         String ID = (String) session.getAttribute("SignedUser");
 
         UserModel user = AuthenticateUserWorker.GetUserByID(ID);
+
+        
 
         // Checking if the user has access
         if (!user.HasAccessTo(Path))
