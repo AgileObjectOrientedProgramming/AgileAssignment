@@ -11,33 +11,29 @@
         </div>
     </c:if>
 
-    <form action="/Signup/CreateUser" method="post" class="card">
+    <form action="/Client/Edit" method="post" class="card">
         <div class="card-header">
-            <h5>Create New User</h5>
+            <h5>Edit your Profile</h5>
         </div>
         <div class="card-body">
-            <label for="Username">Username:</label>
-            <br>
-            <input type="text" value="${SignUpUser.getUsername()}" class="form-control" name="Username" required>
-            <br>
-            <c:forEach items="${SignUpUser.getProfile().getAllParameters()}" var="element">
+            <c:forEach items="${SignedUser.getProfile().getAllParameters()}" var="element">
                 <label for="${element}">${element}:</label>
                 <br>
-                <input type="text" class="form-control" name="${element}" value="${SignUpUser.getProfile().getParameter(element)}" >
+                <input type="text" class="form-control" name="${element}" value="${SignedUser.getProfile().getParameter(element)}" >
                 <br>
             </c:forEach>
             <label for="Password">Password:</label>
             <br>
-            <input type="password" class="form-control" name="Password" required>
+            <input type="password" class="form-control" name="Password">
             <br>
             <label for="PasswordRetype">Retype Password:</label>
             <br>
-            <input type="password" class="form-control" name="PasswordRetype" required>
+            <input type="password" class="form-control" name="PasswordRetype">
             <br>
         </div>    
         <div style="display: flex; justify-content: space-between;" class="card-footer">
             <input type="submit" class="btn btn-success" value="Submit">
-            <a class="btn btn-danger" href="/">Cancel</a>
+            <a class="btn btn-danger" href="/Client/View?ID=${SignedUser.getID()}">Cancel</a>
         </div>
     </form>
 </div>

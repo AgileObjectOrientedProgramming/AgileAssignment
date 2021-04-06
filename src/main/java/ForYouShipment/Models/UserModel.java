@@ -34,4 +34,6 @@ public abstract class UserModel {
      * Ex: ClientUserModel should not have access to "/Admin" but should have access to "/Client". 
      */
     public abstract boolean HasAccessTo(String Path);
+
+    public abstract boolean IsLogisticUser();
 }
