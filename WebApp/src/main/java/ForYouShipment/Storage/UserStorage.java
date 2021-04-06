@@ -1,17 +1,19 @@
-package ForYouShipment.Models;
+package ForYouShipment.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ForYouShipment.Models.UserModel;
+
 /**
  * Singleton class storing all informations.
  */
-public class Storage {
+public class UserStorage implements Storage {
 
     // Items to save.
     private List <UserModel> Users;
 
-    private Storage() {
+    private UserStorage() {
         Users = new ArrayList<>();
     }
 
@@ -23,11 +25,11 @@ public class Storage {
         Users = users;
     }
 
-    private static Storage instance = null;
+    private static UserStorage instance = null;
 
-    public static Storage GetInstance() {
+    public static UserStorage GetInstance() {
         if (instance == null)
-            instance = new Storage();
+            instance = new UserStorage();
         return instance;
     }
 }
