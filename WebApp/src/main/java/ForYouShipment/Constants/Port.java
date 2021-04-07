@@ -1,4 +1,4 @@
-package ForYouShipment.Enums;
+package ForYouShipment.Constants;
 
 public enum Port {
 

@@ -1,6 +1,6 @@
 package ForYouShipment.Workers;
 
-import ForYouShipment.Enums.Port;
+import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Container;
 import ForYouShipment.Models.Journey;
 import ForYouShipment.Storage.ContainerStorage;

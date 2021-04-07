@@ -29,6 +29,8 @@ public final class SecurityAccessWorker {
             case CLIENT_MANAGEMENT: 
                 return verb == AccessActionVerbEnum.INDEX || verb == AccessActionVerbEnum.EDIT 
                                 || verb == AccessActionVerbEnum.PERSONAL;
+            case JOURNEY_PAGE:
+                return verb == AccessActionVerbEnum.INDEX || verb == AccessActionVerbEnum.CREATE;
             case HOME_PAGE:
             case LOGIN_PAGE:
                 return true;

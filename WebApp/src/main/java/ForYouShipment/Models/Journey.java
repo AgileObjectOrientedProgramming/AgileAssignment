@@ -1,6 +1,6 @@
 package ForYouShipment.Models;
 
-import ForYouShipment.Enums.Port;
+import ForYouShipment.Constants.Port;
 
 public class Journey extends Container {
 

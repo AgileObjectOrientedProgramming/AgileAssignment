@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ForYouShipment.Enums.Port;
+import ForYouShipment.Constants.AccessActionNounEnum;
+import ForYouShipment.Constants.AccessActionVerbEnum;
+import ForYouShipment.Constants.Port;
 import ForYouShipment.Workers.ContainerRegister;
 
 
@@ -21,8 +23,8 @@ public class JourneyController extends BaseController {
     @RequestMapping(value={ "/New", "/New/" })
     public String Index(HttpServletRequest req, Model m, HttpSession session) {
 
-        // if (!HasAccess("/Container", session, req))
-        //     return "redirect:/Login/";
+        if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.CREATE, session, req))
+            return "redirect:/Login/";
         
        
         return "Journey/New";
