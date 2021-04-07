@@ -14,5 +14,9 @@
     Go to Profile
 </a>
 
+<a class="btn" href="/Client/View?ID=${User.getID()}">
+    Go to Profile
+</a>
+
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
 
