@@ -29,11 +29,5 @@ public abstract class UserModel {
         Profile = profile;
     }
 
-    /**
-     * Returns if the user should be allowed to access a certain path or not.
-     * Ex: ClientUserModel should not have access to "/Admin" but should have access to "/Client". 
-     */
-    public abstract boolean HasAccessTo(String Path);
-
     public abstract boolean IsLogisticUser();
 }
