@@ -3,17 +3,12 @@
     <jsp:param name="SignedUser" value="${SignedUser}"/>
 </jsp:include>
 
-
-
-<h2>Welcome to the client board!</h2> 
-
-<ul>
-    <c:forEach items="${User.getProfile().getAllParameters()}" var="element">
-        <li>
-            ${element}: ${User.getProfile().getParameter(element)}
-        </li>   
-    </c:forEach>
-</ul>
+<div class="card bg-light mb-3" style="width: 80%;">
+    <div class="card-header">How to use the website</div>
+    <div class="card-body">
+    <h5 class="card-title"><h2>Welcome to the client board!</h2> </h5>
+        <p class="card-text">You can view and edit your profile information as well as go back to the main page.</p>
+  </div>
 
 <a class="btn" href="/Client/View?ID=${User.getID()}">
     Go to Profile

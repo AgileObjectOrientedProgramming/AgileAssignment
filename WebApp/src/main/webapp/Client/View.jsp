@@ -7,10 +7,10 @@
 
 <h2>${ProfileUser.getUsername()}'s Profile</h2> 
 
-<ul>
+<ul class="list-group" style="width: 80%;">
     <c:forEach items="${ProfileUser.getProfile().getAllParameters()}" var="element">
-        <li>
-            ${element}: ${ProfileUser.getProfile().getParameter(element)}
+        <li class="list-group-item">
+            ${element}:${ProfileUser.getProfile().getParameter(element)}
         </li>   
     </c:forEach>
 </ul>
