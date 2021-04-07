@@ -3,6 +3,7 @@ package ForYouShipment.Storage;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +29,8 @@ public class UserStorageTest {
             UserStorage
             .GetInstance()
             .getUsers()
-            .get(0)
+            .iterator()
+            .next()
             .getID()
             .equals("1.2.3.4")
         );
@@ -36,7 +38,7 @@ public class UserStorageTest {
 
     @Test
     public void TestsetUsers() {
-        UserStorage.GetInstance().setUsers(new ArrayList<>());
+        UserStorage.GetInstance().setUsers(new HashSet<>());
         assertTrue(
             UserStorage
             .GetInstance()

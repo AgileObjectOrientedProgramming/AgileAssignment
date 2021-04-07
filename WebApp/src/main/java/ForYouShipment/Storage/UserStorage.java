@@ -1,7 +1,9 @@
 package ForYouShipment.Storage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import ForYouShipment.Models.UserModel;
 
@@ -11,17 +13,17 @@ import ForYouShipment.Models.UserModel;
 public class UserStorage implements Storage {
 
     // Items to save.
-    private List <UserModel> Users;
+    private Set <UserModel> Users;
 
     private UserStorage() {
-        Users = new ArrayList<>();
+        Users = new HashSet<>();
     }
 
-    public List<UserModel> getUsers() {
+    public Set<UserModel> getUsers() {
         return Users;
     }
 
-    public void setUsers(List<UserModel> users) {
+    public void setUsers(Set<UserModel> users) {
         Users = users;
     }
 
