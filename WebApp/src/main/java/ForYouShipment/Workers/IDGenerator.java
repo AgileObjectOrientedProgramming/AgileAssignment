@@ -6,6 +6,8 @@ public class IDGenerator {
     private IDGenerator() { }
 
     public static String GenerateID() {
-        return UUID.randomUUID().toString();
+        String id = UUID.randomUUID().toString();
+        LoggingWorker.GetInstance().Log("Generated new id: " + id);
+        return id;
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ForYouShipment.Constants.AccessActionNounEnum;
+import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Models.ClientProfileModel;
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.UserModel;
@@ -22,7 +24,7 @@ public class SignupController extends BaseController {
 
     @RequestMapping(value={ "/Index", "/", "" })
     public String  ReturnSignupForm(HttpServletRequest req, Model m, HttpSession session) {
-        if (!HasAccess("/Signup", session, req)) 
+        if (!HasAccess(AccessActionNounEnum.SIGNUP_PAGE, AccessActionVerbEnum.INDEX, session, req)) 
             return "redirect:/Login";
         
         UserModel user = new ClientUserModel();
@@ -40,7 +42,7 @@ public class SignupController extends BaseController {
                             @RequestParam("Password") String Password,
                             @RequestParam("PasswordRetype") String PasswordRetype) {
         
-        if (!HasAccess("/Signup", session, req)) 
+        if (!HasAccess(AccessActionNounEnum.SIGNUP_PAGE, AccessActionVerbEnum.CREATE, session, req)) 
             return "redirect:/Login";
 
         UserModel user = new ClientUserModel();

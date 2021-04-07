@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ForYouShipment.Constants.AccessActionNounEnum;
+import ForYouShipment.Constants.AccessActionVerbEnum;
+
 
 
 @Controller
@@ -16,7 +19,7 @@ public class LogisticsController extends BaseController {
     @RequestMapping(value={ "/Index", "/", "" })
     public String Index(HttpServletRequest req, Model m, HttpSession session) {
 
-        if (!HasAccess("/Logistics", session, req))
+        if (!HasAccess(AccessActionNounEnum.LOGISTICS_MANAGEMENT, AccessActionVerbEnum.INDEX, session, req))
             return "redirect:/Login/";
         
         m.addAttribute("SignedUser", GetUser(session));
