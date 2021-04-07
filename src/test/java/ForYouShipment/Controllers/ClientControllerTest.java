@@ -107,7 +107,7 @@ public class ClientControllerTest {
     }
 
     @Test
-	public void TestSuccessfulViewtPage() throws Exception {
+	public void TestSuccessfulViewPage() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("SignedUser", "1.1.1.1");
 
