@@ -17,7 +17,7 @@ public class AuthenticateUserWorkerTest {
         a.setID("1.2.3.4");
         a.setUsername("1234");
         a.setPassword("1234");
-
+        UserStorage.GetInstance().getUsers().clear();
         UserStorage.GetInstance().getUsers().add(a);
     }
     @Test
