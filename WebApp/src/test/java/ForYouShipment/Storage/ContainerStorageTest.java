@@ -2,40 +2,35 @@ package ForYouShipment.Storage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
 import java.util.HashSet;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import ForYouShipment.Models.ClientUserModel;
-import ForYouShipment.Models.UserModel;
+import ForYouShipment.Constants.Port;
 
-public class UserStorageTest {
-    @BeforeEach
-    public void SetUpUsers() {
-        UserModel a = new ClientUserModel();
-        a.setID("1.2.3.4");
-        a.setUsername("1234");
-        a.setPassword("1234");
 
-        UserStorage.GetInstance().getUsers().add(a);
-    }
+
+public class ContainerStorageTest {
+
+    
     @Test
     public void TestgetUsers() {
         assertTrue(
-            UserStorage
+            ContainerStorage
             .GetInstance()
-            .getUsers()
+            .getContainers()
             .iterator()
             .next()
-            .getID()
-            .equals("1.2.3.4")
-        );
+            .getLocation() == Port.LISBON);
+        
     }
 
     @Test
-    public void TestsetUsers() {
+    public void TestsetContainers() {
         UserStorage.GetInstance().setUsers(new HashSet<>());
         assertTrue(
             UserStorage
@@ -45,8 +40,9 @@ public class UserStorageTest {
         );
     }
 
-    @AfterEach
+    @BeforeEach
     public void ClearGarbage() {
-        UserStorage.GetInstance().getUsers().clear();
+        ContainerStorage.GetInstance().getContainers().clear();
+        ContainerStorage.addContainers(ContainerStorage.GetInstance(), 200 , Port.LISBON);
     }
 }
