@@ -1,5 +1,8 @@
 package ForYouShipment.Controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +29,7 @@ public class JourneyController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.CREATE, session, req))
             return "redirect:/Login/";
         
+        m.addAttribute("Port list", new ArrayList<Port>(Arrays.asList(Port.values())));
         m.addAttribute("SignedUser", GetUser(session));
         return "Journey/New";
     }
