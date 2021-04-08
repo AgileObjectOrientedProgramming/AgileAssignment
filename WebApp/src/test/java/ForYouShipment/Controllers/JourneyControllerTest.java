@@ -59,7 +59,7 @@ public class JourneyControllerTest {
     }
 
 	@Test
-	public void TestIndexAccess() throws Exception {
+	public void TestNewAccess() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("SignedUser", "1.2.3.4");
 
@@ -80,7 +80,7 @@ public class JourneyControllerTest {
     }
 
     @Test
-	public void TestIndexnoAccess() throws Exception {
+	public void TestNewnoAccess() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("SignedUser", "1.2.3.5");
 

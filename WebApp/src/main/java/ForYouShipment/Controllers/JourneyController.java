@@ -2,6 +2,7 @@ package ForYouShipment.Controllers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Constants.Port;
+import ForYouShipment.Models.Container;
+import ForYouShipment.Models.Journey;
+import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Models.UserModel;
+import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Workers.ContainerRegister;
 
 
@@ -23,8 +29,31 @@ import ForYouShipment.Workers.ContainerRegister;
 @RequestMapping("/Journey")
 public class JourneyController extends BaseController {
     
-    @RequestMapping(value={ "/New", "/New/" })
+    @RequestMapping(value={ "/Index", "/" , ""})
     public String Index(HttpServletRequest req, Model m, HttpSession session) {
+
+        if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.INDEX, session, req))
+            return "redirect:/Login/";
+        
+        List<Journey> journey_list = new ArrayList<>(); 
+        
+        UserModel user = GetUser(session);
+        for (Journey u : JourneyStorage.GetInstance().getJourneys()) {
+            if (u.getInfo() != null) {
+                if (u.getInfo().getParameter("Username").equals(user.getUsername())) {
+                    journey_list.add(u);
+                }
+        
+            }
+        }
+        m.addAttribute("Ownjourneys", journey_list);
+        m.addAttribute("SignedUser", GetUser(session));
+        return "Journey/Index";
+    }
+
+
+    @RequestMapping(value={ "/New", "/New/" })
+    public String New(HttpServletRequest req, Model m, HttpSession session) {
 
         if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.CREATE, session, req))
             return "redirect:/Login/";
@@ -42,13 +71,42 @@ public class JourneyController extends BaseController {
                         @RequestParam("Company") String company) {
         
         
-        ContainerRegister.setJourney(origin, destination, content_type, company,
-                                         ContainerRegister.getFreeContainer(Port.valueOf(origin)));
-
+        UserModel user = GetUser(session);
+        JourneyInfo info = new JourneyInfo();
+        info.setParameter("Username", user.getUsername());
+        info.setParameter("ID", user.getID());
         
-                            
+        Container c = ContainerRegister.setJourney(origin, destination, content_type, company,(ContainerRegister.getFreeContainer(Port.valueOf(origin))), info);
+
+        // m.addAttribute("Container", c);
+        m.addAttribute("SignedUser", GetUser(session));                    
         return "redirect:/Login/";                            
     }
         
+    // @RequestMapping(value={ "/Search" })
+    // public String Search(HttpServletRequest req, Model m, HttpSession session) {
 
+    //     if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.SEARCH, session, req))
+    //         return "redirect:/Login/";
+
+    //     if (!GetUser(session).IsLogisticUser())
+    //         return "redirect:/Login/";
+
+    //     // String Query = req.getParameter("Query");
+    //     // if (Query == null)
+    //     //     Query = "";
+
+    //     List<Journey> answer = new ArrayList<>();
+
+    //     for (Journey u : JourneyStorage.GetInstance().getJourneys()) {
+    //         if (u.getInfo().getParameter("Username").equals(req.getParameter("Username"))) {
+    //             answer.add(u);
+    //         }
+    //     }
+
+    //     m.addAttribute("Query", Query);
+    //     m.addAttribute("answer", answer);
+    //     m.addAttribute("SignedUser", GetUser(session));
+    //     return "Client/Search";
+    // }
 }

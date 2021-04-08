@@ -11,6 +11,7 @@ import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.Container;
 import ForYouShipment.Models.Journey;
+import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
 
@@ -20,6 +21,7 @@ public class ContainerRegisterTest {
     String content_type;
     String company;
     Container container;
+    JourneyInfo info;
 
     @BeforeEach
     public void SetUpJourney() {
@@ -28,13 +30,14 @@ public class ContainerRegisterTest {
         content_type = "Fragile";
         company = "Coop";
         container = ContainerStorage.GetInstance().getContainers().iterator().next();
+        info = new JourneyInfo();
     }
 
     @Test
     public void TestSetJourney() {
         
         
-        ContainerRegister.setJourney(origin, destination, content_type, company, container);
+        ContainerRegister.setJourney(origin, destination, content_type, company, container, info);
 
         assertTrue(container.getJourney().getOrigin().equals(Port.valueOf(origin)));
     }
@@ -51,7 +54,7 @@ public class ContainerRegisterTest {
 
     @Test
     public void TestReturnContainer() {
-        ContainerRegister.setJourney(origin, destination, content_type, company, container);
+        ContainerRegister.setJourney(origin, destination, content_type, company, container, info);
         Journey j = container.getJourney();
         assertFalse(j == null);
         ContainerRegister.returnContainer(container);

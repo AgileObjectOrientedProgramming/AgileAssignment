@@ -1,14 +1,25 @@
 package ForYouShipment.Models;
 
 import ForYouShipment.Constants.Port;
+import ForYouShipment.Storage.JourneyStorage;
 
-public class Journey extends Container {
+public class Journey {
 
-    private String content_type, company, id;
-
+    private String content_type, company, id, status;
     private Port origin, destination;
+    private JourneyInfo info;
 
-
+    public Journey() {
+        this.setStatus("Active");
+        JourneyStorage.GetInstance().getJourneys().add(this);
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
     public String getContent_type() {
         return content_type;
     }
@@ -47,6 +58,14 @@ public class Journey extends Container {
 
     public Port getDestination() {
         return destination;
+    }
+
+    public JourneyInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(JourneyInfo info) {
+        this.info = info;
     }
     
 }

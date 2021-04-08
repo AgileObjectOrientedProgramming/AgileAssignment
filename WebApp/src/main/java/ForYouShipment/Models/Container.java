@@ -12,7 +12,7 @@ public class Container {
      * True if the container is in the Storage
      * False if the container is in a Journey */ 
     private Journey journey;
-   
+    
     
     public Container() {
        setId(IDGenerator.GenerateID());
