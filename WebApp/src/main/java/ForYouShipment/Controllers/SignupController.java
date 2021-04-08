@@ -14,6 +14,7 @@ import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Models.ClientProfileModel;
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Persistance.StoragePersistance;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.Workers.IDGenerator;
 import ForYouShipment.Workers.ValidationWorker;
@@ -78,6 +79,8 @@ public class SignupController extends BaseController {
         
         UserStorage.GetInstance().getUsers().add(user);
 
+        // THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
+        StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Logistics";
     }
 }
