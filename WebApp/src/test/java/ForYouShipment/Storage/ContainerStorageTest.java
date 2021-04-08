@@ -40,8 +40,9 @@ public class ContainerStorageTest {
         );
     }
 
-    // @AfterEach
-    // public void ClearGarbage() {
-    //     UserStorage.GetInstance().getUsers().clear();
-    // }
+    @BeforeEach
+    public void ClearGarbage() {
+        ContainerStorage.GetInstance().getContainers().clear();
+        ContainerStorage.addContainers(ContainerStorage.GetInstance(), 200 , Port.LISBON);
+    }
 }
