@@ -39,7 +39,8 @@ public class ContainerRegister {
     }
 
     public static void returnContainer(Container c) {
-        
+        c.setLocation(c.getJourney().getDestination());
+        c.setJourney(null);
     }
 
 

@@ -24,10 +24,6 @@ public class ContainerStorage implements Storage {
         return Containers;
     }
 
-    public void setContainers(Set<Container> containers) {
-        Containers = containers;
-    }
-
     public static void addContainers(ContainerStorage instance, int val, Port location) {
         while (val-- > 0){
             Container c = new Container();

@@ -2,7 +2,6 @@ package ForYouShipment.Storage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.AfterEach;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.UserModel;
-import ForYouShipment.Storage.UserStorage;
 
 public class UserStorageTest {
     @BeforeEach
