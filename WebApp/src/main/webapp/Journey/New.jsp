@@ -30,7 +30,7 @@
             <br>
             <label for="Content type">Content type</label>
             <br>
-            <select id="Content type" name="Content type" value>
+            <select id="Content type" name="Content type" class='form-control' value>
                 <option value="Fragile">Fragile</option>
                 <option value="Flamable">Flamable</option>
                 <option value="Standard">Standard</option>

@@ -26,7 +26,7 @@ public class JourneyController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.CREATE, session, req))
             return "redirect:/Login/";
         
-       
+        m.addAttribute("SignedUser", GetUser(session));
         return "Journey/New";
     }
 
