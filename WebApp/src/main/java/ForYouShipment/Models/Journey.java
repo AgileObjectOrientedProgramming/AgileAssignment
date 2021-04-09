@@ -2,6 +2,7 @@ package ForYouShipment.Models;
 
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Storage.JourneyStorage;
+import ForYouShipment.Workers.IDGenerator;
 
 public class Journey {
 
@@ -11,6 +12,7 @@ public class Journey {
 
     public Journey() {
         this.setStatus("Active");
+        this.setId(IDGenerator.GenerateID());
         JourneyStorage.GetInstance().getJourneys().add(this);
     }
     

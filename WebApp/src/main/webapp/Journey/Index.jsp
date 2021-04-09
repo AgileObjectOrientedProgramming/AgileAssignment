@@ -9,17 +9,41 @@
 
 <h2>Journey Management</h2> 
 
-<ul>
+<a class="btn btn-info btn-lg float-end" href="/Journey/New" >
+    New Journey
+</a>
+
+<a class="btn btn-info btn-lg float-end" href="/Journey/Search" >
+    Search
+</a>
+
+
+<h2>Journey List</h2> 
+
+<br>
+
+<table class="table table-hover" >
+<thead class="thead-light" >
+    <tr>
+        <th> Origin </th>
+        <th> Destination </th>
+        <th> Content type </th>
+        <th> Company </th>
+        <th> Status </th>
+    </tr>
+</thead>
+<tbody>
     <c:forEach items="${Ownjourneys}" var="element">
-        <li>
-            From ${element.getOrigin()} to ${element.getDestination()}
-            </br>
-            Content type: ${element.getContent_type()}
-        </li>   
+        <tr>
+            <td>${element.getOrigin()} </td>
+            <td>${element.getDestination()} </td>
+            <td>${element.getContent_type()}</td>
+            <td>${element.getCompany()} </td>
+            <td>${element.getStatus()}</td>
+        </tr>   
     </c:forEach>
-</ul>
-
-
+</tbody>
+</table>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
 

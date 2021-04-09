@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class JourneyInfo {
-    private static Map<String, String> Parameters;
-    private static List<String> AvailableParameters = Arrays.asList("Username", "ID");
+    private  Map<String, String> Parameters;
+    private  List<String> AvailableParameters = Arrays.asList("Username", "ID");
 
     public JourneyInfo() {
         Parameters = new HashMap<>();

@@ -4,7 +4,7 @@
 </jsp:include>
 
 
-<div  style="width: 80%;">
+<div   >
     <c:if test="${warning != null}">
         <div class="alert alert-danger" role="alert">
             ${warning}
@@ -40,7 +40,7 @@
         </div>    
         <div style="display: flex; justify-content: space-between;" class="card-footer">
             <input type="submit" class="btn btn-success" value="Submit">
-            <a class="btn btn-danger" href="/">Cancel</a>
+            <a class="btn btn-danger" href="/Journey">Cancel</a>
         </div>
     </form>
 </div>

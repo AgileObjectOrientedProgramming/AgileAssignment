@@ -22,6 +22,7 @@
         <nav class="my-2 my-md-0 mr-md-3">
           <c:if test="${SignedUser != null && !SignedUser.IsLogisticUser()}">
             <a class="btn btn-outline-secondary" href="/">Home</a>
+            <a class="btn btn-outline-secondary" href="/Journey">Journey Page</a>
             <a class="btn btn-outline-secondary" href="/Client">Client Page</a>
             <a class="btn btn-outline-secondary" href="/Client/View?ID=${SignedUser.getID()}">${SignedUser.getUsername()}</a>
             <a class="btn btn-outline-primary" href="/Login/Logout">Log out</a>
@@ -41,4 +42,4 @@
       </div>
     </div>
     <div>
-      <main style="padding-left: 10%;">
+      <main style="padding-left: 10%; padding-right: 10%;">

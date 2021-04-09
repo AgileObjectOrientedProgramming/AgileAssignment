@@ -5,7 +5,7 @@
 
 <h2>Welcome to ForYouShippment!</h2> 
 
-<div  class="card text-white bg-primary mb-3" style="width: 80%;">
+<div  class="card text-white bg-primary mb-3"  >
     <div class="card-header">This is home</div>
     <div class="card-body">
       <h5 class="card-title">Our job</h5>
