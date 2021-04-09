@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../Shared/MainLayoutTop.jsp"></jsp:include>
 
-<div  style="width: 80%;">
+<div   >
     <c:if test="${warning != null}">
         <div class="alert alert-danger" role="alert">
             ${warning}

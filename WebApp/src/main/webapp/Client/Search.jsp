@@ -7,7 +7,7 @@
 
 <h2>Search all your clients</h2> 
 
-<form action="/Client/Search" method="get" style="display:flex; width: 80%;">
+<form action="/Client/Search" method="get" style="display:flex;">
     <input type="text" class="form-control" name="Query" value="${Query}">
     <input type="submit" class="btn btn-success" value="Search" style="margin-left: 5px"> 
 </form>

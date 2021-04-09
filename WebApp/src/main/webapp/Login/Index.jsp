@@ -3,7 +3,7 @@
     <jsp:param name="SignedUser" value="${SignedUser}"/>
 </jsp:include>
 
-<div  style="width: 80%;">
+<div   >
     <c:if test="${warning != null}">
         <div class="alert alert-danger" role="alert">
             ${warning}

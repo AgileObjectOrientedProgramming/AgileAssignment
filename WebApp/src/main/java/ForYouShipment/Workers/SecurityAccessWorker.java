@@ -11,10 +11,13 @@ public final class SecurityAccessWorker {
                                     AccessActionVerbEnum verb) {
         switch(noun) {
             case CLIENT_MANAGEMENT:
-                return verb == AccessActionVerbEnum.SEARCH 
+                return verb == AccessActionVerbEnum.SEARCH
                                 || verb == AccessActionVerbEnum.VIEW 
                                 || verb == AccessActionVerbEnum.PERSONAL
                                 || verb == AccessActionVerbEnum.DELETE;
+            case JOURNEY_PAGE: 
+                return verb == AccessActionVerbEnum.SEARCH 
+                                || verb == AccessActionVerbEnum.VIEW ;
             case HOME_PAGE:
             case LOGIN_PAGE:
             case SIGNUP_PAGE:
@@ -32,7 +35,7 @@ public final class SecurityAccessWorker {
                 return verb == AccessActionVerbEnum.INDEX || verb == AccessActionVerbEnum.EDIT 
                                 || verb == AccessActionVerbEnum.PERSONAL;
             case JOURNEY_PAGE:
-                return verb == AccessActionVerbEnum.INDEX || verb == AccessActionVerbEnum.CREATE;
+                return verb == AccessActionVerbEnum.INDEX || verb == AccessActionVerbEnum.CREATE || verb == AccessActionVerbEnum.SEARCH;
             case HOME_PAGE:
             case LOGIN_PAGE:
                 return true;

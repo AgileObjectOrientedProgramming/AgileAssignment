@@ -28,7 +28,7 @@
 
 
 
-<form action="/Users/New" method="post" style="width: 80%;" class="card">
+<form action="/Users/New" method="post"   class="card">
     <div class="card-header">
         <h5>Create New User</h5>
     </div>

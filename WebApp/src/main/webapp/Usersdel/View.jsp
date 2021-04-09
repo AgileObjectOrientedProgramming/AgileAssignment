@@ -5,7 +5,7 @@
     List Of Registered Users:
 </h1>
 
-<div style="width: 80%;" class="card">
+<div   class="card">
     <div class="card-header">
         <h5>User ${user.getFirstName()}</h5>
     </div>
