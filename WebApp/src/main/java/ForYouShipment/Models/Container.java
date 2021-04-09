@@ -13,7 +13,6 @@ public class Container {
      * False if the container is in a Journey */ 
     private Journey journey;
     
-    
     public Container() {
        setId(IDGenerator.GenerateID());
     }
@@ -42,7 +41,7 @@ public class Container {
         this.location = location;
     }
 
-  
+    
 
 
 

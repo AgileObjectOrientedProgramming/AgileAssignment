@@ -15,6 +15,8 @@ public final class SecurityAccessWorker {
                                 || verb == AccessActionVerbEnum.PERSONAL;
             case JOURNEY_PAGE: 
                 return verb == AccessActionVerbEnum.SEARCH ;
+            case CONTAINER_PAGE:
+            	return verb == AccessActionVerbEnum.CREATE || verb == AccessActionVerbEnum.EDIT;
             case HOME_PAGE:
             case LOGIN_PAGE:
             case SIGNUP_PAGE:
@@ -33,6 +35,8 @@ public final class SecurityAccessWorker {
                                 || verb == AccessActionVerbEnum.PERSONAL;
             case JOURNEY_PAGE:
                 return verb == AccessActionVerbEnum.INDEX || verb == AccessActionVerbEnum.CREATE || verb == AccessActionVerbEnum.SEARCH;
+            case CONTAINER_PAGE:
+            	return verb == AccessActionVerbEnum.VIEW;
             case HOME_PAGE:
             case LOGIN_PAGE:
                 return true;
