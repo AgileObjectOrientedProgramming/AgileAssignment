@@ -15,17 +15,32 @@
 <br>
 <br>
 
-<div style="display: flex; flex-wrap: wrap">
-    <c:forEach items="${answer}" var="element">
-        <div class="card" style="width: 300px; margin: 20px">
-            <div class="card-header">Journey</div>
-            <div class="card-body">${element.getId()}</div>
-            <!-- <div style="display: flex; justify-content: space-between;" class="card-footer">
-                <a href="/Journey/View?ID=${element.getId()}" class="btn btn-success">View Journey</a>
-            </div> -->
-        </div>
-    </c:forEach>
-</div>
 
+<h2>Journey List</h2> 
+
+<br>
+
+<table class="table table-hover" >
+<thead class="thead-light" >
+    <tr>
+        <th> Origin </th>
+        <th> Destination </th>
+        <th> Content type </th>
+        <th> Company </th>
+        <th> Status </th>
+    </tr>
+</thead>
+<tbody>
+    <c:forEach items="${answer}" var="element">
+        <tr>
+            <td>${element.getOrigin().toString()} </td>
+            <td>${element.getDestination().toString()} </td>
+            <td>${element.getContent_type()}</td>
+            <td>${element.getCompany()} </td>
+            <td>${element.getStatus()}</td>
+        </tr>   
+    </c:forEach>
+</tbody>
+</table>
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
 

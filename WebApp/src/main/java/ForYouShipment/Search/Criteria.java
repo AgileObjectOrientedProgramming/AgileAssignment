@@ -1,5 +1,10 @@
 package ForYouShipment.Search;
 
-public interface Criteria {
+import java.util.List;
+
+
+public interface Criteria<T> {
     
+    public  List<T> meetCriteria(List<T> Journeys, String query);
+
 }

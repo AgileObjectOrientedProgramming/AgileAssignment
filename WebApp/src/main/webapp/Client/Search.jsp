@@ -21,7 +21,7 @@
             <div class="card-header">User</div>
             <div class="card-body">${element.getUsername()}</div>
             <div style="display: flex; justify-content: space-between;" class="card-footer">
-                <a href="/Client/View?ID=${element.getJID()}" class="btn btn-success">View Profile</a>
+                <a href="/Client/View?ID=${element.getID()}" class="btn btn-success">View Profile</a>
                 <a href="/Client/Delete?ID=${element.getID()}" class="btn btn-danger">Delete User</a>
             </div>
         </div>
