@@ -16,8 +16,8 @@ public class CriteriaUser implements Criteria<Journey> {
                 System.out.println(query);
                 if(j.getInfo().getParameter("Username").contains(query))
                     Journeys_User.add(j);
-
             }
+            
         return Journeys_User;
     }
     

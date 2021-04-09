@@ -2,12 +2,11 @@ package ForYouShipment.Search;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import ForYouShipment.Models.Journey;
 import ForYouShipment.Storage.JourneyStorage;
 
-public class CriteriaCompany  implements Criteria<Journey>{
+public class CriteriaCompany implements Criteria<Journey>{
     
     @Override
     public List<Journey> meetCriteria(List<Journey> Journeys, String query) {
