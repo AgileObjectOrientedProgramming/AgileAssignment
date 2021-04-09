@@ -3,14 +3,12 @@ package ForYouShipment.Storage;
 import java.util.HashSet;
 import java.util.Set;
 
-import ForYouShipment.Constants.Port;
-import ForYouShipment.Models.Container;
 import ForYouShipment.Models.Journey;
 
 /**
  * Singleton class storing all informations.
  */
-public class JourneyStorage implements Storage {
+public class JourneyStorage  {
 
     // Items to save.
     private Set <Journey> Journeys;
