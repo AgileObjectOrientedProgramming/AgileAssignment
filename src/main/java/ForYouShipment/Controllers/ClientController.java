@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Persistance.StoragePersistance;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.Workers.AuthenticateUserWorker;
 import ForYouShipment.Workers.ValidationWorker;
@@ -100,6 +101,9 @@ public class ClientController extends BaseController {
         UserModel user = AuthenticateUserWorker.GetUserByID(ID);
 
         UserStorage.GetInstance().getUsers().remove(user);
+        
+        // THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
+        StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Logistics";
     }
 
@@ -146,6 +150,8 @@ public class ClientController extends BaseController {
             user.setPassword(Password);
         }
         
+        // THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
+        StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Client/View?ID=" + user.getID();
     }
 }

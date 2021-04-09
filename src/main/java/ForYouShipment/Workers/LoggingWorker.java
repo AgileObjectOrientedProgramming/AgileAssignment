@@ -5,13 +5,13 @@ public class LoggingWorker {
 
     private LoggingWorker() {}
 
-    static LoggingWorker GetInstance() {
+    public static LoggingWorker GetInstance() {
         if (instance == null)
             instance = new LoggingWorker();
         return instance;
     }
 
-    void Log(String log) {
+    public void Log(String log) {
         // TODO: String time = java.time.LocalDateTime.now(); 
         System.out.println(log);
     }
