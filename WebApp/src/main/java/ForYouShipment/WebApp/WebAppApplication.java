@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Persistance.StoragePersistance;
 import ForYouShipment.Storage.UserStorage;
 
 @SpringBootApplication @ComponentScan(basePackages = { "ForYouShipment.Controllers" } )
@@ -27,6 +28,7 @@ public class WebAppApplication {
 
 	}
 	public static void main(String[] args) {
+		StoragePersistance.LoadStoragesFromDisk();
 		InitialiseUsers();
 		SpringApplication.run(WebAppApplication.class, args);
 	}

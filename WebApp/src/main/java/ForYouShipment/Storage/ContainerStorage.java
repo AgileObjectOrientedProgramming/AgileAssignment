@@ -9,7 +9,7 @@ import ForYouShipment.Models.Container;
 /**
  * Singleton class storing all informations.
  */
-public class ContainerStorage implements Storage {
+public class ContainerStorage{
 
     // Items to save.
     private Set <Container> Containers;
