@@ -11,8 +11,10 @@ public final class SecurityAccessWorker {
                                     AccessActionVerbEnum verb) {
         switch(noun) {
             case CLIENT_MANAGEMENT:
-                return verb == AccessActionVerbEnum.SEARCH || verb == AccessActionVerbEnum.VIEW 
-                                || verb == AccessActionVerbEnum.PERSONAL;
+                return verb == AccessActionVerbEnum.SEARCH 
+                                || verb == AccessActionVerbEnum.VIEW 
+                                || verb == AccessActionVerbEnum.PERSONAL
+                                || verb == AccessActionVerbEnum.DELETE;
             case HOME_PAGE:
             case LOGIN_PAGE:
             case SIGNUP_PAGE:
