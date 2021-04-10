@@ -6,6 +6,7 @@ import java.util.List;
 import ForYouShipment.Models.Journey;
 import ForYouShipment.Storage.JourneyStorage;
 
+
 public class CriteriaCompany implements Criteria<Journey>{
     
     @Override
@@ -13,7 +14,7 @@ public class CriteriaCompany implements Criteria<Journey>{
             List<Journey> Journeys_company = new ArrayList<Journey>();
             
             for (Journey j: JourneyStorage.GetInstance().getJourneys() ){
-                if(j.getCompany().toString().contains(query))
+                if(j.getCompany().toString().toLowerCase().contains(query.toLowerCase()))
                     Journeys_company.add(j);
 
             }

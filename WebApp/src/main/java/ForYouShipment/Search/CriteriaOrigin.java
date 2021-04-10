@@ -13,7 +13,7 @@ public class CriteriaOrigin implements Criteria<Journey> {
             List<Journey> Journeys_origin = new ArrayList<Journey>();
             
             for (Journey j: JourneyStorage.GetInstance().getJourneys() ){
-                if(j.getOrigin().toString().contains(query))
+                if(j.getOrigin().toString().toLowerCase().contains(query.toLowerCase()))
                     Journeys_origin.add(j);
 
             }

@@ -13,7 +13,7 @@ public class CriteriaDestination implements Criteria<Journey> {
             List<Journey> Journeys_destination = new ArrayList<Journey>();
             
             for (Journey j: JourneyStorage.GetInstance().getJourneys() ){
-                if(j.getDestination().toString().contains(query))
+                if(j.getDestination().toString().toLowerCase().contains(query.toLowerCase()))
                     Journeys_destination.add(j);
 
             }

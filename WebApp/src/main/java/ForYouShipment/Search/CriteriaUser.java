@@ -14,7 +14,7 @@ public class CriteriaUser implements Criteria<Journey> {
             
             for (Journey j: JourneyStorage.GetInstance().getJourneys() ){
                 System.out.println(query);
-                if(j.getInfo().getParameter("Username").contains(query))
+                if(j.getInfo().getParameter("Username").toLowerCase().contains(query.toLowerCase()))
                     Journeys_User.add(j);
             }
             

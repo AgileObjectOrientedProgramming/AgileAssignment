@@ -13,7 +13,7 @@ public class CriteriaContent_Type implements Criteria<Journey>{
             List<Journey> Journeys_origin = new ArrayList<Journey>();
             
             for (Journey j: JourneyStorage.GetInstance().getJourneys() ){
-                if(j.getContent_type().toString().contains(query))
+                if(j.getContent_type().toString().toLowerCase().contains(query.toLowerCase()))
                     Journeys_origin.add(j);
 
             }
