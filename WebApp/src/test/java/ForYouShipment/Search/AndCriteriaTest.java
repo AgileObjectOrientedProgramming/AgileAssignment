@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Journey;
 
-public class AndCriteriaJTest {
+public class AndCriteriaTest {
 
     @Test
     public void TestMeetCriteria() {
@@ -31,7 +31,7 @@ public class AndCriteriaJTest {
 
         Criteria<Journey> o1 = new CriteriaOrigin();
         Criteria<Journey> o2 = new CriteriaDestination();
-        Criteria<Journey> and = new AndCriteriaJ(o1, o2);
+        Criteria<Journey> and = new AndCriteria<Journey>(o1, o2);
         journeys = and.meetCriteria(journeys, "Copen");
         assertTrue(journeys.size() == 1);
 

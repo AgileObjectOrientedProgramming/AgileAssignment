@@ -96,12 +96,12 @@ public class JourneyController extends BaseController {
         Criteria<Journey> destination = new CriteriaDestination();
         Criteria<Journey> content = new CriteriaContent_Type();
         Criteria<Journey> company = new CriteriaCompany();
-        Criteria<Journey> originOrDestination = new OrCriteriaJ(origin, destination);
-        Criteria<Journey> contentOrCompany = new OrCriteriaJ(content, company);
-        Criteria<Journey> allCriteria = new OrCriteriaJ(originOrDestination, contentOrCompany);
+        Criteria<Journey> originOrDestination = new OrCriteria<Journey>(origin, destination);
+        Criteria<Journey> contentOrCompany = new OrCriteria<Journey>(content, company);
+        Criteria<Journey> allCriteria = new OrCriteria<Journey>(originOrDestination, contentOrCompany);
         if (GetUser(session).IsLogisticUser()) {
             Criteria<Journey> user = new CriteriaUser();
-            allCriteria = new OrCriteriaJ(allCriteria, user);
+            allCriteria = new OrCriteria<Journey>(allCriteria, user);
         }
         /* We are matching our query with all the fields set up by the user for a Journey*/
         answer = allCriteria.meetCriteria(new ArrayList<Journey>(JourneyStorage.GetInstance().getJourneys()),

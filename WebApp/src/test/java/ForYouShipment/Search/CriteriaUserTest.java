@@ -29,10 +29,6 @@ public class CriteriaUserTest {
         journeys.add(j2);
         Criteria<Journey> c = new CriteriaUser();
         journeys = c.meetCriteria(journeys, "Test");
-        for (Journey jajaj : journeys) {
-            System.out.println(jajaj.getInfo().getParameter("Username"));
-        }
-        System.out.println(journeys.size());
         assertTrue(journeys.size() == 1);
 
         
