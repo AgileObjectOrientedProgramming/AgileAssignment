@@ -20,8 +20,8 @@ public class ContainerRegister {
                                     JourneyInfo info) {
                      
         Journey journey = new Journey();
-        journey.setOrigin(Port.valueOf(origin));
-        journey.setDestination(Port.valueOf(destination));
+        journey.setOrigin(Port.valueOf(origin.toUpperCase()));
+        journey.setDestination(Port.valueOf(destination.toUpperCase()));
         journey.setContent_type(content_type);
         journey.setCompany(company);
         journey.setInfo(info);

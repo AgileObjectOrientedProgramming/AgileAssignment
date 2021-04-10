@@ -7,11 +7,11 @@ public class Container {
 
     private Port location;
     private String id;
-   
-    /** Availability of the container 
-     * True if the container is in the Storage
-     * False if the container is in a Journey */ 
     private Journey journey;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> c61d9a60be0905200c5b29dda2b25bce460fd5b5
     
     public Container() {
        setId(IDGenerator.GenerateID());

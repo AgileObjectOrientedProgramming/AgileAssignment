@@ -11,12 +11,22 @@ public final class SecurityAccessWorker {
                                     AccessActionVerbEnum verb) {
         switch(noun) {
             case CLIENT_MANAGEMENT:
+<<<<<<< HEAD
                 return verb == AccessActionVerbEnum.SEARCH || verb == AccessActionVerbEnum.VIEW 
                                 || verb == AccessActionVerbEnum.PERSONAL;
             case JOURNEY_PAGE: 
                 return verb == AccessActionVerbEnum.SEARCH ;
             case CONTAINER_PAGE:
             	return verb == AccessActionVerbEnum.CREATE || verb == AccessActionVerbEnum.EDIT;
+=======
+                return verb == AccessActionVerbEnum.SEARCH
+                                || verb == AccessActionVerbEnum.VIEW 
+                                || verb == AccessActionVerbEnum.PERSONAL
+                                || verb == AccessActionVerbEnum.DELETE;
+            case JOURNEY_PAGE: 
+                return verb == AccessActionVerbEnum.SEARCH 
+                                || verb == AccessActionVerbEnum.VIEW ;
+>>>>>>> c61d9a60be0905200c5b29dda2b25bce460fd5b5
             case HOME_PAGE:
             case LOGIN_PAGE:
             case SIGNUP_PAGE:
@@ -35,8 +45,11 @@ public final class SecurityAccessWorker {
                                 || verb == AccessActionVerbEnum.PERSONAL;
             case JOURNEY_PAGE:
                 return verb == AccessActionVerbEnum.INDEX || verb == AccessActionVerbEnum.CREATE || verb == AccessActionVerbEnum.SEARCH;
+<<<<<<< HEAD
             case CONTAINER_PAGE:
             	return verb == AccessActionVerbEnum.VIEW;
+=======
+>>>>>>> c61d9a60be0905200c5b29dda2b25bce460fd5b5
             case HOME_PAGE:
             case LOGIN_PAGE:
                 return true;

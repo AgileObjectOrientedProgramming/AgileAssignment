@@ -35,8 +35,13 @@
 <tbody>
     <c:forEach items="${Ownjourneys}" var="element">
         <tr>
+<<<<<<< HEAD
             <td>${element.getOrigin()} </td>
             <td>${element.getDestination()} </td>
+=======
+            <td>${element.getOrigin().toString()} </td>
+            <td>${element.getDestination().toString()} </td>
+>>>>>>> c61d9a60be0905200c5b29dda2b25bce460fd5b5
             <td>${element.getContent_type()}</td>
             <td>${element.getCompany()} </td>
             <td>${element.getStatus()}</td>

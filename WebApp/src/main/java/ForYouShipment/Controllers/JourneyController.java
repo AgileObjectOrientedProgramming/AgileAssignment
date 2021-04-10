@@ -19,6 +19,10 @@ import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Journey;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
+<<<<<<< HEAD
+=======
+import ForYouShipment.Search.*;
+>>>>>>> c61d9a60be0905200c5b29dda2b25bce460fd5b5
 import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Workers.ContainerRegister;
 
@@ -37,12 +41,20 @@ public class JourneyController extends BaseController {
         List<Journey> journey_list = new ArrayList<>(); 
         
         UserModel user = GetUser(session);
+<<<<<<< HEAD
         for (Journey j : JourneyStorage.GetInstance().getJourneys()) {
             System.out.println(j.getInfo().getParameter("Username"));
             if (j.getInfo().getParameter("Username").equals(user.getUsername())) {
                 journey_list.add(j);
             }
         }
+=======
+        Criteria<Journey> user_journeys = new CriteriaUser();
+        journey_list = user_journeys.meetCriteria(new ArrayList<Journey>(JourneyStorage.GetInstance().getJourneys()),
+                                                    user.getUsername());
+
+
+>>>>>>> c61d9a60be0905200c5b29dda2b25bce460fd5b5
         m.addAttribute("Ownjourneys", journey_list);
         m.addAttribute("SignedUser", GetUser(session));
         return "Journey/Index";
@@ -72,6 +84,7 @@ public class JourneyController extends BaseController {
         JourneyInfo info = new JourneyInfo();
         info.setParameter("Username", user.getUsername());
         info.setParameter("ID", user.getID());
+<<<<<<< HEAD
         
         ContainerRegister.setJourney(origin, destination, content_type, company,(ContainerRegister.getFreeContainer(Port.valueOf(origin))), info);
 
@@ -113,6 +126,49 @@ public class JourneyController extends BaseController {
         return "Journey/Search";
     }
 
+=======
+        
+        ContainerRegister.setJourney(origin, destination, content_type, company,(ContainerRegister.getFreeContainer(Port.valueOf(origin.toUpperCase()))), info);
+
+        m.addAttribute("SignedUser", GetUser(session));                    
+        return "redirect:/Journey/Index";                            
+    }
+
+    @RequestMapping(value={ "/Search" })
+    public String Search(HttpServletRequest req, Model m, HttpSession session) {
+
+        if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.SEARCH, session, req))
+            return "redirect:/Login/";
+
+
+        String Query = req.getParameter("Query");
+        if (Query == null)
+            Query = "";
+
+        List<Journey> answer = new ArrayList<>();
+        
+        Criteria<Journey> origin = new CriteriaOrigin();
+        Criteria<Journey> destination = new CriteriaDestination();
+        Criteria<Journey> content = new CriteriaContent_Type();
+        Criteria<Journey> company = new CriteriaCompany();
+        Criteria<Journey> originOrDestination = new OrCriteriaJ(origin, destination);
+        Criteria<Journey> contentOrCompany = new OrCriteriaJ(content, company);
+        Criteria<Journey> allCriteria = new OrCriteriaJ(originOrDestination, contentOrCompany);
+
+        /* We are matching our query with all the fields set up by the user for a Journey*/
+        answer = allCriteria.meetCriteria(new ArrayList<Journey>(JourneyStorage.GetInstance().getJourneys()),
+                                                    Query);
+
+        
+
+
+        m.addAttribute("Query", Query);
+        m.addAttribute("answer", answer);
+        m.addAttribute("SignedUser", GetUser(session));
+        return "Journey/Search";
+    }
+
+>>>>>>> c61d9a60be0905200c5b29dda2b25bce460fd5b5
     // @RequestMapping(value={ "/View" })
     // public String View(HttpServletRequest req, Model m, HttpSession session,
     //                 @RequestParam("ID") String ProfileID) {
