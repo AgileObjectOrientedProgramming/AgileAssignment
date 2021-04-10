@@ -134,11 +134,11 @@ public class JourneyControllerTest {
             .andExpect(status().is(302))
             .andReturn();
         
-            String view_name = resultActions.getModelAndView().getViewName();
-            System.out.print(view_name);
-            assertTrue(
-                view_name.equals("redirect:/Login/")
-            );
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.print(view_name);
+        assertTrue(
+            view_name.equals("redirect:/Login/")
+        );
     }
     
 
@@ -155,11 +155,12 @@ public class JourneyControllerTest {
             .andExpect(status().isOk())
             .andReturn();
         
-            String view_name = resultActions.getModelAndView().getViewName();
-            System.out.print(view_name);
-            assertTrue(
-                view_name.equals("Journey/Search")
-            );
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.print(view_name);
+        assertTrue(
+            view_name.equals("Journey/Search")
+        );
+            
     }
 
 
@@ -176,11 +177,11 @@ public class JourneyControllerTest {
             .andExpect(status().isOk())
             .andReturn();
         
-            String view_name = resultActions.getModelAndView().getViewName();
-            System.out.print(view_name);
-            assertTrue(
-                view_name.equals("Journey/Search")
-            );
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.print(view_name);
+        assertTrue(
+            view_name.equals("Journey/Search")
+        );
     }
 
 
@@ -198,11 +199,11 @@ public class JourneyControllerTest {
             .andExpect(status().isOk())
             .andReturn();
         
-            String view_name = resultActions.getModelAndView().getViewName();
-            System.out.print(view_name);
-            assertTrue(
-                view_name.equals("Journey/Index")
-            );
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.print(view_name);
+        assertTrue(
+            view_name.equals("Journey/Index")
+        );
     }
 
     @Test
@@ -218,10 +219,10 @@ public class JourneyControllerTest {
             .andExpect(status().is(302))
             .andReturn();
         
-            String view_name = resultActions.getModelAndView().getViewName();
-            System.out.print(view_name);
-            assertTrue(
-                view_name.equals("redirect:/Login/")
-            );
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.print(view_name);
+        assertTrue(
+            view_name.equals("redirect:/Login/")
+        );
     }
 }
