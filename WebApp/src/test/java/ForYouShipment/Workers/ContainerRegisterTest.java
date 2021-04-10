@@ -3,16 +3,13 @@ package ForYouShipment.Workers;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ForYouShipment.Constants.Port;
-import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.Container;
 import ForYouShipment.Models.Journey;
 import ForYouShipment.Models.JourneyInfo;
-import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
 
 public class ContainerRegisterTest {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ForYouShipment.Models.Journey;
-import ForYouShipment.Storage.JourneyStorage;
 
 public class CriteriaDestination implements Criteria<Journey> {
  
@@ -12,8 +11,8 @@ public class CriteriaDestination implements Criteria<Journey> {
     public List<Journey> meetCriteria(List<Journey> Journeys, String query) {
             List<Journey> Journeys_destination = new ArrayList<Journey>();
             
-            for (Journey j: JourneyStorage.GetInstance().getJourneys() ){
-                if(j.getDestination().toString().contains(query))
+            for (Journey j: Journeys ){
+                if(j.getDestination().toString().toLowerCase().contains(query.toLowerCase()))
                     Journeys_destination.add(j);
 
             }

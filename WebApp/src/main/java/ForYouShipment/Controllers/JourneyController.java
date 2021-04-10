@@ -99,7 +99,10 @@ public class JourneyController extends BaseController {
         Criteria<Journey> originOrDestination = new OrCriteriaJ(origin, destination);
         Criteria<Journey> contentOrCompany = new OrCriteriaJ(content, company);
         Criteria<Journey> allCriteria = new OrCriteriaJ(originOrDestination, contentOrCompany);
-
+        if (GetUser(session).IsLogisticUser()) {
+            Criteria<Journey> user = new CriteriaUser();
+            allCriteria = new OrCriteriaJ(allCriteria, user);
+        }
         /* We are matching our query with all the fields set up by the user for a Journey*/
         answer = allCriteria.meetCriteria(new ArrayList<Journey>(JourneyStorage.GetInstance().getJourneys()),
                                                     Query);
