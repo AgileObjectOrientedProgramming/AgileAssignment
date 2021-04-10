@@ -21,7 +21,7 @@ public class ContainerTracker {
         measurement.setHumidity(Double.parseDouble(humidity));
         measurement.setPressure(Double.parseDouble(pressure));
         
-       // container.setMeasurement(measurement);
+        container.setMeasurement(measurement);
         
         return container;
     }

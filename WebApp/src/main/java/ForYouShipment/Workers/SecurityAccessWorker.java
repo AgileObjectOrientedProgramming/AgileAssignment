@@ -15,6 +15,8 @@ public final class SecurityAccessWorker {
                                 || verb == AccessActionVerbEnum.VIEW 
                                 || verb == AccessActionVerbEnum.PERSONAL
                                 || verb == AccessActionVerbEnum.DELETE;
+            case CONTAINER_PAGE:
+            	return verb == AccessActionVerbEnum.CREATE; // the only action now is create and it is assigned to logistic company
             case JOURNEY_PAGE: 
                 return verb == AccessActionVerbEnum.SEARCH 
                                 || verb == AccessActionVerbEnum.VIEW ;
