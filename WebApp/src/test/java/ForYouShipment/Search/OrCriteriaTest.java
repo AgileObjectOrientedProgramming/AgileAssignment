@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Journey;
 
-public class OrCriteriaJTest {
+public class OrCriteriaTest {
 
     @Test
     public void TestMeetCriteria() {
@@ -35,7 +35,7 @@ public class OrCriteriaJTest {
 
         Criteria<Journey> o1 = new CriteriaOrigin();
         Criteria<Journey> o2 = new CriteriaDestination();
-        Criteria<Journey> or = new OrCriteriaJ(o1, o2);
+        Criteria<Journey> or = new OrCriteria<Journey>(o1, o2);
         journeys = or.meetCriteria(journeys, "Cape");
         assertTrue(journeys.size() == 2);
 
@@ -64,7 +64,7 @@ public class OrCriteriaJTest {
 
         Criteria<Journey> o1 = new CriteriaOrigin();
         Criteria<Journey> o2 = new CriteriaDestination();
-        Criteria<Journey> or = new OrCriteriaJ(o1, o2);
+        Criteria<Journey> or = new OrCriteria<Journey>(o1, o2);
         journeys = or.meetCriteria(journeys, "Cape");
         assertTrue(journeys.size() == 1);
 

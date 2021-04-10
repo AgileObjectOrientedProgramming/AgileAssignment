@@ -23,7 +23,6 @@ import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
 import ForYouShipment.Workers.ContainerRegister;
 import ForYouShipment.Models.Container;
-import ForYouShipment.Models.Journey;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.LogisticsUserModel;
 
