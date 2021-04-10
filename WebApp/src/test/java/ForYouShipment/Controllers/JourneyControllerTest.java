@@ -51,11 +51,12 @@ public class JourneyControllerTest {
         UserStorage.GetInstance().getUsers().add(a);
         UserStorage.GetInstance().getUsers().add(b);
         JourneyInfo ji = new JourneyInfo();
+        JourneyInfo ji2 = new JourneyInfo();
         ji.setParameter("Username", "1234");
         ji.setParameter("ID", "1.2.3.4");
         ContainerRegister.setJourney("Lisbon", "Porto", "Fragile", "aha", new Container(), ji);
-        ji.setParameter("Username", "1231");
-        ji.setParameter("ID", "1.2.3.1");
+        ji2.setParameter("Username", "1231");
+        ji2.setParameter("ID", "1.2.3.1");
         ContainerRegister.setJourney("Lisbon", "Porto", "Fragile", "aha", new Container(), ji);
         
     }
@@ -192,7 +193,6 @@ public class JourneyControllerTest {
             .andReturn();
         
         String view_name = resultActions.getModelAndView().getViewName();
-        System.out.print(view_name);
         assertTrue(
             view_name.equals("Journey/Search")
         );
