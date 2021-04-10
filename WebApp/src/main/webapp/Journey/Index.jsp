@@ -35,8 +35,8 @@
 <tbody>
     <c:forEach items="${Ownjourneys}" var="element">
         <tr>
-            <td>${element.getOrigin()} </td>
-            <td>${element.getDestination()} </td>
+            <td>${element.getOrigin().toString()} </td>
+            <td>${element.getDestination().toString()} </td>
             <td>${element.getContent_type()}</td>
             <td>${element.getCompany()} </td>
             <td>${element.getStatus()}</td>

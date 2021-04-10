@@ -19,6 +19,7 @@ import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Journey;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Search.*;
 import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Workers.ContainerRegister;
 
@@ -37,12 +38,11 @@ public class JourneyController extends BaseController {
         List<Journey> journey_list = new ArrayList<>(); 
         
         UserModel user = GetUser(session);
-        for (Journey j : JourneyStorage.GetInstance().getJourneys()) {
-            System.out.println(j.getInfo().getParameter("Username"));
-            if (j.getInfo().getParameter("Username").equals(user.getUsername())) {
-                journey_list.add(j);
-            }
-        }
+        Criteria<Journey> user_journeys = new CriteriaUser();
+        journey_list = user_journeys.meetCriteria(new ArrayList<Journey>(JourneyStorage.GetInstance().getJourneys()),
+                                                    user.getUsername());
+
+
         m.addAttribute("Ownjourneys", journey_list);
         m.addAttribute("SignedUser", GetUser(session));
         return "Journey/Index";
@@ -73,7 +73,7 @@ public class JourneyController extends BaseController {
         info.setParameter("Username", user.getUsername());
         info.setParameter("ID", user.getID());
         
-        ContainerRegister.setJourney(origin, destination, content_type, company,(ContainerRegister.getFreeContainer(Port.valueOf(origin))), info);
+        ContainerRegister.setJourney(origin, destination, content_type, company,(ContainerRegister.getFreeContainer(Port.valueOf(origin.toUpperCase()))), info);
 
         m.addAttribute("SignedUser", GetUser(session));                    
         return "redirect:/Journey/Index";                            
@@ -91,20 +91,20 @@ public class JourneyController extends BaseController {
             Query = "";
 
         List<Journey> answer = new ArrayList<>();
+        
+        Criteria<Journey> origin = new CriteriaOrigin();
+        Criteria<Journey> destination = new CriteriaDestination();
+        Criteria<Journey> content = new CriteriaContent_Type();
+        Criteria<Journey> company = new CriteriaCompany();
+        Criteria<Journey> originOrDestination = new OrCriteriaJ(origin, destination);
+        Criteria<Journey> contentOrCompany = new OrCriteriaJ(content, company);
+        Criteria<Journey> allCriteria = new OrCriteriaJ(originOrDestination, contentOrCompany);
 
-        UserModel user = GetUser(session);
-        for (Journey j : JourneyStorage.GetInstance().getJourneys()) {
-            if (user.IsLogisticUser()) {
-                if (j.getOrigin().toString().contains(Query)) {
-                    answer.add(j);
-                }
-            }
-            else if ((j.getInfo().getParameter("Username").equals(user.getUsername()))) {
-                if (j.getOrigin().toString().contains(Query)) {
-                    answer.add(j);
-                }
-            }
-        }
+        /* We are matching our query with all the fields set up by the user for a Journey*/
+        answer = allCriteria.meetCriteria(new ArrayList<Journey>(JourneyStorage.GetInstance().getJourneys()),
+                                                    Query);
+
+        
 
 
         m.addAttribute("Query", Query);
