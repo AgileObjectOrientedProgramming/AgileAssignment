@@ -8,16 +8,6 @@ public class Container {
     private Port location;
     private String id;
     private Journey journey;
-    private ContainerMeasurements measurement; // the measurement is a private element of container?
-    
-    
-    public ContainerMeasurements getMeasurement() {
-		return measurement;
-	}
-
-	public void setMeasurement(ContainerMeasurements measurement) {
-		this.measurement = measurement;
-	}
 
 	public Container() {
        setId(IDGenerator.GenerateID());
@@ -46,9 +36,5 @@ public class Container {
     public void setLocation(Port location) {
         this.location = location;
     }
-
-    
-
-
 
 }

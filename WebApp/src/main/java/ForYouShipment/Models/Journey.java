@@ -9,8 +9,17 @@ public class Journey {
     private String content_type, company, id, status;
     private Port origin, destination;
     private JourneyInfo info;
+    private ContainerMeasurements measurement; // container measurement should be linked with journey
 
-    public Journey() {
+    public ContainerMeasurements getMeasurement() {
+		return measurement;
+	}
+
+	public void setMeasurement(ContainerMeasurements measurement) {
+		this.measurement = measurement;
+	}
+
+	public Journey() {
         this.setStatus("Active");
         this.setId(IDGenerator.GenerateID());
         JourneyStorage.GetInstance().getJourneys().add(this);

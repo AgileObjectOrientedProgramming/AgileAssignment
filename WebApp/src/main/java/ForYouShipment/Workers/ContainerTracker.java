@@ -1,33 +1,33 @@
 package ForYouShipment.Workers;
 
-import ForYouShipment.Models.Container;
 import ForYouShipment.Models.ContainerMeasurements;
+import ForYouShipment.Models.Journey;
 
 public class ContainerTracker {
 	
     private ContainerTracker() {};
-    private static Container container; // container should be a static field here
+    private static Journey journey; // journey should be a static field here
 
     /**  Tracking a container with the given information
     * from the logistic company and clients can have access to view the container status */
-    public static Container setMeasurements(String temperature,
+    public static Journey setMeasurements(String temperature,
                                     String humidity,
                                     String pressure,
-                                    Container container) {
+                                    Journey journey) {
         
-    	ContainerTracker.container = container;
+    	ContainerTracker.journey = journey;
     	ContainerMeasurements measurement = new ContainerMeasurements();
         measurement.setTemperature(Double.parseDouble(temperature));
         measurement.setHumidity(Double.parseDouble(humidity));
         measurement.setPressure(Double.parseDouble(pressure));
         
-        container.setMeasurement(measurement);
+        journey.setMeasurement(measurement);
         
-        return container;
+        return journey;
     }
 
-	public static Container getContainer() {
-		return container;
+	public static Journey getJourney() {
+		return journey;
 	}
      
 }

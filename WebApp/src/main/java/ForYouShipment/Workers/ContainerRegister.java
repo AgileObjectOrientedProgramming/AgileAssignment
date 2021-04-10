@@ -30,7 +30,7 @@ public class ContainerRegister {
         return container;
     }
 
-    /**  Gets a random availabe container from the storage
+    /**  Gets a random available container from the storage
      *   that is located at the given origin.
      */
     public static Container getFreeContainer(Port origin) {
