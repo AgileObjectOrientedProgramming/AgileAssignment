@@ -7,9 +7,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Journey;
 
-public class CriteriaCompanyTest {
+public class CriteriaDestinationTest {
 
 
     
@@ -18,12 +19,12 @@ public class CriteriaCompanyTest {
         List<Journey> journeys = new ArrayList<>();
         Journey j = new Journey();
         Journey j2 = new Journey();
-        j.setCompany("Test");
-        j2.setCompany("company");
+        j.setDestination(Port.AMSTERDAM);
+        j2.setDestination(Port.CAPETOWN);
         journeys.add(j);
         journeys.add(j2);
-        Criteria<Journey> c = new CriteriaCompany();
-        journeys = c.meetCriteria(journeys, "Test");
+        Criteria<Journey> c = new CriteriaDestination();
+        journeys = c.meetCriteria(journeys, "Ams");
         assertTrue(journeys.size() == 1);
 
         
