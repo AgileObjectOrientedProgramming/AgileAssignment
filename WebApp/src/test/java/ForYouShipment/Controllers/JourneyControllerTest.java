@@ -54,6 +54,10 @@ public class JourneyControllerTest {
         ji.setParameter("Username", "1234");
         ji.setParameter("ID", "1.2.3.4");
         ContainerRegister.setJourney("Lisbon", "Porto", "Fragile", "aha", new Container(), ji);
+        ji.setParameter("Username", "1231");
+        ji.setParameter("ID", "1.2.3.1");
+        ContainerRegister.setJourney("Lisbon", "Porto", "Fragile", "aha", new Container(), ji);
+        
     }
 
     @AfterEach
