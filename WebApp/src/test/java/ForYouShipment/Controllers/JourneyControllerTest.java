@@ -18,9 +18,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
+import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
+import ForYouShipment.Workers.ContainerRegister;
 import ForYouShipment.Models.Container;
+import ForYouShipment.Models.Journey;
+import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.LogisticsUserModel;
 
 // https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-normal-controllers/
@@ -46,11 +50,17 @@ public class JourneyControllerTest {
         b.setPassword("1231");
         UserStorage.GetInstance().getUsers().add(a);
         UserStorage.GetInstance().getUsers().add(b);
+        JourneyInfo ji = new JourneyInfo();
+        ji.setParameter("Username", "1234");
+        ji.setParameter("ID", "1.2.3.4");
+        ContainerRegister.setJourney("Lisbon", "Porto", "Fragile", "aha", new Container(), ji);
     }
 
     @AfterEach
     public void ClearGarbage() {
         UserStorage.GetInstance().getUsers().clear();
+        JourneyStorage.GetInstance().getJourneys().clear();
+        
     }
 
 	@Test
