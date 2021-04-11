@@ -217,4 +217,43 @@ public class ClientControllerTest {
             assertTrue(view_name.equals("redirect:/Login/"));
     
     }
+
+    @Test
+	public void TestSuccessfulEditPage() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Edit")
+                .session(session)
+                .param("ID", "test")
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.println(view_name);
+        assertTrue(view_name.equals("redirect:/Login/"));
+    }
+
+    @Test
+	public void TestUnSuccessfulEditPage() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Edit")
+                .session(session)
+                .param("ID", "test")
+                .param("Password","abcd")
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+
+    
+    }
+
+
 }
