@@ -10,8 +10,15 @@ public class ContainerRegister {
     
     private ContainerRegister() {};
 
-    /**  Registering a container with the given information
-    * from the user for a Journey */
+    /**  This method searches for an available container
+    * and sets a JourneyInfo for it
+    * @param  origin         A string with the name of the origin
+    * @param destination    A string with the name of the destination
+    * @param content_type   A string with the name of the content_type
+    * @param company        A string with the name of the company
+    * @param user           The user's UserModel
+    * @return container
+    */
     public static Container setJourney(String origin,
                                     String destination,
                                     String content_type,
@@ -32,7 +39,7 @@ public class ContainerRegister {
     }
 
     /**  Gets a random availabe container from the storage
-     *   that is located at the given origin.
+     *   that is located at the given Port.
      */
     public static Container getFreeContainer(Port origin) {
         for (Container c: ContainerStorage.GetInstance().getContainers()) {
@@ -43,10 +50,16 @@ public class ContainerRegister {
         return null;
     }
 
-    public static void returnContainer(Container c) {
-        c.setLocation(c.getJourney().getDestination());
-        c.getJourney().setStatus("Completed");
-        c.setJourney(null);
+
+      /**  Using this method on a container completes the Journey.
+       *  It sets the location of the container to the destination of the journey,
+       *  marks the journey status as <string>"Completed"</string>
+       *  and dissociates the container from the journey.
+     */
+    public static void returnContainer(Container container) {
+        container.setLocation(container.getJourney().getDestination());
+        container.getJourney().setStatus("Completed");
+        container.setJourney(null);
     }
 
 
