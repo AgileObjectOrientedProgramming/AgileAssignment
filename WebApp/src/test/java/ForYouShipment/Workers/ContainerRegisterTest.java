@@ -3,13 +3,15 @@ package ForYouShipment.Workers;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ForYouShipment.Constants.Port;
+import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.Container;
-import ForYouShipment.Models.Journey;
 import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
 
 public class ContainerRegisterTest {
@@ -18,7 +20,7 @@ public class ContainerRegisterTest {
     String content_type;
     String company;
     Container container;
-    JourneyInfo info;
+    UserModel user;
 
     @BeforeEach
     public void SetUpJourney() {
@@ -27,16 +29,17 @@ public class ContainerRegisterTest {
         content_type = "Fragile";
         company = "Coop";
         container = ContainerStorage.GetInstance().getContainers().iterator().next();
-        info = new JourneyInfo();
+        user = new ClientUserModel();
+        user.setUsername("Test");
+        user.setID("1.1.1.1");
     }
 
     @Test
     public void TestSetJourney() {
         
-        
-        ContainerRegister.setJourney(origin, destination, content_type, company, container, info);
+        Container c = ContainerRegister.setJourney(origin, destination, content_type, company, user);
 
-        assertTrue(container.getJourney().getOrigin().equals(Port.valueOf(origin)));
+        assertTrue(c.getJourney().getOrigin().equals(Port.valueOf(origin)));
     }
 
     @Test
@@ -51,11 +54,11 @@ public class ContainerRegisterTest {
 
     @Test
     public void TestReturnContainer() {
-        ContainerRegister.setJourney(origin, destination, content_type, company, container, info);
-        Journey j = container.getJourney();
+        Container c = ContainerRegister.setJourney(origin, destination, content_type, company, user);
+        JourneyInfo j = c.getJourney();
         assertFalse(j == null);
-        ContainerRegister.returnContainer(container);
-        assertTrue(container.getJourney() == null);
-        assertTrue(container.getLocation() == j.getDestination());
+        ContainerRegister.returnContainer(c);
+        assertTrue(c.getJourney() == null);
+        assertTrue(c.getLocation() == j.getDestination());
     }
 }

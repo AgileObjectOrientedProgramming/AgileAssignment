@@ -7,7 +7,7 @@ public class Container {
 
     private Port location;
     private String id;
-    private Journey journey;
+    private JourneyInfo journey;
     
     
     public Container() {
@@ -22,11 +22,11 @@ public class Container {
         this.id = id;
     }
 
-    public Journey getJourney() {
+    public JourneyInfo getJourney() {
         return journey;
     }
 
-    public void setJourney(Journey journey) {
+    public void setJourney(JourneyInfo journey) {
         this.journey = journey;
     }
 

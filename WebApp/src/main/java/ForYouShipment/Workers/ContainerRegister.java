@@ -2,8 +2,8 @@ package ForYouShipment.Workers;
 
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Container;
-import ForYouShipment.Models.Journey;
 import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
 
 public class ContainerRegister {
@@ -16,15 +16,16 @@ public class ContainerRegister {
                                     String destination,
                                     String content_type,
                                     String company,
-                                    Container container,
-                                    JourneyInfo info) {
-                     
-        Journey journey = new Journey();
+                                    UserModel user) {
+
+        Container container = ContainerRegister.getFreeContainer(Port.valueOf(origin.toUpperCase()));             
+        JourneyInfo journey = new JourneyInfo();
         journey.setOrigin(Port.valueOf(origin.toUpperCase()));
         journey.setDestination(Port.valueOf(destination.toUpperCase()));
         journey.setContent_type(content_type);
         journey.setCompany(company);
-        journey.setInfo(info);
+        journey.setParameter("Username", user.getUsername());
+        journey.setParameter("ID", user.getID());
         
         container.setJourney(journey);
         return container;

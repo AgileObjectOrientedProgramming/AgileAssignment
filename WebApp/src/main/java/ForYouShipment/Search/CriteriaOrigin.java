@@ -3,15 +3,15 @@ package ForYouShipment.Search;
 import java.util.ArrayList;
 import java.util.List;
 
-import ForYouShipment.Models.Journey;
+import ForYouShipment.Models.JourneyInfo;
 
-public class CriteriaOrigin implements Criteria<Journey> {
+public class CriteriaOrigin implements Criteria<JourneyInfo> {
 
     @Override
-    public List<Journey> meetCriteria(List<Journey> Journeys, String query) {
-            List<Journey> Journeys_origin = new ArrayList<Journey>();
+    public List<JourneyInfo> meetCriteria(List<JourneyInfo> Journeys, String query) {
+            List<JourneyInfo> Journeys_origin = new ArrayList<JourneyInfo>();
             
-            for (Journey j: Journeys){
+            for (JourneyInfo j: Journeys){
                 if(j.getOrigin().toString().toLowerCase().contains(query.toLowerCase()))
                     Journeys_origin.add(j);
 

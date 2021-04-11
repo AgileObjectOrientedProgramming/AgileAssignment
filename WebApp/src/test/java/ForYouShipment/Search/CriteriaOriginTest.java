@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import ForYouShipment.Constants.Port;
-import ForYouShipment.Models.Journey;
+import ForYouShipment.Models.JourneyInfo;
 
 public class CriteriaOriginTest {
 
@@ -16,14 +16,14 @@ public class CriteriaOriginTest {
     
     @Test
     public void TestMeetCriteria() {
-        List<Journey> journeys = new ArrayList<>();
-        Journey j = new Journey();
-        Journey j2 = new Journey();
+        List<JourneyInfo > journeys = new ArrayList<>();
+        JourneyInfo j = new JourneyInfo();
+        JourneyInfo j2 = new JourneyInfo();
         j.setOrigin(Port.AMSTERDAM);
         j2.setOrigin(Port.CAPETOWN);
         journeys.add(j);
         journeys.add(j2);
-        Criteria<Journey> c = new CriteriaOrigin();
+        Criteria<JourneyInfo > c = new CriteriaOrigin();
         journeys = c.meetCriteria(journeys, "Ams");
         assertTrue(journeys.size() == 1);
 
