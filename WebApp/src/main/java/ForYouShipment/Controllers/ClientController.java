@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ForYouShipment.ClientSearch.CriteriaUsername;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Persistance.StoragePersistance;
+import ForYouShipment.Search.Criteria;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.Workers.AuthenticateUserWorker;
 import ForYouShipment.Workers.ValidationWorker;
@@ -54,7 +56,7 @@ public class ClientController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.CLIENT_MANAGEMENT, AccessActionVerbEnum.PERSONAL, session, req))
             return "redirect:/Login/";
 
-        if (signedUser != profileUser && !signedUser.IsLogisticUser())
+        if (signedUser != profileUser)
             return "redirect:/Login/";
 
 
@@ -70,8 +72,6 @@ public class ClientController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.CLIENT_MANAGEMENT, AccessActionVerbEnum.SEARCH, session, req))
             return "redirect:/Login/";
 
-        if (!GetUser(session).IsLogisticUser())
-            return "redirect:/Login/";
 
         String Query = req.getParameter("Query");
         if (Query == null)
@@ -79,11 +79,9 @@ public class ClientController extends BaseController {
 
         List<UserModel> answer = new ArrayList<>();
 
-        for (UserModel u : UserStorage.GetInstance().getUsers()) {
-            if (u.getUsername().contains(Query) && !u.IsLogisticUser()) {
-                answer.add(u);
-            }
-        }
+        Criteria<UserModel> username = new CriteriaUsername();
+        answer = username.meetCriteria(new ArrayList<UserModel>(UserStorage.GetInstance().getUsers()),
+        Query);
 
         m.addAttribute("Query", Query);
         m.addAttribute("answer", answer);
@@ -102,7 +100,8 @@ public class ClientController extends BaseController {
 
         UserStorage.GetInstance().getUsers().remove(user);
         
-        // THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
+        //FIXME 
+        //THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
         StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Logistics";
     }
@@ -113,8 +112,6 @@ public class ClientController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.CLIENT_MANAGEMENT, AccessActionVerbEnum.EDIT, session, req))
             return "redirect:/Login/";
 
-        if (GetUser(session).IsLogisticUser())
-            return "redirect:/Login/";
 
         m.addAttribute("SignedUser", GetUser(session));
         return "Client/Edit";
@@ -128,8 +125,7 @@ public class ClientController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.CLIENT_MANAGEMENT, AccessActionVerbEnum.EDIT, session, req))
             return "redirect:/Login/";
 
-        if (GetUser(session).IsLogisticUser())
-            return "redirect:/Login/";
+ 
 
         UserModel user = GetUser(session);
 
@@ -150,6 +146,7 @@ public class ClientController extends BaseController {
             user.setPassword(Password);
         }
         
+        //FIXME
         // THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
         StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Client/View?ID=" + user.getID();

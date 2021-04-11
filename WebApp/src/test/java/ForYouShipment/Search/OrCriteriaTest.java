@@ -8,16 +8,16 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import ForYouShipment.Constants.Port;
-import ForYouShipment.Models.Journey;
+import ForYouShipment.Models.JourneyInfo;
 
 public class OrCriteriaTest {
 
     @Test
     public void TestMeetCriteria() {
-        List<Journey> journeys = new ArrayList<>();
-        Journey j1 = new Journey();
-        Journey j2 = new Journey();
-        Journey j3 = new Journey();
+        List<JourneyInfo > journeys = new ArrayList<>();
+        JourneyInfo j1 = new JourneyInfo();
+        JourneyInfo j2 = new JourneyInfo();
+        JourneyInfo j3 = new JourneyInfo();
 
         j1.setOrigin(Port.AMSTERDAM);
         j2.setOrigin(Port.CAPETOWN);
@@ -33,9 +33,9 @@ public class OrCriteriaTest {
         journeys.add(j3);
         
 
-        Criteria<Journey> o1 = new CriteriaOrigin();
-        Criteria<Journey> o2 = new CriteriaDestination();
-        Criteria<Journey> or = new OrCriteria<Journey>(o1, o2);
+        Criteria<JourneyInfo > o1 = new CriteriaOrigin();
+        Criteria<JourneyInfo > o2 = new CriteriaDestination();
+        Criteria<JourneyInfo > or = new OrCriteria<JourneyInfo >(o1, o2);
         journeys = or.meetCriteria(journeys, "Cape");
         assertTrue(journeys.size() == 2);
 
@@ -43,10 +43,10 @@ public class OrCriteriaTest {
 
     @Test
     public void TestMeetCriteriaNeg() {
-        List<Journey> journeys = new ArrayList<>();
-        Journey j1 = new Journey();
-        Journey j2 = new Journey();
-        Journey j3 = new Journey();
+        List<JourneyInfo > journeys = new ArrayList<>();
+        JourneyInfo j1 = new JourneyInfo();
+        JourneyInfo j2 = new JourneyInfo();
+        JourneyInfo j3 = new JourneyInfo();
 
         j1.setOrigin(Port.CAPETOWN);
         j2.setOrigin(Port.SYDNEY);
@@ -62,9 +62,9 @@ public class OrCriteriaTest {
         journeys.add(j3);
         
 
-        Criteria<Journey> o1 = new CriteriaOrigin();
-        Criteria<Journey> o2 = new CriteriaDestination();
-        Criteria<Journey> or = new OrCriteria<Journey>(o1, o2);
+        Criteria<JourneyInfo > o1 = new CriteriaOrigin();
+        Criteria<JourneyInfo > o2 = new CriteriaDestination();
+        Criteria<JourneyInfo > or = new OrCriteria<JourneyInfo >(o1, o2);
         journeys = or.meetCriteria(journeys, "Cape");
         assertTrue(journeys.size() == 1);
 

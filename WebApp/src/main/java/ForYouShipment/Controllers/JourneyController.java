@@ -16,10 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Constants.Port;
-import ForYouShipment.Models.Journey;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
-import ForYouShipment.Search.*;
+import ForYouShipment.Search.Criteria;
+import ForYouShipment.Search.CriteriaCompany;
+import ForYouShipment.Search.CriteriaContent_Type;
+import ForYouShipment.Search.CriteriaDestination;
+import ForYouShipment.Search.CriteriaOrigin;
+import ForYouShipment.Search.CriteriaUser;
+import ForYouShipment.Search.OrCriteria;
 import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Workers.ContainerRegister;
 
@@ -35,11 +40,11 @@ public class JourneyController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.INDEX, session, req))
             return "redirect:/Login/";
         
-        List<Journey> journey_list = new ArrayList<>(); 
+        List<JourneyInfo> journey_list = new ArrayList<>(); 
         
         UserModel user = GetUser(session);
-        Criteria<Journey> user_journeys = new CriteriaUser();
-        journey_list = user_journeys.meetCriteria(new ArrayList<Journey>(JourneyStorage.GetInstance().getJourneys()),
+        Criteria<JourneyInfo> user_journeys = new CriteriaUser();
+        journey_list = user_journeys.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
                                                     user.getUsername());
 
 
@@ -69,11 +74,8 @@ public class JourneyController extends BaseController {
         
         
         UserModel user = GetUser(session);
-        JourneyInfo info = new JourneyInfo();
-        info.setParameter("Username", user.getUsername());
-        info.setParameter("ID", user.getID());
-        
-        ContainerRegister.setJourney(origin, destination, content_type, company,(ContainerRegister.getFreeContainer(Port.valueOf(origin.toUpperCase()))), info);
+
+        ContainerRegister.setJourney(origin, destination, content_type, company, user );
 
         m.addAttribute("SignedUser", GetUser(session));                    
         return "redirect:/Journey/Index";                            
@@ -90,21 +92,21 @@ public class JourneyController extends BaseController {
         if (Query == null)
             Query = "";
 
-        List<Journey> answer = new ArrayList<>();
+        List<JourneyInfo> answer = new ArrayList<>();
         
-        Criteria<Journey> origin = new CriteriaOrigin();
-        Criteria<Journey> destination = new CriteriaDestination();
-        Criteria<Journey> content = new CriteriaContent_Type();
-        Criteria<Journey> company = new CriteriaCompany();
-        Criteria<Journey> originOrDestination = new OrCriteria<Journey>(origin, destination);
-        Criteria<Journey> contentOrCompany = new OrCriteria<Journey>(content, company);
-        Criteria<Journey> allCriteria = new OrCriteria<Journey>(originOrDestination, contentOrCompany);
+        Criteria<JourneyInfo> origin = new CriteriaOrigin();
+        Criteria<JourneyInfo> destination = new CriteriaDestination();
+        Criteria<JourneyInfo> content = new CriteriaContent_Type();
+        Criteria<JourneyInfo> company = new CriteriaCompany();
+        Criteria<JourneyInfo> originOrDestination = new OrCriteria<JourneyInfo>(origin, destination);
+        Criteria<JourneyInfo> contentOrCompany = new OrCriteria<JourneyInfo>(content, company);
+        Criteria<JourneyInfo> allCriteria = new OrCriteria<JourneyInfo>(originOrDestination, contentOrCompany);
         if (GetUser(session).IsLogisticUser()) {
-            Criteria<Journey> user = new CriteriaUser();
-            allCriteria = new OrCriteria<Journey>(allCriteria, user);
+            Criteria<JourneyInfo> user = new CriteriaUser();
+            allCriteria = new OrCriteria<JourneyInfo>(allCriteria, user);
         }
         /* We are matching our query with all the fields set up by the user for a Journey*/
-        answer = allCriteria.meetCriteria(new ArrayList<Journey>(JourneyStorage.GetInstance().getJourneys()),
+        answer = allCriteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
                                                     Query);
 
         
@@ -137,30 +139,5 @@ public class JourneyController extends BaseController {
     //     return "Client/View";
     // }
         
-    // @RequestMapping(value={ "/Search" })
-    // public String Search(HttpServletRequest req, Model m, HttpSession session) {
-
-    //     if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.SEARCH, session, req))
-    //         return "redirect:/Login/";
-
-    //     if (!GetUser(session).IsLogisticUser())
-    //         return "redirect:/Login/";
-
-    //     // String Query = req.getParameter("Query");
-    //     // if (Query == null)
-    //     //     Query = "";
-
-    //     List<Journey> answer = new ArrayList<>();
-
-    //     for (Journey u : JourneyStorage.GetInstance().getJourneys()) {
-    //         if (u.getInfo().getParameter("Username").equals(req.getParameter("Username"))) {
-    //             answer.add(u);
-    //         }
-    //     }
-
-    //     m.addAttribute("Query", Query);
-    //     m.addAttribute("answer", answer);
-    //     m.addAttribute("SignedUser", GetUser(session));
-    //     return "Client/Search";
-    // }
+  
 }

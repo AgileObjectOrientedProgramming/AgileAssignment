@@ -3,7 +3,7 @@ package ForYouShipment.Storage;
 import java.util.HashSet;
 import java.util.Set;
 
-import ForYouShipment.Models.Journey;
+import ForYouShipment.Models.JourneyInfo;
 
 /**
  * Singleton class storing all informations.
@@ -11,7 +11,7 @@ import ForYouShipment.Models.Journey;
 public class JourneyStorage  {
 
     // Items to save.
-    private Set <Journey> Journeys;
+    private Set <JourneyInfo> Journeys;
 
     
 
@@ -19,7 +19,7 @@ public class JourneyStorage  {
         Journeys = new HashSet<>();
     }
 
-    public Set<Journey> getJourneys() {
+    public Set<JourneyInfo> getJourneys() {
         return Journeys;
     }
 

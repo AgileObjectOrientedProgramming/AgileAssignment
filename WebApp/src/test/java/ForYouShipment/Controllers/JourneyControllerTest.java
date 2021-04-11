@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,15 +15,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import ForYouShipment.Models.ClientUserModel;
+import ForYouShipment.Models.Container;
+import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
-import ForYouShipment.Workers.ContainerRegister;
-import ForYouShipment.Models.Container;
-import ForYouShipment.Models.JourneyInfo;
-import ForYouShipment.Models.LogisticsUserModel;
 
 // https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-normal-controllers/
 // https://spring.io/guides/gs/testing-web/
@@ -39,25 +36,16 @@ public class JourneyControllerTest {
     
     @BeforeEach
     public void SetUpUsers() {
-        UserModel a = new ClientUserModel();
-        a.setID("1.2.3.4");
-        a.setUsername("1234");
-        a.setPassword("1234");
-        UserModel b = new LogisticsUserModel();
-        b.setID("1.2.3.1");
-        b.setUsername("1231");
-        b.setPassword("1231");
-        UserStorage.GetInstance().getUsers().add(a);
-        UserStorage.GetInstance().getUsers().add(b);
-        JourneyInfo ji = new JourneyInfo();
-        JourneyInfo ji2 = new JourneyInfo();
-        ji.setParameter("Username", "1234");
-        ji.setParameter("ID", "1.2.3.4");
-        ContainerRegister.setJourney("Lisbon", "Porto", "Fragile", "aha", new Container(), ji);
-        ji2.setParameter("Username", "1231");
-        ji2.setParameter("ID", "1.2.3.1");
-        ContainerRegister.setJourney("Lisbon", "Porto", "Fragile", "aha", new Container(), ji);
-        
+        UserModel client = new ClientUserModel();
+        client.setID("1.2.3.4");
+        client.setUsername("1234");
+        client.setPassword("1234");
+        UserModel logisticUser = new LogisticsUserModel();
+        logisticUser.setID("1.2.3.1");
+        logisticUser.setUsername("1231");
+        logisticUser.setPassword("1231");
+        UserStorage.GetInstance().getUsers().add(client);
+        UserStorage.GetInstance().getUsers().add(logisticUser);     
     }
 
     @AfterEach
@@ -177,21 +165,43 @@ public class JourneyControllerTest {
             
     }
 
-    //FIXME - gives out error when merging
+    @Test
+    public void TestSearchLogisticAccess() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Journey/Search")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        assertTrue(
+            view_name.equals("Journey/Search")
+        );
+    }
+
+
+    //FIXME
     // @Test
-    // public void TestSearchLogisticAccess() throws Exception {
+    // public void TestSearchNullQuery() throws Exception {
     //     MockHttpSession session = new MockHttpSession();
     //     session.setAttribute("SignedUser", "1.2.3.1");
-
+        
 	// 	MvcResult resultActions = 
     //         this.mockMvc.perform(
     //             get("/Journey/Search")
+    //             .requestAttr("Query", (String)null)
     //             .session(session)
     //         )
     //         .andExpect(status().isOk())
     //         .andReturn();
         
     //     String view_name = resultActions.getModelAndView().getViewName();
+        
     //     assertTrue(
     //         view_name.equals("Journey/Search")
     //     );
