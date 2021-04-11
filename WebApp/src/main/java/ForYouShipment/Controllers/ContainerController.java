@@ -35,7 +35,7 @@ public class ContainerController extends BaseController {
         List<Journey> measurement_list = new ArrayList<>(); 
         
         UserModel user = GetUser(session);
-        Criteria<Journey> user_measurements = new CriteriaUser();
+        Criteria<UserModel> user_measurements = new CriteriaUser();
         measurement_list = user_measurements.meetCriteria(new ArrayList<Journey>(JourneyStorage.GetInstance().getJourneys()),
                 user.getUsername());
 

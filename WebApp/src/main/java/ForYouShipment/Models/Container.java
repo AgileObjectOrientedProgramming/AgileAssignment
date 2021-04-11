@@ -7,16 +7,10 @@ public class Container {
 
     private Port location;
     private String id;
-<<<<<<< HEAD
-    private Journey journey;
-
-	public Container() {
-=======
     private JourneyInfo journey;
     
     
     public Container() {
->>>>>>> fbf1581bfeda85231d9aaec818dd87a88371f4a4
        setId(IDGenerator.GenerateID());
     }
 
