@@ -56,7 +56,7 @@ public class ClientController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.CLIENT_MANAGEMENT, AccessActionVerbEnum.PERSONAL, session, req))
             return "redirect:/Login/";
 
-        if (signedUser != profileUser)
+        if (signedUser != profileUser && !signedUser.IsLogisticUser())
             return "redirect:/Login/";
 
 
