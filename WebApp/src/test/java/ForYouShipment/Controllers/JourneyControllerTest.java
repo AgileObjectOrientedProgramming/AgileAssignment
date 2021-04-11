@@ -1,12 +1,8 @@
 package ForYouShipment.Controllers;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.only;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,18 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ClientUserModel;
+import ForYouShipment.Models.Container;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
+import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
-import ForYouShipment.Models.Container;
 
 // https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-normal-controllers/
 // https://spring.io/guides/gs/testing-web/
@@ -41,21 +36,23 @@ public class JourneyControllerTest {
     
     @BeforeEach
     public void SetUpUsers() {
-        UserModel a = new ClientUserModel();
-        //UserModel b = new LogisticsUserModel();
-        a.setID("1.2.3.4");
-        a.setUsername("1234");
-        a.setPassword("1234");
-        // b.setID("1.2.3.5");
-        // b.setUsername("1235");
-        // b.setPassword("1234");
-        UserStorage.GetInstance().getUsers().add(a);
-        //UserStorage.GetInstance().getUsers().add(b);
+        UserModel client = new ClientUserModel();
+        client.setID("1.2.3.4");
+        client.setUsername("1234");
+        client.setPassword("1234");
+        UserModel logisticUser = new LogisticsUserModel();
+        logisticUser.setID("1.2.3.1");
+        logisticUser.setUsername("1231");
+        logisticUser.setPassword("1231");
+        UserStorage.GetInstance().getUsers().add(client);
+        UserStorage.GetInstance().getUsers().add(logisticUser);     
     }
 
     @AfterEach
     public void ClearGarbage() {
         UserStorage.GetInstance().getUsers().clear();
+        JourneyStorage.GetInstance().getJourneys().clear();
+        
     }
 
 	@Test
@@ -72,7 +69,6 @@ public class JourneyControllerTest {
             .andReturn();
         
             String view_name = resultActions.getModelAndView().getViewName();
-        //    Map<String, Object> model = resultActions.getModelAndView().getModel();
        
             assertTrue(
                 view_name.equals("Journey/New")
@@ -93,7 +89,6 @@ public class JourneyControllerTest {
             .andReturn();
         
             String view_name = resultActions.getModelAndView().getViewName();
-        //    Map<String, Object> model = resultActions.getModelAndView().getModel();
             System.out.print(view_name);
             assertTrue(
                 view_name.equals("redirect:/Login/")
@@ -128,4 +123,130 @@ public class JourneyControllerTest {
         assertTrue( i == 1);
     }
 
+    @Test
+    public void TestSearchNoAccess() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.5");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Journey/Search")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.print(view_name);
+        assertTrue(
+            view_name.equals("redirect:/Login/")
+        );
+    }
+    
+
+    @Test
+    public void TestSearchAccess() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Journey/Search")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.print(view_name);
+        assertTrue(
+            view_name.equals("Journey/Search")
+        );
+            
+    }
+
+    //FIXME
+    // @Test
+    // public void TestSearchLogisticAccess() throws Exception {
+    //     MockHttpSession session = new MockHttpSession();
+    //     session.setAttribute("SignedUser", "1.2.3.1");
+
+	// 	MvcResult resultActions = 
+    //         this.mockMvc.perform(
+    //             get("/Journey/Search")
+    //             .session(session)
+    //         )
+    //         .andExpect(status().isOk())
+    //         .andReturn();
+        
+    //     String view_name = resultActions.getModelAndView().getViewName();
+    //     assertTrue(
+    //         view_name.equals("Journey/Search")
+    //     );
+    // }
+
+
+    //FIXME
+    // @Test
+    // public void TestSearchNullQuery() throws Exception {
+    //     MockHttpSession session = new MockHttpSession();
+    //     session.setAttribute("SignedUser", "1.2.3.1");
+        
+	// 	MvcResult resultActions = 
+    //         this.mockMvc.perform(
+    //             get("/Journey/Search")
+    //             .requestAttr("Query", (String)null)
+    //             .session(session)
+    //         )
+    //         .andExpect(status().isOk())
+    //         .andReturn();
+        
+    //     String view_name = resultActions.getModelAndView().getViewName();
+        
+    //     assertTrue(
+    //         view_name.equals("Journey/Search")
+    //     );
+    // }
+
+
+
+    @Test
+    public void TestIndexAccess() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Journey/Index")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.print(view_name);
+        assertTrue(
+            view_name.equals("Journey/Index")
+        );
+    }
+
+    @Test
+    public void TestIndexNoAccess() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Journey/Index")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.print(view_name);
+        assertTrue(
+            view_name.equals("redirect:/Login/")
+        );
+    }
 }

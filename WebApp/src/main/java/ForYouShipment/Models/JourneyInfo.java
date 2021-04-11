@@ -5,11 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JourneyInfo {
+import ForYouShipment.Storage.JourneyStorage;
+import ForYouShipment.Workers.IDGenerator;
+
+public class JourneyInfo extends Journey{
     private  Map<String, String> Parameters;
     private  List<String> AvailableParameters = Arrays.asList("Username", "ID");
 
     public JourneyInfo() {
+        this.setStatus("Active");
+        this.setId(IDGenerator.GenerateID());
+        JourneyStorage.GetInstance().getJourneys().add(this);
         Parameters = new HashMap<>();
     }
 

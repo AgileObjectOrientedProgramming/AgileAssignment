@@ -15,6 +15,24 @@ import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.Workers.LoggingWorker;
 
 public class StoragePersistance {
+
+    private static Boolean is_unit_test = null;
+
+    private static boolean CheckIfIsJUnitTest() {  
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            if (element.getClassName().startsWith("org.junit.")) {
+                return true;
+            }           
+        }
+        return false;
+    }
+
+    private static boolean IsJUnitTest() {
+        if (is_unit_test == null)
+            is_unit_test = CheckIfIsJUnitTest();
+        return is_unit_test;
+    }
+
     private static List<Storage> GetAllStorages() {
         List<Storage> storages = new ArrayList<>(); 
         storages.add(UserStorage.GetInstance());
@@ -23,6 +41,10 @@ public class StoragePersistance {
 
     private static String GetFolderPath() {
         String path = System.getProperty("user.home") + "/.ForYouShipment/";
+        
+        if (IsJUnitTest())
+            path += "UnitTests/";
+
         File theDir = new File(path);
         if (!theDir.exists())
             theDir.mkdirs();

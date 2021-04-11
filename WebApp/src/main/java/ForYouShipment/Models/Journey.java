@@ -1,13 +1,12 @@
 package ForYouShipment.Models;
 
 import ForYouShipment.Constants.Port;
-import ForYouShipment.Storage.JourneyStorage;
-import ForYouShipment.Workers.IDGenerator;
 
 public class Journey {
 
     private String content_type, company, id, status;
     private Port origin, destination;
+<<<<<<< HEAD
     private JourneyInfo info;
     private ContainerMeasurements measurement; // container measurement should be linked with journey
 
@@ -25,6 +24,10 @@ public class Journey {
         JourneyStorage.GetInstance().getJourneys().add(this);
     }
     
+=======
+
+
+>>>>>>> fbf1581bfeda85231d9aaec818dd87a88371f4a4
     public String getStatus() {
         return status;
     }
@@ -71,12 +74,6 @@ public class Journey {
         return destination;
     }
 
-    public JourneyInfo getInfo() {
-        return info;
-    }
 
-    public void setInfo(JourneyInfo info) {
-        this.info = info;
-    }
     
 }

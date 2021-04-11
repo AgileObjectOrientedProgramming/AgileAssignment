@@ -3,17 +3,17 @@ package ForYouShipment.Search;
 import java.util.ArrayList;
 import java.util.List;
 
-import ForYouShipment.Models.Journey;
-import ForYouShipment.Storage.JourneyStorage;
+import ForYouShipment.Models.JourneyInfo;
 
-public class CriteriaCompany implements Criteria<Journey>{
+
+public class CriteriaCompany implements Criteria<JourneyInfo>{
     
     @Override
-    public List<Journey> meetCriteria(List<Journey> Journeys, String query) {
-            List<Journey> Journeys_company = new ArrayList<Journey>();
+    public List<JourneyInfo> meetCriteria(List<JourneyInfo> Journeys, String query) {
+            List<JourneyInfo> Journeys_company = new ArrayList<JourneyInfo>();
             
-            for (Journey j: JourneyStorage.GetInstance().getJourneys() ){
-                if(j.getCompany().toString().contains(query))
+            for (JourneyInfo j: Journeys) {
+                if(j.getCompany().toString().toLowerCase().contains(query.toLowerCase()))
                     Journeys_company.add(j);
 
             }

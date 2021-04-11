@@ -56,7 +56,7 @@ public class ClientControllerTest {
 	@Test
 	public void TestUnSuccessfulClientsPage() throws Exception {
         MockHttpSession session = new MockHttpSession();
-        session.setAttribute("SignedUser", "1.2.3.4");
+        session.setAttribute("SignedUser", "1.2.3.0");
 
 		MvcResult resultActions = 
             this.mockMvc.perform(
@@ -64,6 +64,9 @@ public class ClientControllerTest {
             )
             .andExpect(status().is(302))
             .andReturn();
+
+        String view_name = resultActions.getModelAndView().getViewName();
+        assertTrue(view_name.equals("redirect:/Login/"));
     }
 
     @Test
@@ -143,5 +146,75 @@ public class ClientControllerTest {
         assertTrue(view_name.equals("Client/View"));
     }
 
+    @Test
+	public void TestSuccessfulSearchPage() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
 
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Search")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+
+        String view_name = resultActions.getModelAndView().getViewName();
+        assertTrue(view_name.equals("Client/Search"));
+    }
+
+    @Test
+	public void TestUnSuccessfulSearchPage() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Search")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+
+            String view_name = resultActions.getModelAndView().getViewName();
+            assertTrue(view_name.equals("redirect:/Login/"));
+    
+    }
+
+    @Test
+	public void TestSuccessfulDeletePage() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Delete")
+                .session(session)
+                .param("ID", "test")
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+
+        String view_name = resultActions.getModelAndView().getViewName();
+        assertTrue(view_name.equals("redirect:/Logistics"));
+    }
+
+    @Test
+	public void TestUnSuccessfulDeletePage() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Delete")
+                .session(session)
+                .param("ID", "test")
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+
+            String view_name = resultActions.getModelAndView().getViewName();
+            assertTrue(view_name.equals("redirect:/Login/"));
+    
+    }
 }

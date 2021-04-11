@@ -32,7 +32,15 @@ public class AuthenticateUserWorkerTest {
             AuthenticateUserWorker
             .Authenticate("1234", "12345") == null
         );
+
+        assertTrue(
+            AuthenticateUserWorker
+            .Authenticate("1235", "1234") == null
+        );
     }
+
+
+    
 
     @Test
     public void TestGetUserByID() {
