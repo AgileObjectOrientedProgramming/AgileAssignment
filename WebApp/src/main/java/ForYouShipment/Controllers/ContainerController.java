@@ -1,5 +1,6 @@
 package ForYouShipment.Controllers;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,9 +33,9 @@ public class ContainerController extends BaseController {
         
 
         m.addAttribute("SignedUser", GetUser(session));
-        m.addAttribute("Measurements", attributeValue)
+        m.addAttribute("Measurements", new HashMap<String, String>());
 
-        return "Container/New";
+        return "Container/Measurements";
     }
     
     @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
@@ -42,11 +43,12 @@ public class ContainerController extends BaseController {
                         @RequestParam("Measurements") Map<String,String> measurements, 
                         @RequestParam("Journey") JourneyInfo journey){
         
+        
     	ContainerTracker.setMeasurements(measurements,journey); 
 
     	m.addAttribute("SignedUser", GetUser(session));
     	
-        return "redirect:/Login/";                            
+        return "redirect:/Journey/View?ID=$" + journey.getId();                            
     }
 
 }

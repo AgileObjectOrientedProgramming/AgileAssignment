@@ -30,6 +30,7 @@
         <th> Content type </th>
         <th> Company </th>
         <th> Status </th>
+        <th>        </th>
     </tr>
 </thead>
 <tbody>
@@ -40,6 +41,8 @@
             <td>${element.getContent_type()}</td>
             <td>${element.getCompany()} </td>
             <td>${element.getStatus()}</td>
+            <td><a class="btn btn-info float-end"  href="/Journey/View?ID=${element.getId()}">Open</a></td>
+        
         </tr>   
     </c:forEach>
 </tbody>

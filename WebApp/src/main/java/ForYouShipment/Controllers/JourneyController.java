@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ForYouShipment.ClientSearch.CriteriaID;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Constants.Port;
@@ -118,26 +119,15 @@ public class JourneyController extends BaseController {
         return "Journey/Search";
     }
 
-    // @RequestMapping(value={ "/View" })
-    // public String View(HttpServletRequest req, Model m, HttpSession session,
-    //                 @RequestParam("ID") String ProfileID) {
-
-    //     //ID of the signed user
-    //     UserModel signedUser = GetUser(session);
-    //     UserModel profileUser = AuthenticateUserWorker.GetUserByID(ProfileID);
-
-    //     if (!HasAccess(AccessActionNounEnum.CLIENT_MANAGEMENT, AccessActionVerbEnum.PERSONAL, session, req))
-    //         return "redirect:/Login/";
-
-    //     if (signedUser != profileUser && !signedUser.IsLogisticUser())
-    //         return "redirect:/Login/";
-
-
-    //     m.addAttribute("ProfileUser", profileUser);
+    @RequestMapping(value={ "/View" })
+    public String View(HttpServletRequest req, Model m, HttpSession session,
+                    @RequestParam("ID") String JourneyId) {
         
-    //     m.addAttribute("SignedUser", GetUser(session));
-    //     return "Client/View";
-    // }
+        System.out.println(JourneyId);
+        //Criteria<JourneyInfo> criteria = new CriteriaUser();
+        m.addAttribute("SignedUser", GetUser(session));                
+        return "Client/View";
+    }
         
   
 }
