@@ -38,8 +38,5 @@ public class Container {
         this.location = location;
     }
 
-  
-
-
 
 }
