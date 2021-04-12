@@ -2,9 +2,11 @@ package ForYouShipment.Controllers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import ForYouShipment.Models.ClientUserModel;
+import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Models.UserProfileModel;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
 
@@ -37,15 +41,23 @@ public class ClientControllerTest {
     public void SetUpUsers() {
         UserModel a = new LogisticsUserModel();
         a.setID("1.2.3.4");
-        a.setUsername("1234");
-        a.setPassword("1234");
+        a.setUsername("test");
+        a.setPassword("test");
+        UserProfileModel pa = new LogisticsProfileModel();
+        for (String s : pa.getAllParameters()) {
+            pa.setParameter(s, "test");
+        }
+        a.setProfile(pa);
         UserStorage.GetInstance().getUsers().add(a);
-
+        Set<UserModel> b = UserStorage.GetInstance().getUsers();
         a = new ClientUserModel();
         a.setID("1.1.1.1");
-        a.setUsername("abcd");
-        a.setPassword("abcd");
+        a.setUsername("test");
+        a.setPassword("test");
+        a.setProfile(pa);
         UserStorage.GetInstance().getUsers().add(a);
+        b = UserStorage.GetInstance().getUsers();
+        System.out.println("x");
     }
 
     @AfterEach
@@ -91,7 +103,7 @@ public class ClientControllerTest {
         assertTrue(
             SignedUser
             .getUsername()
-            .equals("abcd")
+            .equals("test")
         );  
         assertTrue(view_name.equals("Client/Index"));
     }
@@ -103,11 +115,36 @@ public class ClientControllerTest {
 
 		MvcResult resultActions = 
             this.mockMvc.perform(
-                get("/Client/Index")
+                get("/Client/View")
+                .param("ID", "1.2.3.4")
             )
             .andExpect(status().is(302))
             .andReturn();
+    
+        String view_name = resultActions.getModelAndView().getViewName();       
+        assertTrue(view_name.equals("redirect:/Login/")); 
     }
+
+    @Test
+    public void TestUnSuccessfulViewPage2() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/View")
+                .param("ID", "1.1.1.2")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+    
+        String view_name = resultActions.getModelAndView().getViewName();       
+        assertTrue(view_name.equals("redirect:/Login/")); 
+    }
+
+
+
 
     @Test
 	public void TestSuccessfulViewPage() throws Exception {
@@ -134,7 +171,7 @@ public class ClientControllerTest {
         assertTrue(
             SignedUser
             .getUsername()
-            .equals("abcd")
+            .equals("test")
         );  
 
         assertTrue(
@@ -145,6 +182,8 @@ public class ClientControllerTest {
 
         assertTrue(view_name.equals("Client/View"));
     }
+
+
 
     @Test
 	public void TestSuccessfulSearchPage() throws Exception {
@@ -217,4 +256,108 @@ public class ClientControllerTest {
             assertTrue(view_name.equals("redirect:/Login/"));
     
     }
+
+    @Test
+	public void TestSuccessfulEditPage() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Edit")
+                .session(session)
+                .param("ID", "test")
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+
+        String view_name = resultActions.getModelAndView().getViewName();
+        System.out.println(view_name);
+        assertTrue(view_name.equals("redirect:/Login/"));
+    }
+
+    @Test
+	public void TestUnSuccessfulEditPage() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Edit")
+                .session(session)
+                .param("ID", "test")
+                .param("Password","test")
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+
+    
+    }
+    
+    @Test
+	public void TestUnSuccessfulEditPagePost() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Client/Edit")
+                .param("Password","test")
+                .param("PasswordRetype","test")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+ 
+    }
+
+    @Test
+    public void TestSuccessfulEditPagePost() throws Exception {
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Client/Edit")
+                .param("Password","test")
+                .param("PasswordRetype","test")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+        UserModel SignedUser = (UserModel)model.get("SignedUser");
+        UserModel ProfileUser = (UserModel)model.get("ProfileUser");
+
+
+        assertTrue(view_name.equals("redirect:/Client/View?ID=1.1.1.1"));
+    }
+    
+    @Test
+    public void TestSuccessfulEditPagePost2() throws Exception {
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Client/Edit")
+                .param("Password","test1")
+                .param("PasswordRetype","test")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+        UserModel SignedUser = (UserModel)model.get("SignedUser");
+        UserModel ProfileUser = (UserModel)model.get("ProfileUser");
+
+
+        assertTrue(view_name.equals("Client/Edit"));
+    }
+    
+    
 }

@@ -28,7 +28,6 @@ import ForYouShipment.WebApp.WebAppApplication;
 
 @SpringBootTest(classes = WebAppApplication.class)
 @AutoConfigureMockMvc
-@SuppressWarnings("unchecked")
 public class JourneyControllerTest {
 
     @Autowired
