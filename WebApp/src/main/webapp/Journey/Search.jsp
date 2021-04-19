@@ -21,28 +21,27 @@
 <br>
 
 <table class="table table-hover" >
-    <thead class="thead-light" >
-        <tr>
-            <th> Origin </th>
-            <th> Destination </th>
-            <th> Content type </th>
-            <th> Company </th>
-            <th> Status </th>
-            <th>        </th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${Ownjourneys}" var="element">
-            <tr>
-                <td>${element.getOrigin().toString()} </td>
-                <td>${element.getDestination().toString()} </td>
-                <td>${element.getContent_type()}</td>
-                <td>${element.getCompany()} </td>
-                <td>${element.getStatus()}</td>
-                <td><a class="btn btn-info float-end"  href="/Journey/View?ID=${Journey.getId()}">Open</a></td>
-            </tr>   
-        </c:forEach>
-    </tbody>
+<thead class="thead-light" >
+    <tr>
+        <c:if test="${SignedUser.IsLogisticUser()}"><th> User </th></c:if>
+        <th> Origin </th>
+        <th> Destination </th>
+        <th> Content type </th>
+        <th> Company </th>
+        <th> Status </th>
+    </tr>
+</thead>
+<tbody>
+    <c:forEach items="${answer}" var="element">
+         <tr style='cursor: pointer; cursor: hand;' onclick="window.location='/Journey/View?ID=${element.getId()}';">
+            <c:if test="${SignedUser.IsLogisticUser()}"><td> ${element.getParameter("Username")} </td></c:if>
+            <td>${element.getOrigin().toString()} </td>
+            <td>${element.getDestination().toString()} </td>
+            <td>${element.getContent_type()}</td>
+            <td>${element.getCompany()} </td>
+            <td>${element.getStatus()}</td>
+        </tr>   
+    </c:forEach>
+</tbody>
 </table>
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
-

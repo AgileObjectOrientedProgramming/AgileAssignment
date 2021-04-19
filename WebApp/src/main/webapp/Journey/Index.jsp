@@ -30,19 +30,16 @@
         <th> Content type </th>
         <th> Company </th>
         <th> Status </th>
-        <th>        </th>
     </tr>
 </thead>
 <tbody>
     <c:forEach items="${Ownjourneys}" var="element">
-        <tr>
+        <tr style='cursor: pointer; cursor: hand;' onclick="window.location='/Journey/View?ID=${element.getId()}';">
             <td>${element.getOrigin().toString()} </td>
             <td>${element.getDestination().toString()} </td>
             <td>${element.getContent_type()}</td>
             <td>${element.getCompany()} </td>
-            <td>${element.getStatus()}</td>
-            <td><a class="btn btn-info float-end"  href="/Journey/View?ID=${element.getId()}">Open</a></td>
-        
+            <td>${element.getStatus()}</td>       
         </tr>   
     </c:forEach>
 </tbody>
