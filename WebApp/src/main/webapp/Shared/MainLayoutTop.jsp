@@ -32,9 +32,9 @@
           </c:if>
           <c:if test="${SignedUser != null && SignedUser.IsLogisticUser()}">
             <a class="btn btn-outline-secondary" href="/">Home</a>
+            <a class="btn btn-outline-secondary" href="/Journey/Search">Journeys</a>
             <a class="btn btn-outline-secondary" href="/Logistics">Logistics Page</a>
             <a class="btn btn-outline-secondary" href="/Client/Search">Search Clients</a>
-            <a class="btn btn-outline-secondary" href="#">${SignedUser.getUsername()}</a>
             <a class="btn btn-outline-primary" href="/Login/Logout">Log out</a>
           </c:if>
           <c:if test="${SignedUser == null}">
