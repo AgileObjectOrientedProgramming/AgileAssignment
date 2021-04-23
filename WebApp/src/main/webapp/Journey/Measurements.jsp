@@ -1,11 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../Shared/MainLayoutTop.jsp">
     <jsp:param name="SignedUser" value="${SignedUser}"/>
-    <jsp:param name="ContainerID" value="${ContainerID}"/>
-
 </jsp:include>
-
-${ContainerID}
 
 <div  style="width: 80%;">
     <c:if test="${warning != null}">

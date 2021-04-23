@@ -17,8 +17,13 @@ public class Container {
         return measurementsHistory;
     }
 
-    public void setMeasurementsHistory(List<Map<String,String>> measurementsHistory) {
-        this.measurementsHistory = measurementsHistory;
+    /**
+     * This method saves a measurement in the history
+     * of measurements on the container
+     * @param measurements Map containing the measurements done
+     */
+    public void saveMeasurements(Map<String,String> measurements) {
+        this.measurementsHistory.add(measurements);
     }
 
     public Container() {

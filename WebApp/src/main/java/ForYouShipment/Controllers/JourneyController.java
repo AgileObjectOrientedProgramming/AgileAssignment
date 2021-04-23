@@ -171,7 +171,7 @@ public class JourneyController extends BaseController {
         }
 
         Map<String, String> measurements = c.getParameters();
-        c.getMeasurementsHistory().add(measurements);
+        c.saveMeasurements(measurements);
     	m.addAttribute("SignedUser", GetUser(session));
     	
         return "redirect:/Journey/Search/";                            
