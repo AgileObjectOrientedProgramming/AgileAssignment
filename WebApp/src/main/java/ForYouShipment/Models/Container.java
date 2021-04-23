@@ -1,5 +1,6 @@
 package ForYouShipment.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ public class Container {
     private Port location;
     private String id;
     private JourneyInfo journey;
-    private List<Map<String,String>> measurementsHistory;
+    private List<Map<String,String>> measurementsHistory = new ArrayList<>();
     
     public List<Map<String,String>> getMeasurementsHistory() {
         return measurementsHistory;
