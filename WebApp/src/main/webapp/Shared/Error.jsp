@@ -5,12 +5,16 @@
 
 <h1 class="display-1 center">Error 404: Not found :(</h1>
 
+
 <style>
+    .body {
+        background-image: url("https://images.unsplash.com/photo-1559771675-6f43f7e37a77?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1818&q=80");
+    } 
     .center {
         margin: auto;
         width: 50%;
         height: 50%;
-        padding-top: 10%;
+        padding-top: 5%;
     }
 </style>
 
