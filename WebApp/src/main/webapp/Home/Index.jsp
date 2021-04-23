@@ -17,23 +17,24 @@
 </div>
 
 <br>
-<br>
 <div class="row" style="display: flex; flex-wrap: wrap">
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">Our partner companies</h5>
+        <p class="card-text">As a company client you have access to a personalised account, 
+                where you can manage your orders. Each order has a unique Shipment ID, which 
+                can be shared with your own customers. </p>
+        <a href="/UserManual" class="btn btn-primary">User Manual</a>
       </div>
     </div>
   </div>
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
+        <h5 class="card-title">Our Team</h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-primary">About us</a>
       </div>
     </div>
   </div>
@@ -75,7 +76,7 @@
         background-color: rgba(0, 0, 0, 0.2);
         color:white;
         margin: auto;
-        width: 60%;
+        width: 70%;
         backdrop-filter: blur(10px);
         border-radius: 10px;
     }

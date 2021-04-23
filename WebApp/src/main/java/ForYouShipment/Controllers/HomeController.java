@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ForYouShipment.Storage.UserStorage;
+
 @Controller
 @RequestMapping("/")
 public class HomeController extends BaseController {
@@ -16,5 +18,15 @@ public class HomeController extends BaseController {
         m.addAttribute("SignedUser", GetUser(session));
         return "Home/Index";
     }
+    @RequestMapping({"/UserManual"})
+    public String UserManual(HttpServletRequest req, Model m, HttpSession session) {
+        m.addAttribute("SignedUser", GetUser(session));
+
+        int numberClients = UserStorage.GetInstance().getUsers().size();
+        m.addAttribute("numberClients", numberClients);
+
+        return "Home/UserManual";
+    }
+    
 
 }
