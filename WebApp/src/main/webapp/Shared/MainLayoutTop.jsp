@@ -18,7 +18,9 @@
   <body class = "body">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
       style="justify-content: space-between;">
-      <h5 class="my-0 mr-md-auto font-weight-normal">ForYouShipment</h5>
+      <h5 class="my-0 mr-md-auto font-weight-normal">
+        <a href="/"><strong>ForYouShipment</strong></a>
+      </h5>
       <div class="d-flex flex-column flex-md-row align-items-center">
         <nav class="my-2 my-md-0 mr-md-3">
           <c:if test="${SignedUser != null && !SignedUser.IsLogisticUser()}">
