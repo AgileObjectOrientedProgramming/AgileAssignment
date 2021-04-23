@@ -1,13 +1,25 @@
 package ForYouShipment.Models;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ContainerMeasurements extends Container{
 	private  Map<String, String> Parameters;
-	private  List<String> AvailableParameters = Arrays.asList("Temperature", "Humidity","Pressure");
 
+	public Map<String, String> getParameters() {
+        return Parameters;
+    }
+
+    public void setParameters(Map<String, String> parameters) {
+        Parameters = parameters;
+    }
+    private  List<String> AvailableParameters = Arrays.asList("Temperature", "Humidity","Pressure","Time");
+
+    public ContainerMeasurements() {
+        Parameters = new HashMap<>();
+    }
 
     /**
      * This returns all of the available parameters of the user's profile.

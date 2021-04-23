@@ -3,6 +3,7 @@ package ForYouShipment.Controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,7 +33,6 @@ import ForYouShipment.Search.OrCriteria;
 import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Workers.ContainerRegister;
-import ForYouShipment.Workers.ContainerTracker;
 
 
 
@@ -152,22 +152,28 @@ public class JourneyController extends BaseController {
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), ID).get(0);
         m.addAttribute("SignedUser", GetUser(session));
         m.addAttribute("Container", c);
-        return "Journey/Measurements";
+        m.addAttribute("ContainerID", ID);
+        return "Journey/Measurements" ;
 
     }
     
-    // @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
-    // public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session,
-    //                     @RequestParam("temperature") String temperature, 
-    //                     @RequestParam("humidity") String humidity,
-    //                     @RequestParam("pressure") String pressure) {
-        
-        
-    // 	ContainerTracker.setMeasurements(temperature, humidity, pressure, 
-    // 			ContainerTracker.getJourney()); 
+    @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
+    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) {
 
-    // 	m.addAttribute("SignedUser", GetUser(session));
+    
+        String ID = req.getParameter("ContainerID");                   
+        Criteria<ContainerMeasurements> container = new CriteriaCID();
+        ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), ID).get(0);
+        
+        for (String Param : c.getAllParameters()) {
+            String value = req.getParameter(Param);
+            c.setParameter(Param, value);
+        }
+
+        Map<String, String> measurements = c.getParameters();
+        c.getMeasurementsHistory().add(measurements);
+    	m.addAttribute("SignedUser", GetUser(session));
     	
-    //     return "redirect:/Login/";                            
-    // }
+        return "redirect:/Journey/Search/";                            
+    }
 }
