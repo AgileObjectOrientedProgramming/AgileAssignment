@@ -2,6 +2,7 @@ package ForYouShipment.Workers;
 
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Container;
+import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
@@ -25,7 +26,7 @@ public class ContainerRegister {
                                     String company,
                                     UserModel user) {
 
-        Container container = ContainerRegister.getFreeContainer(Port.valueOf(origin.toUpperCase()));             
+        ContainerMeasurements container = ContainerRegister.getFreeContainer(Port.valueOf(origin.toUpperCase()));             
         JourneyInfo journey = new JourneyInfo();
         journey.setOrigin(Port.valueOf(origin.toUpperCase()));
         journey.setDestination(Port.valueOf(destination.toUpperCase()));
@@ -35,14 +36,16 @@ public class ContainerRegister {
         journey.setParameter("ID", user.getID());
         
         container.setJourney(journey);
+        container.setParameter("Latitude", "" + Port.valueOf(origin).getLatitude());
+        container.setParameter("Longitude","" + Port.valueOf(origin).getLongitude());
         return container;
     }
 
     /**  Gets a random availabe container from the storage
      *   that is located at the given Port.
      */
-    public static Container getFreeContainer(Port origin) {
-        for (Container c: ContainerStorage.GetInstance().getContainers()) {
+    public static ContainerMeasurements getFreeContainer(Port origin) {
+        for (ContainerMeasurements c: ContainerStorage.GetInstance().getContainers()) {
             if (c.getJourney() == null && c.getLocation() == origin)  
                 return c;
                 
