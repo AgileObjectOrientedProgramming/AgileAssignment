@@ -91,10 +91,6 @@ public class JourneyController extends BaseController {
     @RequestMapping(value={ "/Search" })
     public String Search(HttpServletRequest req, Model m, HttpSession session) {
 
-        if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.SEARCH, session, req))
-            return "redirect:/Login/";
-
-
         String Query = req.getParameter("Query");
         if (Query == null)
             Query = "";
