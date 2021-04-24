@@ -31,4 +31,17 @@
     </form>
 </div>
 
+
+<style>
+    .body {
+        background-image: url("https://images.unsplash.com/photo-1511578194003-00c80e42dc9b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");
+    } 
+    .card {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+    }
+</style>
+
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

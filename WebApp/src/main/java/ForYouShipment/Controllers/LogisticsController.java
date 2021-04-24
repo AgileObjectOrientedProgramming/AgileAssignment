@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
+import ForYouShipment.Storage.JourneyStorage;
+import ForYouShipment.Storage.UserStorage;
 
 
 
@@ -21,6 +23,12 @@ public class LogisticsController extends BaseController {
 
         if (!HasAccess(AccessActionNounEnum.LOGISTICS_MANAGEMENT, AccessActionVerbEnum.INDEX, session, req))
             return "redirect:/Login/";
+
+        int numberClients = UserStorage.GetInstance().getUsers().size();
+        m.addAttribute("numberClients", numberClients);
+
+        int numberJourneys = JourneyStorage.GetInstance().getJourneys().size();
+        m.addAttribute("numberJourneys", numberJourneys);
         
         m.addAttribute("SignedUser", GetUser(session));
         return "Logistics/Index";

@@ -61,7 +61,7 @@ public class StoragePersistance {
             }
             catch (Exception e) {
                 LoggingWorker.GetInstance().Log("Received error " + e.getMessage()
-                        + " when saving jsons to memory");  
+                        + " when reading jsons from memory");  
             }
         }
     }
