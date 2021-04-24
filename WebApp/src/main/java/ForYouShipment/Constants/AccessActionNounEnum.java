@@ -11,5 +11,6 @@ public enum AccessActionNounEnum {
     LOGIN_PAGE,
     LOGISTICS_MANAGEMENT,
     SIGNUP_PAGE,
-    JOURNEY_PAGE
+    JOURNEY_PAGE,
+    CONTAINER_PAGE
 }

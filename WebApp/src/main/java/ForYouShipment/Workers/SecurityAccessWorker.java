@@ -18,6 +18,8 @@ public final class SecurityAccessWorker {
             case JOURNEY_PAGE: 
                 return verb == AccessActionVerbEnum.SEARCH 
                                 || verb == AccessActionVerbEnum.VIEW ;
+            case CONTAINER_PAGE:
+                return verb == AccessActionVerbEnum.CREATE;
             case HOME_PAGE:
             case LOGIN_PAGE:
             case SIGNUP_PAGE:

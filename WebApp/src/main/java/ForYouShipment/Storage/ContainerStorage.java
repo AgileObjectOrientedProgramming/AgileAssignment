@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import ForYouShipment.Constants.Port;
-import ForYouShipment.Models.Container;
+import ForYouShipment.Models.ContainerMeasurements;
 
 /**
  * Singleton class storing all informations.
@@ -12,7 +12,7 @@ import ForYouShipment.Models.Container;
 public class ContainerStorage{
 
     // Items to save.
-    private Set <Container> Containers;
+    private Set <ContainerMeasurements> Containers;
 
     
 
@@ -20,13 +20,13 @@ public class ContainerStorage{
         Containers = new HashSet<>();
     }
 
-    public Set<Container> getContainers() {
+    public Set<ContainerMeasurements> getContainers() {
         return Containers;
     }
 
     public static void addContainers(ContainerStorage instance, int val, Port location) {
         while (val-- > 0){
-            Container c = new Container();
+            ContainerMeasurements c = new ContainerMeasurements();
             c.setLocation(location);
             ContainerStorage.GetInstance().getContainers().add(c);
         }
