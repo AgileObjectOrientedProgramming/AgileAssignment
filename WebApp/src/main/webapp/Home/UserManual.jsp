@@ -19,8 +19,8 @@
     <div class="card-body">You have the ability to make new journey requests.</div>
   </div>
   <div class="card" style="width: 300px; margin: 20px">
-    <div class="card-header">Statistics</div>
-    <div class="card-body">Number of clients: ${numberClients}</div>
+    <div class="card-header">Add new Journey</div>
+    <div class="card-body">As a client you can request a journey from thr available ports</div>
   </div>
 </div>
 

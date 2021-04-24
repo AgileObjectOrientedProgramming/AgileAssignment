@@ -22,9 +22,6 @@ public class HomeController extends BaseController {
     public String UserManual(HttpServletRequest req, Model m, HttpSession session) {
         m.addAttribute("SignedUser", GetUser(session));
 
-        int numberClients = UserStorage.GetInstance().getUsers().size();
-        m.addAttribute("numberClients", numberClients);
-
         return "Home/UserManual";
     }
     
