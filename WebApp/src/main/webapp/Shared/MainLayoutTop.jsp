@@ -16,8 +16,9 @@
   </head>
 
   <body class = "body">
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
-      style="justify-content: space-between;">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 shadow-sm"
+      style="justify-content: space-between; background-color: #273745!important;
+      border-bottom: 1px solid #000000!important">
       <h5 class="my-0 mr-md-auto font-weight-normal">
         <a href="/"><strong>ForYouShipment</strong></a>
       </h5>
