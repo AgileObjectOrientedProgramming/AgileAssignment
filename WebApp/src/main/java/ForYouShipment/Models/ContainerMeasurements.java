@@ -5,17 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ForYouShipment.Storage.JourneyStorage;
-import ForYouShipment.Workers.IDGenerator;
+public class ContainerMeasurements extends Container{
+	private  Map<String, String> Parameters;
 
-public class JourneyInfo extends Journey{
-    private  Map<String, String> Parameters;
-    private  List<String> AvailableParameters = Arrays.asList("Username", "ID");
+	public Map<String, String> getParameters() {
+        return Parameters;
+    }
 
-    public JourneyInfo() {
-        this.setStatus("Waiting for approval");
-        this.setId(IDGenerator.GenerateID());
-        JourneyStorage.GetInstance().getJourneys().add(this);
+    public void setParameters(Map<String, String> parameters) {
+        Parameters = parameters;
+    }
+    private  List<String> AvailableParameters = Arrays.asList("Temperature", "Humidity","Pressure","Time");
+
+    public ContainerMeasurements() {
         Parameters = new HashMap<>();
     }
 
@@ -42,5 +44,12 @@ public class JourneyInfo extends Journey{
     public void setParameter(String Param, String Value) {
         Parameters.put(Param, Value);
     }
-    
+    /**
+	 * This is used to change the available measurements
+	 * Ex: setAvailableParameters(Arrays.asList("Temperature","Pressure"))
+	 */
+	public void setAvailableParameters(List<String> availableParameters){
+		AvailableParameters = availableParameters; 
+	}
+	
 }

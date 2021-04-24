@@ -3,6 +3,7 @@ package ForYouShipment.Controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,17 +17,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Constants.Port;
+import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Search.Criteria;
+import ForYouShipment.Search.CriteriaCID;
+import ForYouShipment.Search.CriteriaCJID;
 import ForYouShipment.Search.CriteriaCompany;
 import ForYouShipment.Search.CriteriaContent_Type;
 import ForYouShipment.Search.CriteriaDestination;
+import ForYouShipment.Search.CriteriaJID;
 import ForYouShipment.Search.CriteriaOrigin;
 import ForYouShipment.Search.CriteriaUser;
 import ForYouShipment.Search.OrCriteria;
+import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Workers.ContainerRegister;
+
 
 
 
@@ -109,8 +116,6 @@ public class JourneyController extends BaseController {
         answer = allCriteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
                                                     Query);
 
-        
-
 
         m.addAttribute("Query", Query);
         m.addAttribute("answer", answer);
@@ -118,26 +123,57 @@ public class JourneyController extends BaseController {
         return "Journey/Search";
     }
 
-    // @RequestMapping(value={ "/View" })
-    // public String View(HttpServletRequest req, Model m, HttpSession session,
-    //                 @RequestParam("ID") String ProfileID) {
-
-    //     //ID of the signed user
-    //     UserModel signedUser = GetUser(session);
-    //     UserModel profileUser = AuthenticateUserWorker.GetUserByID(ProfileID);
-
-    //     if (!HasAccess(AccessActionNounEnum.CLIENT_MANAGEMENT, AccessActionVerbEnum.PERSONAL, session, req))
-    //         return "redirect:/Login/";
-
-    //     if (signedUser != profileUser && !signedUser.IsLogisticUser())
-    //         return "redirect:/Login/";
-
-
-    //     m.addAttribute("ProfileUser", profileUser);
+    @RequestMapping(value={ "/View" })
+    public String View(HttpServletRequest req, Model m, HttpSession session,
+                    @RequestParam("ID") String JourneyId) {
         
-    //     m.addAttribute("SignedUser", GetUser(session));
-    //     return "Client/View";
-    // }
+
+        System.out.println(JourneyId);
+        Criteria<JourneyInfo> criteria = new CriteriaJID();
+        Criteria<ContainerMeasurements> container = new CriteriaCJID();
+        JourneyInfo j = criteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()), JourneyId).get(0);
+        ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), JourneyId).get(0);
+        m.addAttribute("ContainerID", c.getId());
+        m.addAttribute("Journey", j); 
+        m.addAttribute("SignedUser", GetUser(session));                
+        return "Journey/View";
+    }
+
+
+    @RequestMapping(value = {"/Measurements", "/Measurements/"})
+    public String SetMeasurement(HttpServletRequest req, Model m, HttpSession session,
+                                 @RequestParam("ID") String ID) {
+
+        if (!HasAccess(AccessActionNounEnum.CONTAINER_PAGE, AccessActionVerbEnum.CREATE, session, req))
+            return "redirect:/Login/";
         
-  
+        
+        Criteria<ContainerMeasurements> container = new CriteriaCID();
+        ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), ID).get(0);
+        m.addAttribute("SignedUser", GetUser(session));
+        m.addAttribute("Container", c);
+        m.addAttribute("ContainerID", ID);
+        return "Journey/Measurements" ;
+
+    }
+    
+    @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
+    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) {
+
+    
+        String ID = req.getParameter("ContainerID");                   
+        Criteria<ContainerMeasurements> container = new CriteriaCID();
+        ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), ID).get(0);
+        
+        for (String Param : c.getAllParameters()) {
+            String value = req.getParameter(Param);
+            c.setParameter(Param, value);
+        }
+
+        Map<String, String> measurements = c.getParameters();
+        c.saveMeasurements(measurements);
+    	m.addAttribute("SignedUser", GetUser(session));
+    	
+        return "redirect:/Journey/Search/";                            
+    }
 }
