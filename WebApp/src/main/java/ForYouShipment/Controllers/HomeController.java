@@ -24,6 +24,12 @@ public class HomeController extends BaseController {
 
         return "Home/UserManual";
     }
+    @RequestMapping({"/AboutUs"})
+    public String AboutUs(HttpServletRequest req, Model m, HttpSession session) {
+        m.addAttribute("SignedUser", GetUser(session));
+
+        return "Home/AboutUs";
+    }
     
 
 }

@@ -34,7 +34,7 @@
       <div class="card-body">
         <h5 class="card-title">Our Team</h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">About us</a>
+        <a href="/AboutUs" class="btn btn-primary">About us</a>
       </div>
     </div>
   </div>
