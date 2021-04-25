@@ -23,8 +23,8 @@
       <div class="card-body">
         <h5 class="card-title">Our partner companies</h5>
         <p class="card-text">As a company client you have access to a personalised account, 
-                where you can manage your orders. Each order has a unique Shipment ID, which 
-                can be shared with your own customers. </p>
+                where you can manage your orders. In order to log in on this website, you must 
+                use the unique password and username provided by our team. </p>
         <a href="/UserManual" class="btn btn-primary">User Manual</a>
       </div>
     </div>
@@ -33,8 +33,10 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Our Team</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">About us</a>
+        <p class="card-text">This project is designed for course nr. 02160 Agile Object-Oriented Software
+                  Development. 
+        </p>
+        <a href="/AboutUs" class="btn btn-primary">About us</a>
       </div>
     </div>
   </div>
@@ -70,7 +72,11 @@
 
 <style>
     .body {
-        background-image: url("https://images.unsplash.com/photo-1558566455-b62dfa3e19a6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1589&q=80");
+        background-image: url("https://images.pexels.com/photos/3989748/pexels-photo-3989748.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
+        
     } 
     .card {
         background-color: rgba(0, 0, 0, 0.2);

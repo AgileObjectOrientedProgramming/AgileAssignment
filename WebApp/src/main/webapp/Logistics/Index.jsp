@@ -42,6 +42,9 @@
 <style>
     .body {
         background-image: url("https://images.unsplash.com/photo-1573030889348-c6b0f8b15e40?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1613&q=80");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
     } 
     .card {
         background-color: rgba(0, 0, 0, 0.2);
