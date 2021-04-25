@@ -140,6 +140,7 @@ public class JourneyController extends BaseController {
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), JourneyId).get(0);
         m.addAttribute("ContainerID", c.getId());
         m.addAttribute("Journey", j); 
+        m.addAttribute("ID", JourneyId);
         System.out.println(c.getParameter("Latitude"));
         System.out.println(c.getParameter("Longitude"));
         m.addAttribute("Latitude", Double.parseDouble(c.getParameter("Latitude")));
