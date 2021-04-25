@@ -19,7 +19,7 @@ public class CriteriaDestinationTest {
         List<JourneyInfo > journeys = new ArrayList<>();
         JourneyInfo j = new JourneyInfo();
         JourneyInfo j2 = new JourneyInfo();
-        j.setDestination(Port.AMSTERDAM);
+        j.setDestination(Port.ROTTERDAM);
         j2.setDestination(Port.CAPETOWN);
         journeys.add(j);
         journeys.add(j2);

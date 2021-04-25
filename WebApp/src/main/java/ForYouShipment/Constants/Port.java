@@ -29,10 +29,22 @@ public enum Port {
         this.longitude = longitude;
     }
 
+    @Override
     public String toString(){
         return name;
     }
     
+    public static Port ofString(String name){
+        name = name.substring(0,1).toUpperCase() + name.substring(1);
+        for (Port p: Port.class.getEnumConstants()){
+            if (p.toString().equals(name))
+                return p;
+        }
+        System.out.println(name);
+        System.out.println("Invalid port name");
+        return null;
+    }
+
     public Double getLatitude(){
       return latitude;
     }

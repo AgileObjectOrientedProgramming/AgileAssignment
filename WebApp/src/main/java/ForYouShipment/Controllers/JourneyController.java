@@ -67,7 +67,9 @@ public class JourneyController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.CREATE, session, req))
             return "redirect:/Login/";
         
-        m.addAttribute("Port list", new ArrayList<Port>(Arrays.asList(Port.values())));
+  
+
+        m.addAttribute("Ports", Port.class.getEnumConstants());
         m.addAttribute("SignedUser", GetUser(session));
         return "Journey/New";
     }
@@ -79,11 +81,18 @@ public class JourneyController extends BaseController {
                         @RequestParam("Content type") String content_type,
                         @RequestParam("Company") String company) {
         
-        
+        try {
+            Port.ofString(origin);
+            Port.ofString(destination);
+            
+        } catch (Exception e) {
+            m.addAttribute("warning", "Invalid origin or destination");
+            m.addAttribute("SignedUser", GetUser(session));    
+            return "Journey/New";
+        }
         UserModel user = GetUser(session);
 
         ContainerRegister.setJourney(origin, destination, content_type, company, user );
-
         m.addAttribute("SignedUser", GetUser(session));                    
         return "redirect:/Journey/Index";                            
     }

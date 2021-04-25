@@ -63,7 +63,7 @@
 <script>
     function GoToShimpentPage() {
         var button_content = document.getElementById('shipmentidinput').value
-        window.location.href = "/Journey/Search?id=" + button_content;
+        window.location.href = "/Journey/View?ID=" + button_content;
     }
 </script>
 

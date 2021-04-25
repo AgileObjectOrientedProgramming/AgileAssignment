@@ -26,20 +26,19 @@ public class ContainerRegister {
                                     String company,
                                     UserModel user) {
 
-        origin = origin.toUpperCase();     
-        destination = destination.toUpperCase();                              
-        ContainerMeasurements container = ContainerRegister.getFreeContainer(Port.valueOf(origin));             
+                              
+        ContainerMeasurements container = ContainerRegister.getFreeContainer(Port.ofString(origin));             
         JourneyInfo journey = new JourneyInfo();
-        journey.setOrigin(Port.valueOf(origin));
-        journey.setDestination(Port.valueOf(destination));
+        journey.setOrigin(Port.ofString(origin));
+        journey.setDestination(Port.ofString(destination));
         journey.setContent_type(content_type);
         journey.setCompany(company);
         journey.setParameter("Username", user.getUsername());
         journey.setParameter("ID", user.getID());
         
         container.setJourney(journey);
-        container.setParameter("Latitude", "" + Port.valueOf(origin).getLatitude());
-        container.setParameter("Longitude","" + Port.valueOf(origin).getLongitude());
+        container.setParameter("Latitude", "" + Port.ofString(origin).getLatitude());
+        container.setParameter("Longitude","" + Port.ofString(origin).getLongitude());
         return container;
     }
 
