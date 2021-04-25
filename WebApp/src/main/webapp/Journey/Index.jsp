@@ -12,7 +12,6 @@
 <a class="btn btn-info btn-lg float-end" href="/Journey/New" >
     New Journey
 </a>
-
 <a class="btn btn-info btn-lg float-end" href="/Journey/Search" >
     Search
 </a>
@@ -44,6 +43,26 @@
     </c:forEach>
 </tbody>
 </table>
+
+<style>
+    .body {
+        background-image: url("https://images.pexels.com/photos/1655166/pexels-photo-1655166.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
+    } 
+    .thead-light {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        backdrop-filter: blur(20px);
+    }
+    .table-hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        backdrop-filter: blur(10px);
+    }
+    
+</style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
 
