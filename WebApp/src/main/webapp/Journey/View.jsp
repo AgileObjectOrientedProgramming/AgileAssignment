@@ -48,7 +48,10 @@
         });
         // The marker, positioned at the shipment location
         const marker =  new google.maps.Marker({
+          opacity: 1,
           label: "Your shipment is here",
+          animation: google.maps.Animation.DROP,
+          dragable: true,
           position: new google.maps.LatLng(current_lat,current_lng),
           zIndex: 2,
           map: map,
@@ -56,9 +59,11 @@
             url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
           }
         })
+        marker.addListener("click", toggleBounce);
         // Markers for all the ports
         for (i = 0; i < markers.length; i++){
           const marker = new google.maps.Marker({
+            icon: "/anchor-32.png",
             label: markers[i][0],
             position: new google.maps.LatLng(markers[i][1],markers[i][2]),
             zIndex: 1,
@@ -66,6 +71,14 @@
           });
         }
 
+      }
+      function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+         marker.setAnimation(null);
+        } 
+        else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
       }
     </script>
   </head>
