@@ -70,7 +70,11 @@
 
 <style>
     .body {
-        background-image: url("https://images.unsplash.com/photo-1558566455-b62dfa3e19a6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1589&q=80");
+        background-image: url("https://images.pexels.com/photos/3989748/pexels-photo-3989748.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
+        
     } 
     .card {
         background-color: rgba(0, 0, 0, 0.2);
