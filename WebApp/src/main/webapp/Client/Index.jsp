@@ -3,9 +3,22 @@
     <jsp:param name="SignedUser" value="${SignedUser}"/>
 </jsp:include>
 
-<div class="main-card">
+<!-- <div class="main-card">
     <h1 class="display-5 center">Welcome to the Client Page! </h1>
-</div>
+</div> -->
+
+<br>
+<br>
+
+<div class="jumbotron">
+    <h3 class="display-6" style="">Welcome to the Client Page!</h3>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+  </div>
 
 <style>
     .body {
@@ -28,6 +41,14 @@
         margin: auto;
         width: 50%;
         height: 50%;
+    }
+    .jumbotron {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        margin: auto;
+        width: 70%;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
     }
 </style>
 

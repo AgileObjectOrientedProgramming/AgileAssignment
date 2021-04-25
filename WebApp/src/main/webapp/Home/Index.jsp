@@ -33,7 +33,9 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Our Team</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text">This project is designed for course nr. 02160 Agile Object-Oriented Software
+                  Development. 
+        </p>
         <a href="/AboutUs" class="btn btn-primary">About us</a>
       </div>
     </div>

@@ -2,30 +2,49 @@
 <jsp:include page="../Shared/MainLayoutTop.jsp"> 
     <jsp:param name="SignedUser" value="${SignedUser}"/>
 </jsp:include>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<h1 class="display-1 center">Our Team</h1>
-
-<div class="card" style="width: 300px; margin: 20px">
-  <img src="/dario.jfif" alt="Dario" style="width:40%" class="center"   >
-  <h2>Dario</h2>
-  <p class="title">CEO & Founder, Example</p>
-  <p>Harvard University</p>
-</div>
+<h1 class="display-1 center">Team 6</h1>
 
 <div style="display: flex; flex-wrap: wrap">
   
   <div class="card" style="width: 300px; margin: 20px">
-      <div class="card-header">Logsistics User</div>
-      <div class="card-body">You have the ability of signing-up new clients and you can view any journey.</div>
+    <img src="/Dario.jpeg" alt="Dario" style="width:100%" class="center"   >
+    <h2>Dario</h2>
+    <p class="title">CEO & Founder, Example</p>
+    <p>Harvard University</p>
   </div>
   <div class="card" style="width: 300px; margin: 20px">
-    <div class="card-header">Client User</div>
-    <div class="card-body">You have the ability to make new journey requests.</div>
+    <img src="/Diana.jpeg" alt="Diana" style="width:100%" class="center"   >
+    <h2>Diana</h2>
+    <p class="title">CEO & Founder, Example</p>
+    <p>Harvard University</p>
   </div>
   <div class="card" style="width: 300px; margin: 20px">
-    <div class="card-header">Add new Journey</div>
-    <div class="card-body">As a client you can request a journey from thr available ports</div>
+    <img src="/Dusana.jpeg" alt="Dusana" style="width:100%" class="center"   >
+    <h2>Dusana</h2>
+    <p class="title">CEO & Founder, Example</p>
+    <p>Harvard University</p>
   </div>
+  <div class="card" style="width: 300px; margin: 20px">
+    <img src="/Emma.jpeg" alt="Emma" style="width:100%" class="center"   >
+    <h2>Emma</h2>
+    <p class="title">CEO & Founder, Example</p>
+    <p>Harvard University</p>
+  </div>
+  <div class="card" style="width: 300px; margin: 20px">
+    <img src="/Paulo.jpeg" alt="Paulo" style="width:100%" class="center"   >
+    <h2>Paulo</h2>
+    <p class="title">CEO & Founder, Example</p>
+    <p>Harvard University</p>
+  </div>
+  <div class="card" style="width: 300px; margin: 20px">
+    <img src="/Renjue.jpeg" alt="Renjue" style="width:100%" class="center"   >
+    <h2>Renjue</h2>
+    <p class="title">CEO & Founder, Example</p>
+    <p>Harvard University</p>
+  </div>
+
 </div>
 
 
@@ -43,6 +62,9 @@
         width: 70%;
         backdrop-filter: blur(10px);
         border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        text-align: center;
     }
     .main-card {
         background-color: rgba(0, 0, 0, 0.2);
@@ -53,7 +75,7 @@
     .center {
         color: white;
         margin: auto;
-        width: 35%;
+        width: 20%;
         height: 50%;
         padding-top: 2.5%;
     }
