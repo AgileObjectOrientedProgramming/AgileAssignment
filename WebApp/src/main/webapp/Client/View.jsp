@@ -19,6 +19,37 @@
     <a href="/Client/Edit" class="btn btn-success">Edit Profile</a>
 </c:if>
 
+<style>
+    .body {
+        background-image: url("https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
+        
+    } 
+    .card {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        margin: auto;
+        width: 70%;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+    }
+    .main-card {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+    }
+    .center {
+        color: white;
+        margin: auto;
+        width: 35%;
+        height: 50%;
+        padding-top: 2.5%;
+    }
+</style>
+
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
 

@@ -4,17 +4,18 @@
 </jsp:include>
 
 
+<div class=main-card>
 
+</div>
 <h2>Search all your Journeys</h2> 
 
 <form action="/Journey/Search" method="get" style="display:flex;">
-    <input type="text" class="form-control" name="Query" value="${Query}">
+    <input type="text" class="form-control" name="Query" value="${Query}"
+        placeholder="Criteria" aria-label="Criteria">
     <input type="submit" class="btn btn-success" value="Search" style="margin-left: 5px"> 
-</form>
-
+</form> 
 <br>
 <br>
-
 
 <h2>Journey List</h2> 
 
@@ -44,4 +45,25 @@
     </c:forEach>
 </tbody>
 </table>
+
+
+<style>
+    .body {
+        background-image: url("https://images.pexels.com/photos/1655166/pexels-photo-1655166.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
+    } 
+    .thead-light {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        backdrop-filter: blur(20px);
+    }
+    .table-hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        backdrop-filter: blur(10px);
+    }
+</style>
+
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
