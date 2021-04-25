@@ -1,7 +1,6 @@
 package ForYouShipment.Controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +19,7 @@ import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Search.AndCriteria;
 import ForYouShipment.Search.Criteria;
 import ForYouShipment.Search.CriteriaCID;
 import ForYouShipment.Search.CriteriaCJID;
@@ -79,7 +79,7 @@ public class JourneyController extends BaseController {
                         @RequestParam("Origin") String origin, 
                         @RequestParam("Destination") String destination,
                         @RequestParam("Content type") String content_type,
-                        @RequestParam("Company") String company) {
+                        @RequestParam("Company") String company) throws Exception {
         
         try {
             Port.ofString(origin);
@@ -93,6 +93,7 @@ public class JourneyController extends BaseController {
         UserModel user = GetUser(session);
 
         ContainerRegister.setJourney(origin, destination, content_type, company, user );
+        m.addAttribute("Ports", Port.class.getEnumConstants());
         m.addAttribute("SignedUser", GetUser(session));                    
         return "redirect:/Journey/Index";                            
     }
@@ -116,11 +117,22 @@ public class JourneyController extends BaseController {
         if (GetUser(session).IsLogisticUser()) {
             Criteria<JourneyInfo> user = new CriteriaUser();
             allCriteria = new OrCriteria<JourneyInfo>(allCriteria, user);
+            answer = allCriteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
+                                                    Query);
+        }
+        else { 
+            List<JourneyInfo> journey_list = new ArrayList<>(); 
+        
+            UserModel user = GetUser(session);
+            Criteria<JourneyInfo> user_journeys = new CriteriaUser();
+            journey_list = user_journeys.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
+                                                        user.getUsername());
+
+            answer = allCriteria.meetCriteria(journey_list, Query);
+
         }
         /* We are matching our query with all the fields set up by the user for a Journey*/
-        answer = allCriteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
-                                                    Query);
-
+        
 
         m.addAttribute("Query", Query);
         m.addAttribute("answer", answer);

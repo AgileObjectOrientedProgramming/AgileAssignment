@@ -7,46 +7,7 @@
 
 <h2>Your Journey information</h2> 
 
-<button onclick="myFunction()">Get ID</button>
-<style>
-  .tooltip {
-  position: relative;
-  display: inline-block;
-}
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 140px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -75px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-</style>
 
   <c:if test="${SignedUser.IsLogisticUser()}">
   <a class="btn btn-warning btn-lg" submit="${Journey.setStatus('Active')}" onclick="window.confirm('Are you sure you want to confirm the journey');">
@@ -124,26 +85,28 @@
         }
       }
       function myFunction() {
-        var url = window.location.href;
-        var copyText1 = url.substring(url.lastIndexOf('=') + 1);
-        var copyText = new DOMParser().parseFromString(copyText1, "text/xml");
-        //var copyText = url.substring(url.lastIndexOf('=') + 1);
-        //var copyText = "document.URL";
-        console.log(copyText);
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
-        document.execCommand("copy");
-        
-        var tooltip = document.getElementById("myTooltip");
-        tooltip.innerHTML = "Copied: " + copyText.value;
+        var dummy = document.createElement('input'),
+        text = window.location.href;
+
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
       }
+
+      
     </script>
-  </head>
-  <body>
+   </head>
+   <body>
+
+    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top" onclick="myFunction()">Get ID</button>
+    <br>
     <h3>Journey Map</h3>
     <!--The div element for the map -->
     <div id="map"></div>
-
+    
+  
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPxzk8oahETNTmTJPn39scuPoHIj_yZSY&callback=initMap&libraries=&v=weekly"

@@ -19,12 +19,13 @@ public class ContainerRegister {
     * @param company        A string with the name of the company
     * @param user           The user's UserModel
     * @return container
+     * @throws Exception
     */
     public static Container setJourney(String origin,
                                     String destination,
                                     String content_type,
                                     String company,
-                                    UserModel user) {
+                                    UserModel user) throws Exception {
 
                               
         ContainerMeasurements container = ContainerRegister.getFreeContainer(Port.ofString(origin));             

@@ -35,7 +35,7 @@ public class ContainerRegisterTest {
     }
 
     @Test
-    public void TestSetJourney() {
+    public void TestSetJourney() throws Exception {
         
         Container c = ContainerRegister.setJourney(origin, destination, content_type, company, user);
 
@@ -53,7 +53,7 @@ public class ContainerRegisterTest {
     }
 
     @Test
-    public void TestReturnContainer() {
+    public void TestReturnContainer() throws Exception {
         Container c = ContainerRegister.setJourney(origin, destination, content_type, company, user);
         JourneyInfo j = c.getJourney();
         assertFalse(j == null);

@@ -34,7 +34,7 @@ public enum Port {
         return name;
     }
     
-    public static Port ofString(String name){
+    public static Port ofString(String name) throws Exception{
         name = name.substring(0,1).toUpperCase() + name.substring(1);
         for (Port p: Port.class.getEnumConstants()){
             if (p.toString().equals(name))
@@ -42,7 +42,7 @@ public enum Port {
         }
         System.out.println(name);
         System.out.println("Invalid port name");
-        return null;
+        throw new EnumConstantNotPresentException(null, "Invalid port name");
     }
 
     public Double getLatitude(){
