@@ -23,8 +23,8 @@
       <div class="card-body">
         <h5 class="card-title">Our partner companies</h5>
         <p class="card-text">As a company client you have access to a personalised account, 
-                where you can manage your orders. Each order has a unique Shipment ID, which 
-                can be shared with your own customers. </p>
+                where you can manage your orders. In order to log in on this website, you must 
+                use the unique password and username provided by our team. </p>
         <a href="/UserManual" class="btn btn-primary">User Manual</a>
       </div>
     </div>

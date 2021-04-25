@@ -29,14 +29,14 @@
                 <img class="card-img-top" src="https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="Card image cap">
                 <div class="card-body">
                 <h5 class="card-title">Search bars</h5>
-                <p class="card-text">You have access to specific search bars, for example search through Journeys </p>
+                <p class="card-text">As a general user, you can search through journeys for a specific criteria. </p>
             </div>
             </div>
             <div class="card" style="width: 23rem;">
                 <img class="card-img-top" src="https://images.unsplash.com/photo-1501868984184-76121ed6a6e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="Card image cap">
                 <div class="card-body">
-                <h5 class="card-title">Search bars</h5>
-                <p class="card-text">As a general user, you have access to specific search bars, for example Journeys </p>
+                <h5 class="card-title">New Journey</h5>
+                <p class="card-text">The logistics company provides its clients with available containers for their orders. </p>
             </div>
             </div>
         </div>
