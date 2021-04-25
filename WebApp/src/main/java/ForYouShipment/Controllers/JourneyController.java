@@ -134,6 +134,7 @@ public class JourneyController extends BaseController {
         JourneyInfo j = criteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()), JourneyId).get(0);
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), JourneyId).get(0);
         m.addAttribute("ContainerID", c.getId());
+        m.addAttribute("Measurements", c);
         m.addAttribute("Journey", j); 
         m.addAttribute("SignedUser", GetUser(session));                
         return "Journey/View";

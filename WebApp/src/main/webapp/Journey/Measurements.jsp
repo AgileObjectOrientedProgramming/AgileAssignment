@@ -12,15 +12,22 @@
 
     <form action="/Journey/Measurements" method="post" class="card">
         <div class="card-header">
-            <h3>Set container easurements </h3>
+            <h3>Set container Measurements </h3>
         </div>
         
         <div class="card-body"> 
             <c:forEach items="${Container.getAllParameters()}" var="element">
                 <label for="element">${element} </label>
                 <br>
-                <input type="text" class="form-control" name="${element}" value required>
-                <br>
+                <c:choose>
+                    <c:when test="${element=='Time'}">
+                        <input type="date">
+                        <br>
+                    </c:when>
+                    <c:otherwise >
+                        <input type="text" class="form-control" name="${element}" value required>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
             <input type = "hidden" name ="ContainerID" value = "${ContainerID}">
         </div>    

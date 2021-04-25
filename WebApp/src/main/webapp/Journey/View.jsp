@@ -21,5 +21,29 @@
  
 From "${Journey.getOrigin().toString()} " to "${Journey.getDestination().toString()} "
 
+
+<c:if test="${!SignedUser.IsLogisticUser()}"> 
+    <div style="white-space: pre;">
+        <table class="table table-bordered table-dark" >
+            <thead  >
+                <tr>
+                    <th> Time </th>
+                    <th> Temperature </th>
+                    <th> Pressure </th>
+                    <th> Humidity </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${Measurements.getParameter('Time')} </td>
+                    <td>${Measurements.getParameter('Temperature')} </td>
+                    <td>${Measurements.getParameter('Pressure')}</td>
+                    <td>${Measurements.getParameter('Humidity')} </td>    
+                </tr>   
+            </tbody>
+            </table>
+    </div>
+</c:if>
+
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
 
