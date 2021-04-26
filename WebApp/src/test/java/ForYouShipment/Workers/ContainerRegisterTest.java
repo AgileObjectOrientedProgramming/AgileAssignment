@@ -1,9 +1,16 @@
 package ForYouShipment.Workers;
 
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.Container;
+import ForYouShipment.Models.ContainerMeasurements;
+import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
 
@@ -17,8 +24,8 @@ public class ContainerRegisterTest {
 
     @BeforeEach
     public void SetUpJourney() {
-        origin = "LISBON";
-        destination = "COPENHAGEN";
+        origin = "Lisbon";
+        destination = "Copenhagen";
         content_type = "Fragile";
         company = "Coop";
         container = ContainerStorage.GetInstance().getContainers().iterator().next();
@@ -27,33 +34,32 @@ public class ContainerRegisterTest {
         user.setID("1.1.1.1");
     }
 
-    //FIXME
-    // @Test
-    // public void TestSetJourney() throws Exception {
+    @Test
+    public void TestSetJourney() throws Exception {
         
-    //     Container c = ContainerRegister.setJourney(origin, destination, content_type, company, user);
+        Container c = ContainerRegister.setJourney(origin, destination, content_type, company, user);
 
-    //     assertTrue(c.getJourney().getOrigin().equals(Port.valueOf(origin)));
-    // }
-
-    // @Test
-    // public void TestGetFreeContainer() {
-    //     Port valid_origin = Port.LISBON;
-    //     Port invalid_origin = Port.PORTO;
-
-    //     assertTrue(ContainerRegister.getFreeContainer(valid_origin).getLocation() == valid_origin);
-    //     assertTrue(ContainerRegister.getFreeContainer(invalid_origin) == null);
-        
-    // }
+        assertTrue(c.getJourney().getOrigin().equals(Port.ofString(origin)));
+    }
 
     //FIXME
-    // @Test
-    // public void TestReturnContainer() throws Exception {
-    //     Container c = ContainerRegister.setJourney(origin, destination, content_type, company, user);
-    //     JourneyInfo j = c.getJourney();
-    //     assertFalse(j == null);
-    //     ContainerRegister.returnContainer(c);
-    //     assertTrue(c.getJourney() == null);
-    //     assertTrue(c.getLocation() == j.getDestination());
-    // }
+    @Test
+    public void TestGetFreeContainer() {
+        Port valid_origin = Port.LISBON;
+        //Port invalid_origin = Port.PORTO;
+
+        assertTrue(ContainerRegister.getFreeContainer(valid_origin).getLocation() == valid_origin);
+       
+        
+    }
+
+    @Test
+    public void TestReturnContainer() throws Exception {
+        ContainerMeasurements c = ContainerRegister.setJourney(origin, destination, content_type, company, user);
+        JourneyInfo j = c.getJourney();
+        assertFalse(j == null);
+        ContainerRegister.returnContainer(c);
+        assertTrue(c.getJourney() == null);
+        assertTrue(c.getLocation() == j.getDestination());
+    }
 }

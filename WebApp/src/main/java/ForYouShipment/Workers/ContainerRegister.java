@@ -21,7 +21,7 @@ public class ContainerRegister {
     * @return container
      * @throws Exception
     */
-    public static Container setJourney(String origin,
+    public static ContainerMeasurements setJourney(String origin,
                                     String destination,
                                     String content_type,
                                     String company,
