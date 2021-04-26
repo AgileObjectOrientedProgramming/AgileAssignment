@@ -59,9 +59,7 @@
           position: new google.maps.LatLng(current_lat,current_lng),
           zIndex: 2,
           map: map,
-          icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-          }
+          icon: "/packageicon.png",
         })
         marker.addListener("click", toggleBounce);
         // Markers for all the ports

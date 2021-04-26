@@ -7,7 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ForYouShipment.Storage.UserStorage;
+import ForYouShipment.Constants.Port;
+import ForYouShipment.Storage.ContainerStorage;
 
 @Controller
 @RequestMapping("/")
@@ -31,5 +32,12 @@ public class HomeController extends BaseController {
         return "Home/AboutUs";
     }
     
-
+    @RequestMapping({"/WorldMap"})
+    public String WorldMap(HttpServletRequest req, Model m, HttpSession session) {
+        m.addAttribute("Containers", ContainerStorage.getUsedContainers());
+        m.addAttribute("ports", Port.class.getEnumConstants());               
+        m.addAttribute("SignedUser", GetUser(session));
+        return "Home/WorldMap";
+    }
+    
 }
