@@ -18,7 +18,6 @@ public class LogisticsController extends BaseController {
     @RequestMapping(value={ "/Index", "/", "" })
     public String Index(HttpServletRequest req, Model m, HttpSession session) {
 
-        return LogisticsFacade.Index(req, m, session);
     }
 
 }
