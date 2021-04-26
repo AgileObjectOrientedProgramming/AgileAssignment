@@ -112,7 +112,7 @@
         background-color: rgba(0, 0, 0, 0.2);
         color:white;
         margin: auto;
-        width: 70%;
+        width: 80%;
         backdrop-filter: blur(10px);
         margin-bottom: 10px;
     }

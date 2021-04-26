@@ -160,7 +160,19 @@
 <style>
 * { box-sizing: border-box; }
     body {
-      font: 16px Arial;
+        background-image: url("https://images.pexels.com/photos/1655166/pexels-photo-1655166.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
+        font: 16px Arial;
+    }
+    .card {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:black;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        width: 70%;
+        margin: auto;
     }
     .autocomplete {
       /*the container must be positioned relative:*/
