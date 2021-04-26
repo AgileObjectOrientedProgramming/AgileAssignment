@@ -2,6 +2,7 @@ package ForYouShipment.Workers;
 
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Container;
+import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
@@ -18,31 +19,35 @@ public class ContainerRegister {
     * @param company        A string with the name of the company
     * @param user           The user's UserModel
     * @return container
+     * @throws Exception
     */
     public static Container setJourney(String origin,
                                     String destination,
                                     String content_type,
                                     String company,
-                                    UserModel user) {
+                                    UserModel user) throws Exception {
 
-        Container container = ContainerRegister.getFreeContainer(Port.valueOf(origin.toUpperCase()));             
+                              
+        ContainerMeasurements container = ContainerRegister.getFreeContainer(Port.ofString(origin));             
         JourneyInfo journey = new JourneyInfo();
-        journey.setOrigin(Port.valueOf(origin.toUpperCase()));
-        journey.setDestination(Port.valueOf(destination.toUpperCase()));
+        journey.setOrigin(Port.ofString(origin));
+        journey.setDestination(Port.ofString(destination));
         journey.setContent_type(content_type);
         journey.setCompany(company);
         journey.setParameter("Username", user.getUsername());
         journey.setParameter("ID", user.getID());
         
         container.setJourney(journey);
+        container.setParameter("Latitude", "" + Port.ofString(origin).getLatitude());
+        container.setParameter("Longitude","" + Port.ofString(origin).getLongitude());
         return container;
     }
 
     /**  Gets a random availabe container from the storage
      *   that is located at the given Port.
      */
-    public static Container getFreeContainer(Port origin) {
-        for (Container c: ContainerStorage.GetInstance().getContainers()) {
+    public static ContainerMeasurements getFreeContainer(Port origin) {
+        for (ContainerMeasurements c: ContainerStorage.GetInstance().getContainers()) {
             if (c.getJourney() == null && c.getLocation() == origin)  
                 return c;
                 

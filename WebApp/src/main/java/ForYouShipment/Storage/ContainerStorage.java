@@ -38,7 +38,8 @@ public class ContainerStorage{
     public static ContainerStorage GetInstance() {
         if (instance == null) {
             instance = new ContainerStorage();
-            ContainerStorage.addContainers(instance, 200, Port.LISBON);
+            for (Port p: Port.class.getEnumConstants())
+            ContainerStorage.addContainers(instance, 50, p);
         }
         return instance;
     }
