@@ -43,6 +43,6 @@ public class ContainerStorageTest {
     @BeforeEach
     public void ClearGarbage() {
         ContainerStorage.GetInstance().getContainers().clear();
-        ContainerStorage.addContainers(ContainerStorage.GetInstance(), 200 , Port.LISBON);
+        ContainerStorage.addContainers( 200 , Port.LISBON);
     }
 }

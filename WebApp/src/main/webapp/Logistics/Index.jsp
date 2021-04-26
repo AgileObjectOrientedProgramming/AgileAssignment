@@ -4,23 +4,10 @@
 </jsp:include>
 
 
-<h2 lass="display-1">Welcome to the Logistics Board!</h2> 
-
-<br>
+<h2 class="display-1">Welcome to the Logistics Board!</h2> 
 <br>
 
-<ul>
-    <c:forEach items="${SignedUser.getProfile().getAllParameters()}" var="element">
-        <li>
-            ${element}: ${SignedUser.getProfile().getParameter(element)}
-        </li>   
-    </c:forEach>
-</ul>
-
-<br>
-<br>
-
-<div class="card">
+<!-- <div class="card">
     <div class="card-body">
       <h5 class="card-title">Important Statistics</h5>
         <ul class="list-group list-group-flush">
@@ -34,9 +21,37 @@
         </a>
     </div>
   </div>
+  -->
 
-
-
+<div class="main-card">
+    <div class="card-body">
+        <h2 class="card-title">Important Statistics</h3>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Clients</a></li>
+            <li><a data-toggle="tab" href="#menu1">Journeys</a></li>
+            <li><a data-toggle="tab" href="#menu2">Containers</a></li>
+          </ul>
+          
+          <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+              <h3>Client Management</h3>
+              <p>Some content.</p>
+                <a class="btn btn-success" href="/Signup">
+                    Add Client
+                </a>
+            </div>
+            <div id="menu1" class="tab-pane fade" color="white">
+              <h3>Journey Management</h3>
+              <p>Some content in menu 1.</p>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+              <h3>Container Management</h3>
+              <p>Some content in menu 2.</p>
+            </div>
+            
+          </div>
+    </div>
+</div>
 
 
 <style>
@@ -46,17 +61,29 @@
         background-repeat: no-repeat;
         background-size: cover;
     } 
-    .card {
+    .main-card {
         background-color: rgba(0, 0, 0, 0.2);
         color:white;
         backdrop-filter: blur(10px);
         border-radius: 10px;
+        width: 70%;
+        margin: auto;
     }
     .list-group-item {
         background-color: rgba(0, 0, 0, 0.2);
         color:white;
     }
+    a {
+        color: #e9ecef;
+        text-decoration: none;
+    }
+    a {
+        background-color: rgb(255 255 255 / 15%);
+    }
+    h2 { text-align: center }
 </style>
+
+
 
 
 

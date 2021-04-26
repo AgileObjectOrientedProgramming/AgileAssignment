@@ -21,7 +21,7 @@ public class ContainerRegister {
     * @return container
      * @throws Exception
     */
-    public static Container setJourney(String origin,
+    public static ContainerMeasurements setJourney(String origin,
                                     String destination,
                                     String content_type,
                                     String company,
@@ -55,18 +55,19 @@ public class ContainerRegister {
         return null;
     }
 
-
       /**  Using this method on a container completes the Journey.
        *  It sets the location of the container to the destination of the journey,
-       *  marks the journey status as <string>"Completed"</string>
+       *  marks the journey status as "Completed"
        *  and dissociates the container from the journey.
+       * @param container Container to return
      */
-    public static void returnContainer(Container container) {
+    public static void returnContainer(ContainerMeasurements container) {
+        Port destination = container.getJourney().getDestination();
+        container.setParameter("Latitude", destination.getLatitude().toString());
+        container.setParameter("Longitude", destination.getLongitude().toString());
         container.setLocation(container.getJourney().getDestination());
         container.getJourney().setStatus("Completed");
         container.setJourney(null);
     }
-
-
 }
 

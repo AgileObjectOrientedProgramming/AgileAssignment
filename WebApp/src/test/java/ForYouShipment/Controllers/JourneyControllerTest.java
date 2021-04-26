@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.Container;
+import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Storage.ContainerStorage;
@@ -95,33 +96,33 @@ public class JourneyControllerTest {
     }
 
     //FIXME
-    // @Test
-    // public void TestRegisterContainer() throws Exception {
+    @Test
+    public void TestRegisterContainer() throws Exception {
 
-    //     MockHttpSession session = new MockHttpSession();
-    //     session.setAttribute("SignedUser", "1.2.3.4");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
 
-	// 	MvcResult resultActions = 
-    //         this.mockMvc.perform(
-    //             post("/Journey/New")
-    //             .param("Origin", "LISBON")
-    //             .param("Destination", "PORTO")
-    //             .param("Content type", "TESTTEST")
-    //             .param("Company", "Coop")
-    //             .session(session)
-    //         )
-    //         .andExpect(status().is(302))
-    //         .andReturn();
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Journey/New")
+                .param("Origin", "Lisbon")
+                .param("Destination", "Porto")
+                .param("Content type", "TESTTEST")
+                .param("Company", "Coop")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
 
-    //     int i = 0;
+        int i = 0;
 
-    //     for (Container c: ContainerStorage.GetInstance().getContainers())
-    //         if (c.getJourney() != null
-    //             && c.getJourney().getContent_type().equals("TESTTEST"))
-    //                 i++;
+        for (ContainerMeasurements c: ContainerStorage.GetInstance().getContainers())
+            if (c.getJourney() != null
+                && c.getJourney().getContent_type().equals("TESTTEST"))
+                    i++;
         
-    //     assertTrue( i == 1);
-    // }
+        assertTrue( i == 1);
+    }
 
     //FIXME
     // @Test

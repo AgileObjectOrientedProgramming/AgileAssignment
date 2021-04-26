@@ -13,7 +13,7 @@ public class JourneyInfo extends Journey{
     private  List<String> AvailableParameters = Arrays.asList("Username", "ID");
 
     public JourneyInfo() {
-        this.setStatus("Waiting for approval");
+        this.setStatus("Waiting for aproval");
         this.setId(IDGenerator.GenerateID());
         JourneyStorage.GetInstance().getJourneys().add(this);
         Parameters = new HashMap<>();
