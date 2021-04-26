@@ -39,7 +39,7 @@
                 <option value="Fragile">Standard</option>
                 <option value="Flamable">Flamable</option>
                 <option value="Standard">Fragile</option>
-                <option value="Emma">Food</option>
+                <option value="Food">Food</option>
               </select>
               
         </div>    
