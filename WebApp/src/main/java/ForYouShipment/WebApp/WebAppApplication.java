@@ -8,6 +8,7 @@ import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Persistance.StoragePersistance;
+import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.UserStorage;
 
 @SpringBootApplication @ComponentScan(basePackages = { "ForYouShipment.Controllers" } )
@@ -23,7 +24,7 @@ public class WebAppApplication {
 		admin.getProfile().setParameter("LastName", "Administrator");
 		admin.getProfile().setParameter("Email", "admin@dtu.dk");
 		admin.getProfile().setParameter("Role", "Admin");
-
+		ContainerStorage.GetInstance();
 		UserStorage.GetInstance().getUsers().add(admin);
 
 	}

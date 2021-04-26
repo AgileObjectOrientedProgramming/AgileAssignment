@@ -153,8 +153,6 @@ public class JourneyController extends BaseController {
         m.addAttribute("ContainerID", c.getId());
         m.addAttribute("Journey", j); 
         m.addAttribute("ID", JourneyId);
-        System.out.println(c.getParameter("Latitude"));
-        System.out.println(c.getParameter("Longitude"));
         m.addAttribute("Latitude", Double.parseDouble(c.getParameter("Latitude")));
         m.addAttribute("Longitude", Double.parseDouble(c.getParameter("Longitude")));
         m.addAttribute("SignedUser", GetUser(session)); 

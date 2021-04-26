@@ -26,6 +26,7 @@
         <nav class="my-2 my-md-0 mr-md-3">
           <c:if test="${SignedUser != null && !SignedUser.IsLogisticUser()}">
             <a class="btn btn-outline-secondary" href="/">Home</a>
+            <a class="btn btn-outline-secondary" href="/WorldMap">World Map</a>
             <a class="btn btn-outline-secondary" href="/Journey">Journey Page</a>
             <a class="btn btn-outline-secondary" href="/Client">Client Page</a>
             <a class="btn btn-outline-secondary" href="/Client/View?ID=${SignedUser.getID()}">${SignedUser.getUsername()}</a>
@@ -33,6 +34,7 @@
           </c:if>
           <c:if test="${SignedUser != null && SignedUser.IsLogisticUser()}">
             <a class="btn btn-outline-secondary" href="/">Home</a>
+            <a class="btn btn-outline-secondary" href="/WorldMap">World Map</a>
             <a class="btn btn-outline-secondary" href="/Journey/Search">Journeys</a>
             <a class="btn btn-outline-secondary" href="/Logistics">Logistics Page</a>
             <a class="btn btn-outline-secondary" href="/Client/Search">Search Clients</a>
@@ -40,6 +42,7 @@
           </c:if>
           <c:if test="${SignedUser == null}">
             <a class="btn btn-outline-secondary" href="/">Home</a>
+            <a class="btn btn-outline-secondary" href="/WorldMap">World Map</a>
             <a class="btn btn-outline-primary" href="/Login">Log in</a>
           </c:if>
         </nav>

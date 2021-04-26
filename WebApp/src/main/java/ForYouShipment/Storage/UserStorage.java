@@ -54,6 +54,19 @@ public class UserStorage implements Storage {
         return "UserStorage"; 
     }
 
+    /**
+     * This method return the number of client users
+     * @return number of clients as an int
+     */
+    public int countClients(){
+        int nr_of_clients = 0;
+        for (UserModel user: instance.Users){
+            if (!user.IsLogisticUser())
+                nr_of_clients++;
+        }
+        return nr_of_clients;
+    }
+
     private static UserStorage instance = null;
 
     public static UserStorage GetInstance() {
