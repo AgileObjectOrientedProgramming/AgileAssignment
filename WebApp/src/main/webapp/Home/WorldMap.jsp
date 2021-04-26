@@ -85,23 +85,7 @@
       </script>
      </head>
      <body>
-  
-      <button type="button" class="btn btn-secondary" id="liveToastBtn" data-toggle="tooltip" data-placement="top" title="Tooltip on top" onclick="myFunction()">Get ID</button>
-      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-          </div>
-          <div class="toast-body">
-            Hello, world! This is a toast message.
-          </div>
-        </div>
-      </div>
-      <br>
-      <h3>Journey Map</h3>
+
       <!--The div element for the map -->
       <div id="map"></div>
       
@@ -112,4 +96,13 @@
         async
       ></script>
 
-      <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
+<style>
+  .body {
+        background-image: url("https://images.pexels.com/photos/234272/pexels-photo-234272.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
