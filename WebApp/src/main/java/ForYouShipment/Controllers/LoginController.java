@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ForYouShipment.Models.UserModel;
-import ForYouShipment.Workers.AuthenticateUserWorker;
+import ForYouShipment.Facade.LoginFacade;
 
 
 @Controller
@@ -37,23 +36,10 @@ public class LoginController extends BaseController {
                 @RequestParam("Username") String Username, 
                 @RequestParam("Password") String Password) {
 
-        String ID = AuthenticateUserWorker.Authenticate(Username, Password);
-    
-        if (ID == null) {
-            m.addAttribute("warning", "Invalid Username or Password!");
-            m.addAttribute("SignedUser", GetUser(session));
-            return "Login/Index";
-        }
-
-        session.setAttribute("SignedUser", ID);
-
-        UserModel SignedUser = GetUser(session);
-
-        if (SignedUser.IsLogisticUser())
-            return "redirect:/Logistics";
-
-        return "redirect:/Client";
+        return LoginFacade.Login(m, session, Username, Password);
     }
+
+   
 
     /**
      * This function is used in order to log our any type of user.

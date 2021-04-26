@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Container;
@@ -39,11 +41,11 @@ public class ContainerStorage implements Storage{
     public void ReadContentFromJSON(JSONArray array) {
         Containers = new HashSet<>();
 
-        // for (int i = 0; i < array.length(); i++) {
-        //     JSONObject obj = array.getJSONObject(i);
-        //     ContainerMeasurements u = UserModelFactory.UserModelFromJSON(obj);
-        //     Containers.add(u);
-        // }
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject obj = array.getJSONObject(i);
+            ContainerMeasurements u = ContainerFactory.ContainerFromJSON(obj);
+            Containers.add(u);
+        }
     }
 
     public String StorageName() { 
