@@ -4,14 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Container;
 import ForYouShipment.Models.ContainerMeasurements;
-import ForYouShipment.Models.UserModel;
 import ForYouShipment.Persistance.ContainerFactory;
-import ForYouShipment.Persistance.UserModelFactory;
 
 /**
  * Singleton class storing all informations.
@@ -22,6 +19,10 @@ public class ContainerStorage implements Storage{
     private Set <ContainerMeasurements> Containers;
 
     
+
+    public void setContainers(Set<ContainerMeasurements> containers) {
+        Containers = containers;
+    }
 
     private ContainerStorage() {
         Containers = new HashSet<>();
@@ -66,8 +67,6 @@ public class ContainerStorage implements Storage{
         }
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Gets the total number of containers
      * @return
@@ -107,7 +106,6 @@ public class ContainerStorage implements Storage{
     }
 
 
->>>>>>> a25c5a66a872b58f0b731cf2b1dc4fb8d37146ff
     private static ContainerStorage instance = null;
 
     public static ContainerStorage GetInstance() {

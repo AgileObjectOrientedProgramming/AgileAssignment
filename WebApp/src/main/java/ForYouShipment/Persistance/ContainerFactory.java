@@ -15,29 +15,21 @@ public class ContainerFactory {
         JSONObject obj = new JSONObject();
         obj.put("location", container.getLocation());
         obj.put("id", container.getId());
-        obj.put("JourneyInfo", container.getJourney());
+        for (String item : container.getAllParameters())
+            obj.put(item, container.getParameter(item));
         return obj;
     }
 
     public static UserModel UserModelFromJSON(JSONObject obj) throws JSONException {
-        UserModel user = null;
+        ContainerMeasurements c = null;
 
-        if ("false".equals(obj.getString("IsLogisticsUser"))) {
-            user = new ClientUserModel();
-            user.setProfile(new ClientProfileModel());
-        }
-        else if ("true".equals(obj.getString("IsLogisticsUser"))) {
-            user = new LogisticsUserModel();
-            user.setProfile(new LogisticsProfileModel());
-        } 
-        else
-            throw new JSONException("Unable to get user profile");
+     
         
-        user.setID(obj.getString("ID"));
-        user.setUsername(obj.getString("Username"));
-        user.setPassword(obj.getString("Password"));
+        c.setID(obj.getString("ID"));
+        c.setUsername(obj.getString("Username"));
+        char.setPassword(obj.getString("Password"));
         
-        for (String item : user.getProfile().getAllParameters())
+        for (String item : c.getProfile().getAllParameters())
             user.getProfile().setParameter(item, obj.getString(item));
 
         return user;

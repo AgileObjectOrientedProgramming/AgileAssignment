@@ -2,15 +2,16 @@ package ForYouShipment.Storage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 import java.util.HashSet;
 
-import org.junit.jupiter.api.AfterEach;
+import org.json.JSONArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import ForYouShipment.Constants.Port;
+import ForYouShipment.Models.ClientUserModel;
+import ForYouShipment.Models.UserModel;
+import ForYouShipment.Workers.ContainerRegister;
 
 
 
@@ -18,7 +19,7 @@ public class ContainerStorageTest {
 
     
     @Test
-    public void TestgetUsers() {
+    public void TestgetContainers() {
         assertTrue(
             ContainerStorage
             .GetInstance()
@@ -31,13 +32,27 @@ public class ContainerStorageTest {
 
     @Test
     public void TestsetContainers() {
-        UserStorage.GetInstance().setUsers(new HashSet<>());
+        ContainerStorage.GetInstance().setContainers(new HashSet<>());
         assertTrue(
-            UserStorage
+            ContainerStorage
             .GetInstance()
-            .getUsers()
+            .getContainers()
             .size() == 0
         );
+    }
+
+    @Test
+    public void TestPersitence() throws Exception {
+        UserModel u = new ClientUserModel();
+        
+        ContainerRegister.setJourney("Lisbon",
+                                     "Porto", 
+                                    "Fragile", 
+                                    "ASD",
+                                    u);
+                                    
+        JSONArray o = ContainerStorage.GetInstance().SaveContentToJSON();
+        System.out.println(o.toString());
     }
 
     @BeforeEach
