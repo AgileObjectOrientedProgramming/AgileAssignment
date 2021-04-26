@@ -24,7 +24,7 @@ public class CriteriaOriginTest {
         journeys.add(j);
         journeys.add(j2);
         Criteria<JourneyInfo > c = new CriteriaOrigin();
-        journeys = c.meetCriteria(journeys, "Ams");
+        journeys = c.meetCriteria(journeys, "Rot");
         assertTrue(journeys.size() == 1);
 
         

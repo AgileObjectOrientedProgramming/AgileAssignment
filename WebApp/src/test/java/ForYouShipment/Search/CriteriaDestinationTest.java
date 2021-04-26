@@ -24,7 +24,7 @@ public class CriteriaDestinationTest {
         journeys.add(j);
         journeys.add(j2);
         Criteria<JourneyInfo > c = new CriteriaDestination();
-        journeys = c.meetCriteria(journeys, "Ams");
+        journeys = c.meetCriteria(journeys, "ROT");
         assertTrue(journeys.size() == 1);
 
         
