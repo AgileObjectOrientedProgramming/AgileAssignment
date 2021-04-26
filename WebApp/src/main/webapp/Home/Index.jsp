@@ -4,7 +4,7 @@
 </jsp:include>
 
 
-<h1 class="display-1 center">ForYouShipment</h1>
+<h1 class="display-1">ForYouShipment</h1>
 <br>
 <br>
 
@@ -34,7 +34,8 @@
       <div class="card-body">
         <h5 class="card-title">Our Team</h5>
         <p class="card-text">This project is designed for course nr. 02160 Agile Object-Oriented Software
-                  Development. 
+                  Development. We are Group no. 6 and we present you the best logistics website that has
+                  ever been created on the market. Enjoy your time! 
         </p>
         <a href="/AboutUs" class="btn btn-primary">About us</a>
       </div>
@@ -92,13 +93,7 @@
         backdrop-filter: blur(10px);
         border-radius: 10px;
     }
-    .center {
-        color: white;
-        margin: auto;
-        width: 35%;
-        height: 50%;
-        padding-top: 2.5%;
-    }
+    h1 { color:white; text-align: center }
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

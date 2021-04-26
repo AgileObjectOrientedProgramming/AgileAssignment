@@ -80,7 +80,7 @@
     a {
         background-color: rgb(255 255 255 / 15%);
     }
-    
+    h2 { text-align: center }
 </style>
 
 
