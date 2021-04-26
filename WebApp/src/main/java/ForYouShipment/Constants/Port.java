@@ -34,6 +34,7 @@ public enum Port {
         return name;
     }
     
+    
     public static Port ofString(String name) throws Exception{
         name = name.substring(0,1).toUpperCase() + name.substring(1);
         for (Port p: Port.class.getEnumConstants()){
@@ -51,5 +52,13 @@ public enum Port {
 
     public Double getLongitude(){
        return longitude;        
+    }
+    
+    /**
+     * Returns the number of Ports
+     * @return Number of Ports as int
+     */
+    public static int countPorts(){
+        return Port.values().length;
     }
 }

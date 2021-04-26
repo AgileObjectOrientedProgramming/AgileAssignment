@@ -39,8 +39,32 @@ public class ContainerStorage{
     }
 
     /**
-     * 
+     * Gets the total number of containers
      * @return
+     */
+    public static int countContainers(){
+        return instance.Containers.size();
+    }
+
+    /**
+     * Gets the used containers (not in
+     * a journey)
+     * @return Used containers in a set
+     */
+    public static Set<ContainerMeasurements> getUsedContainers(){
+        Set<ContainerMeasurements> used = new HashSet<>();
+        for (ContainerMeasurements c : instance.Containers){
+            if (c.getJourney()!=null){
+                used.add(c);
+            }
+        }
+        return used;
+    }
+
+        /**
+     * Gets the number of free containers (not in
+     * a journey)
+     * @return Number of available container as int
      */
     public static int getFreeContainers(){
         int i = 0;
@@ -51,6 +75,7 @@ public class ContainerStorage{
         }
         return i;
     }
+
 
     private static ContainerStorage instance = null;
 
