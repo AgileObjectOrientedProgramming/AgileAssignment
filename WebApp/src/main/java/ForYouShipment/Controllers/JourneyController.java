@@ -1,7 +1,6 @@
 package ForYouShipment.Controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +19,7 @@ import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Search.AndCriteria;
 import ForYouShipment.Search.Criteria;
 import ForYouShipment.Search.CriteriaCID;
 import ForYouShipment.Search.CriteriaCJID;
@@ -67,7 +67,9 @@ public class JourneyController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.CREATE, session, req))
             return "redirect:/Login/";
         
-        m.addAttribute("Port list", new ArrayList<Port>(Arrays.asList(Port.values())));
+  
+
+        m.addAttribute("Ports", Port.class.getEnumConstants());
         m.addAttribute("SignedUser", GetUser(session));
         return "Journey/New";
     }
@@ -77,23 +79,27 @@ public class JourneyController extends BaseController {
                         @RequestParam("Origin") String origin, 
                         @RequestParam("Destination") String destination,
                         @RequestParam("Content type") String content_type,
-                        @RequestParam("Company") String company) {
+                        @RequestParam("Company") String company) throws Exception {
         
-        
+        try {
+            Port.ofString(origin);
+            Port.ofString(destination);
+            
+        } catch (Exception e) {
+            m.addAttribute("warning", "Invalid origin or destination");
+            m.addAttribute("SignedUser", GetUser(session));    
+            return "Journey/New";
+        }
         UserModel user = GetUser(session);
 
         ContainerRegister.setJourney(origin, destination, content_type, company, user );
-
+        m.addAttribute("Ports", Port.class.getEnumConstants());
         m.addAttribute("SignedUser", GetUser(session));                    
         return "redirect:/Journey/Index";                            
     }
 
     @RequestMapping(value={ "/Search" })
     public String Search(HttpServletRequest req, Model m, HttpSession session) {
-
-        if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.SEARCH, session, req))
-            return "redirect:/Login/";
-
 
         String Query = req.getParameter("Query");
         if (Query == null)
@@ -111,11 +117,22 @@ public class JourneyController extends BaseController {
         if (GetUser(session).IsLogisticUser()) {
             Criteria<JourneyInfo> user = new CriteriaUser();
             allCriteria = new OrCriteria<JourneyInfo>(allCriteria, user);
+            answer = allCriteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
+                                                    Query);
+        }
+        else { 
+            List<JourneyInfo> journey_list = new ArrayList<>(); 
+        
+            UserModel user = GetUser(session);
+            Criteria<JourneyInfo> user_journeys = new CriteriaUser();
+            journey_list = user_journeys.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
+                                                        user.getUsername());
+
+            answer = allCriteria.meetCriteria(journey_list, Query);
+
         }
         /* We are matching our query with all the fields set up by the user for a Journey*/
-        answer = allCriteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
-                                                    Query);
-
+        
 
         m.addAttribute("Query", Query);
         m.addAttribute("answer", answer);
@@ -135,7 +152,13 @@ public class JourneyController extends BaseController {
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), JourneyId).get(0);
         m.addAttribute("ContainerID", c.getId());
         m.addAttribute("Journey", j); 
-        m.addAttribute("SignedUser", GetUser(session));                
+        m.addAttribute("ID", JourneyId);
+        System.out.println(c.getParameter("Latitude"));
+        System.out.println(c.getParameter("Longitude"));
+        m.addAttribute("Latitude", Double.parseDouble(c.getParameter("Latitude")));
+        m.addAttribute("Longitude", Double.parseDouble(c.getParameter("Longitude")));
+        m.addAttribute("SignedUser", GetUser(session)); 
+        m.addAttribute("ports", Port.class.getEnumConstants());               
         return "Journey/View";
     }
 

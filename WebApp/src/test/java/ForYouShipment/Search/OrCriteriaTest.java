@@ -19,7 +19,7 @@ public class OrCriteriaTest {
         JourneyInfo j2 = new JourneyInfo();
         JourneyInfo j3 = new JourneyInfo();
 
-        j1.setOrigin(Port.AMSTERDAM);
+        j1.setOrigin(Port.ROTTERDAM);
         j2.setOrigin(Port.CAPETOWN);
         j3.setOrigin(Port.SHANGAI);
         

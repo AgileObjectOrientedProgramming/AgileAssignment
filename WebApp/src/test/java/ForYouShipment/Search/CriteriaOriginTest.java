@@ -19,12 +19,12 @@ public class CriteriaOriginTest {
         List<JourneyInfo > journeys = new ArrayList<>();
         JourneyInfo j = new JourneyInfo();
         JourneyInfo j2 = new JourneyInfo();
-        j.setOrigin(Port.AMSTERDAM);
+        j.setOrigin(Port.ROTTERDAM);
         j2.setOrigin(Port.CAPETOWN);
         journeys.add(j);
         journeys.add(j2);
         Criteria<JourneyInfo > c = new CriteriaOrigin();
-        journeys = c.meetCriteria(journeys, "Ams");
+        journeys = c.meetCriteria(journeys, "Rot");
         assertTrue(journeys.size() == 1);
 
         
