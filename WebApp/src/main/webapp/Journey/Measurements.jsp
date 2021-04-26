@@ -12,7 +12,7 @@
 
     <form action="/Journey/Measurements" method="post" class="card">
         <div class="card-header">
-            <h3>Set container easurements </h3>
+            <h3>Set container measurements </h3>
         </div>
         
         <div class="card-body"> 
@@ -26,11 +26,28 @@
         </div>    
         <div style="display: flex; justify-content: space-between;" class="card-footer">
             <input type="submit" class="btn btn-success" value="Submit">
-            <a class="btn btn-danger" href="/">Cancel</a>
+            <a class="btn btn-danger" href="/Journey/Search">Cancel</a>
         </div>
     </form>
 </div>
 
+<style>
+    .card {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        margin: auto;
+        width: 80%;
+        backdrop-filter: blur(10px);
+        margin-bottom: 10px;
+    }
+  .body {
+        background-image: url("https://images.pexels.com/photos/234272/pexels-photo-234272.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    h1 { text-align: center }
+</style>
 
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

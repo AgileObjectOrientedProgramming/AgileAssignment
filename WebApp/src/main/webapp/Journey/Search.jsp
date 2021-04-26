@@ -17,6 +17,10 @@
 <br>
 <br>
 
+<c:if test="${!SignedUser.IsLogisticUser()}">
+<a class="btn btn-success btn-lg float-end" href="/Journey/New" > New Journey</a>
+</c:if>
+
 <h2>Journey List</h2> 
 
 <br>

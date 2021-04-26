@@ -17,11 +17,14 @@ public class LogisticsFacade extends Facade{
         if (!HasAccess(AccessActionNounEnum.LOGISTICS_MANAGEMENT, AccessActionVerbEnum.INDEX, session, req))
             return "redirect:/Login/";
 
-        int numberClients = UserStorage.GetInstance().getUsers().size();
+        int numberClients = UserStorage.GetInstance().countClients();
         m.addAttribute("numberClients", numberClients);
 
-        int numberJourneys = JourneyStorage.GetInstance().getJourneys().size();
-        m.addAttribute("numberJourneys", numberJourneys);
+        int numberAprovedJourneys = JourneyStorage.GetInstance().countJourneysApproved();
+        m.addAttribute("numberAprovedJourneys", numberAprovedJourneys);
+
+        int numberJourneysToApprove = JourneyStorage.GetInstance().countJourneysToApprove();
+        m.addAttribute("numberJourneysToApprove", numberJourneysToApprove);
         
         m.addAttribute("SignedUser", GetUser(session));
         return "Logistics/Index";

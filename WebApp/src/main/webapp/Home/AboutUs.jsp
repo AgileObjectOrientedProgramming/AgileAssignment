@@ -6,7 +6,7 @@
 
 <h1 class="display-1">Team 6</h1>
 
-<div style="display: flex; flex-wrap: wrap">
+<div style="display: flex; justify-content: center; flex-wrap: wrap">
   
   <div class="card" style="width: 300px; margin: 20px">
     <img src="/Dario.jpeg" alt="Dario" style="width:100%" class="center"   >
@@ -61,16 +61,9 @@
         margin: auto;
         width: 70%;
         backdrop-filter: blur(10px);
-        border-radius: 10px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         max-width: 300px;
         text-align: center;
-    }
-    .main-card {
-        background-color: rgba(0, 0, 0, 0.2);
-        color:white;
-        backdrop-filter: blur(10px);
-        border-radius: 10px;
     }
     h1 { color:white; text-align: center }
 </style>

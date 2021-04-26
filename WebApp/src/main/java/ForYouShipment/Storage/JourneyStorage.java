@@ -27,10 +27,22 @@ public class JourneyStorage  {
      * This method returns the number of Journeys to aprove
      * @return Number of Journeys waiting for aproval as int
      */
-    public static int countJourneysToApprove(){
+    public int countJourneysToApprove(){
         int i = 0;
         for (JourneyInfo j : instance.Journeys){
             if (j.getStatus().contains("Waiting"))
+                i++;
+        }
+        return i;
+    }
+    /**
+     * This method returns the number of aproved Journeys
+     * @return Number of Journeys waiting for aproval as int
+     */
+    public int countJourneysApproved(){
+        int i = 0;
+        for (JourneyInfo j : instance.Journeys){
+            if (j.getStatus().contains("Active"))
                 i++;
         }
         return i;
