@@ -37,15 +37,9 @@
         /* The width is the width of the web page */
       }
     </style>
-    <script>
-      var containers = [
-        <c:forEach var="container" items="${Containers}">
-            ['<c:out value="Journey" />',
-              <c:out value="${Double.parseDouble(container.getParameter('Latitude'))}" />,
-              <c:out value="${Double.parseDouble(container.getParameter('Longitude'))}" />,
-            ],
-        </c:forEach>   ]; 
-
+     <script>
+      var current_lat = "${Latitude}"
+      var current_lng = "${Longitude}"
       var markers = [
         <c:forEach var="marker" items="${ports}">
             ['<c:out value="${marker.toString()}" />',
@@ -57,10 +51,21 @@
       function initMap() {
         // Initialize the map and center it in the container location
         const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 1,
-          center: new google.maps.LatLng(10,10),
+          zoom: 2,
+          center: new google.maps.LatLng(current_lat,current_lng),
         });
-        
+        // The marker, positioned at the shipment location
+        const marker =  new google.maps.Marker({
+          opacity: 1,
+          label: "Your shipment is here",
+          animation: google.maps.Animation.DROP,
+          dragable: true,
+          position: new google.maps.LatLng(current_lat,current_lng),
+          zIndex: 2,
+          map: map,
+          icon: "/packageicon.png",
+        })
+        marker.addListener("click", toggleBounce);
         // Markers for all the ports
         for (i = 0; i < markers.length; i++){
           const marker = new google.maps.Marker({
@@ -71,19 +76,6 @@
             map: map,
           });
         }
-        
-        for (i = 0; i < containers.length; i++){
-          console.log("im here");
-          console.log(containers[i][1])
-          const marker = new google.maps.Marker({
-            icon: "/packageicon.png",
-            label: containers[i][0],
-            position: new google.maps.LatLng(containers[i][1],containers[i][2]),
-            zIndex: 2,
-            map: map,
-          });
-        }
-
       }
       function toggleBounce() {
         if (marker.getAnimation() !== null) {
@@ -96,14 +88,12 @@
       function myFunction() {
         var dummy = document.createElement('input'),
         text = window.location.href;
-
         document.body.appendChild(dummy);
         dummy.value = text;
         dummy.select();
         document.execCommand('copy');
         document.body.removeChild(dummy);
       }
-
       
     </script>
    </head>
