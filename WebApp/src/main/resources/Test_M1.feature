@@ -28,6 +28,26 @@ Feature: M1 Clients Managment
         But I dont match the password
         Then the storage does not have the client "<name>"
 
+    Scenario Outline: Username too long
+        Given a new client name "<name>"
+        When I create his profile 
+        But I input a too long username
+        Then the storage does not have the client "<name>"
+
+    Scenario Outline: Password too short
+        Given a new client name "<name>"
+        When I create his profile 
+        But I input a too short password
+        Then the storage does not have the client "<name>"
+
+    Scenario Outline: Username too long
+        Given a new client name "<name>"
+        When I create his profile 
+        But I input a too long username
+        Then the storage does not have the client "<name>"
+
+
+
     #User Story 4
     Scenario: Client login
         Given a client account
@@ -72,11 +92,6 @@ Feature: M1 Clients Managment
         Given a commercial department user
         When input a client ID
         Then output a client
-         
-    Scenario: Login
-        Given a user of a type
-        When the login is successfull
-        Then access the permission level of type
 
 
     
