@@ -14,8 +14,19 @@ Feature: M1 Clients Managment
         | Emma     |
         | Dusana   |
 
-    Scenario: 
-        Given 
+    Scenario Outline: Using duplicated username
+        Given a new client name "<name>"
+        When I create his profile 
+        But I use a already taken username
+        Then the storage does not have the client "<name>"
+   
+
+
+    Scenario Outline: Not matching passwords
+        Given a new client name "<name>"
+        When I create his profile
+        But I dont match the password
+        Then the storage does not have the client "<name>"
 
     #User Story 4
     Scenario: Client login
