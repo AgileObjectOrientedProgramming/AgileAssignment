@@ -2,7 +2,8 @@ Feature: M1 Clients Managment
 
     All tests related to the mandatory functionality M1
 
-  Scenario Outline: Register Client
+    #UserStory 3
+    Scenario Outline: Register Client
         Given a new client named "<name>"
         When I create his profile 
         Then storage has the client named "<name>"
@@ -12,6 +13,9 @@ Feature: M1 Clients Managment
         | Paulo    | 
         | Emma     |
         | Dusana   |
+
+    Scenario: 
+        Given 
 
     #User Story 4
     Scenario: Client login
@@ -25,7 +29,7 @@ Feature: M1 Clients Managment
         When the logistic user tries to login
         Then he is logged in his account
 
-    #User Story 1
+    #User Story 4
     Scenario: Failed login
         Given a web user
         When he tries to login with wrong credencials
@@ -50,17 +54,11 @@ Feature: M1 Clients Managment
     Scenario: Client information update
         Given a client
         When trying to change is last name to "<name>"
-        Then the last name is "<name2>"
+        Then the last name is "<name>"
 
-    Examples:
-        | name   |
-        | Dario  | 
-        | Emma   |
-        | Renjue | 
 
     Scenario: Search client
         Given a commercial department user
-        And a database
         When input a client ID
         Then output a client
          
