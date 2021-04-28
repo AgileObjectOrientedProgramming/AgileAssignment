@@ -67,6 +67,7 @@ public class ContainerRegister {
         container.setParameter("Longitude", destination.getLongitude().toString());
         container.setLocation(container.getJourney().getDestination());
         container.getJourney().setStatus("Completed");
+        container.addToJourneyHistory(container.getJourney());
         container.setJourney(null);
     }
 }

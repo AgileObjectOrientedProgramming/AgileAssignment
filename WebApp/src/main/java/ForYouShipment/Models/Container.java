@@ -12,6 +12,18 @@ public class Container {
     private Port location;
     private String id;
     private JourneyInfo journey;
+    private List<JourneyInfo> journeyHistory;
+
+   
+
+    public List<JourneyInfo> getJourneyHistory() {
+        return journeyHistory;
+    }
+
+    public void addToJourneyHistory(JourneyInfo journey) {
+        this.journeyHistory.add(journey);
+    }
+
     private List<Map<String,String>> measurementsHistory = new ArrayList<>();
     
     public void setMeasurementsHistory(List<Map<String, String>> measurementsHistory) {
