@@ -61,6 +61,12 @@
 			<artifactId>cucumber-junit</artifactId>
 			<version>5.4.1</version>
 		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<version>5.4.1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -96,6 +102,7 @@
 					<target>1.8</target>
 				</configuration>
         	</plugin>
+			
 		</plugins>
 	</build>
 

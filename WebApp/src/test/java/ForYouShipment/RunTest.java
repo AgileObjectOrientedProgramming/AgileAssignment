@@ -15,7 +15,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 		features="src/main/resources")
 
-public class Cucumbertest {
+public class RunTest {
     
 }
 
