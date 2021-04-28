@@ -44,6 +44,8 @@
         color:white;
         backdrop-filter: blur(10px);
         border-radius: 10px;
+        width:70%;
+        margin:auto
     }
 </style>
 

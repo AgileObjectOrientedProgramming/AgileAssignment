@@ -14,6 +14,10 @@ public class Container {
     private JourneyInfo journey;
     private List<Map<String,String>> measurementsHistory = new ArrayList<>();
     
+    public void setMeasurementsHistory(List<Map<String, String>> measurementsHistory) {
+        this.measurementsHistory = measurementsHistory;
+    }
+
     public List<Map<String,String>> getMeasurementsHistory() {
         return measurementsHistory;
     }

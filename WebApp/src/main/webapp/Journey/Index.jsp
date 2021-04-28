@@ -7,17 +7,12 @@
 
 
 
-<h2>Journey Management</h2> 
+<h1>Journey Management</h1> 
 
-<a class="btn btn-info btn-lg float-end" href="/Journey/New" >
-    New Journey
-</a>
-<a class="btn btn-info btn-lg float-end" href="/Journey/Search" >
-    Search
-</a>
-
-
-<h2>Journey List</h2> 
+<div style="display: flex; justify-content:flex-end ;">
+    <a class="btn btn-success btn-lg float-end" style="margin-right: 15px" href="/Journey/New" > New Journey</a>
+    <a class="btn btn-info btn-lg float-end" href="/Journey/Search" > Search </a>
+</div>
 
 <br>
 
@@ -61,6 +56,7 @@
         color:white;
         backdrop-filter: blur(10px);
     }
+    h1 { color:white;text-align: center }
     
 </style>
 

@@ -21,7 +21,7 @@ public class OrCriteriaTest {
 
         j1.setOrigin(Port.ROTTERDAM);
         j2.setOrigin(Port.CAPETOWN);
-        j3.setOrigin(Port.SHANGAI);
+        j3.setOrigin(Port.SHANGHAI);
         
         j1.setDestination(Port.CAPETOWN);
         j2.setDestination(Port.PORTO);
@@ -50,7 +50,7 @@ public class OrCriteriaTest {
 
         j1.setOrigin(Port.CAPETOWN);
         j2.setOrigin(Port.SYDNEY);
-        j3.setOrigin(Port.SHANGAI);
+        j3.setOrigin(Port.SHANGHAI);
         
         j1.setDestination(Port.CAPETOWN);
         j2.setDestination(Port.PORTO);

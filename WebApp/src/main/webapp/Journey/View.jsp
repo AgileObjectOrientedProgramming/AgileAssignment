@@ -5,7 +5,7 @@
 
 
 
-<h2>Your Journey information</h2> 
+<h1>Your Journey information</h1> 
 
 
 
@@ -24,16 +24,20 @@
     </div>
   </c:if>
   
+
+<button type="button" class="btn btn-secondary" onclick="myFunction();window.alert('The Journey ID was copyed and you can share it with other people.');">Get ID</button>    
+<div class="card">
+  <div class="card-body">
     <style type="text/css">
       /* Set the size of the div element that contains the map */
       #map {
         height: 400px;
         /* The height is 400 pixels */
-        width: 80%;
+        width: 100%;
         /* The width is the width of the web page */
       }
     </style>
-    <script>
+     <script>
       var current_lat = "${Latitude}"
       var current_lng = "${Longitude}"
       var markers = [
@@ -72,7 +76,6 @@
             map: map,
           });
         }
-
       }
       function toggleBounce() {
         if (marker.getAnimation() !== null) {
@@ -85,20 +88,18 @@
       function myFunction() {
         var dummy = document.createElement('input'),
         text = window.location.href;
-
         document.body.appendChild(dummy);
         dummy.value = text;
         dummy.select();
         document.execCommand('copy');
         document.body.removeChild(dummy);
       }
-
       
     </script>
    </head>
    <body>
 
-    <button type="button" class="btn btn-secondary" onclick="myFunction();window.alert('The Journey ID was copyed and you can share it with other people.');">Get ID</button>
+    
     
     <br>
     <h3>Journey Map</h3>
@@ -111,6 +112,24 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPxzk8oahETNTmTJPn39scuPoHIj_yZSY&callback=initMap&libraries=&v=weekly"
       async
     ></script>
+
+<style>
+  .card {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        margin: auto;
+        width: 80%;
+        backdrop-filter: blur(10px);
+        margin-bottom: 10px;
+    }
+  .body {
+        background-image: url("https://images.pexels.com/photos/234272/pexels-photo-234272.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        width: 100;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    h1 { text-align: center }
+</style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
 

@@ -9,15 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ForYouShipment.Constants.AccessActionNounEnum;
-import ForYouShipment.Constants.AccessActionVerbEnum;
-import ForYouShipment.Models.ClientProfileModel;
-import ForYouShipment.Models.ClientUserModel;
-import ForYouShipment.Models.UserModel;
-import ForYouShipment.Persistance.StoragePersistance;
-import ForYouShipment.Storage.UserStorage;
-import ForYouShipment.Workers.IDGenerator;
-import ForYouShipment.Workers.ValidationWorker;
+import ForYouShipment.Facade.SignupFacade;
 
 @Controller
 @RequestMapping("/Signup")
@@ -25,16 +17,7 @@ public class SignupController extends BaseController {
 
     @RequestMapping(value={ "/Index", "/", "" })
     public String  ReturnSignupForm(HttpServletRequest req, Model m, HttpSession session) {
-        if (!HasAccess(AccessActionNounEnum.SIGNUP_PAGE, AccessActionVerbEnum.INDEX, session, req)) 
-            return "redirect:/Login";
-        
-        UserModel user = new ClientUserModel();
-        user.setProfile(new ClientProfileModel());
-
-        m.addAttribute("SignUpUser", user);
-
-        m.addAttribute("SignedUser", GetUser(session));
-        return "Signup/Index";
+        return SignupFacade.ReturnSignupForm(req, m, session);
     }
 
     @RequestMapping(value ={"/CreateUser"}, method = RequestMethod.POST)
@@ -43,44 +26,6 @@ public class SignupController extends BaseController {
                             @RequestParam("Password") String Password,
                             @RequestParam("PasswordRetype") String PasswordRetype) {
         
-        if (!HasAccess(AccessActionNounEnum.SIGNUP_PAGE, AccessActionVerbEnum.CREATE, session, req)) 
-            return "redirect:/Login";
-
-        UserModel user = new ClientUserModel();
-        user.setProfile(new ClientProfileModel());
-
-        user.setUsername(Username);
-        user.setPassword(Password);
-        user.setProfile(new ClientProfileModel());
-
-        for (String Param : user.getProfile().getAllParameters()) {
-            String value = req.getParameter(Param);
-            user.getProfile().setParameter(Param, value);
-        }
-
-        m.addAttribute("SignUpUser", user);
-
-        String UsernameCheckResult = ValidationWorker.UsernameIsValid(Username);
-        if (UsernameCheckResult != null) {
-            m.addAttribute("warning", UsernameCheckResult);
-            m.addAttribute("SignedUser", GetUser(session));
-            return "Signup/Index";
-        }
-        String PasswordCheckResult = ValidationWorker.PasswordIsValid(Password, PasswordRetype);
-        if (PasswordCheckResult != null) {
-            m.addAttribute("warning", PasswordCheckResult);
-            m.addAttribute("SignedUser", GetUser(session));
-            return "Signup/Index";
-        }
-
-        String ID = IDGenerator.GenerateID();
-
-        user.setID(ID);
-        
-        UserStorage.GetInstance().getUsers().add(user);
-
-        // THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
-        StoragePersistance.SaveStoragesToDisk();
-        return "redirect:/Logistics";
+        return SignupFacade.createUser(req, m, session, Username, Password, PasswordRetype);
     }
 }

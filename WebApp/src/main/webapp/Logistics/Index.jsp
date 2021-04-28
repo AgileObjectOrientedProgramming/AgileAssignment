@@ -35,14 +35,48 @@
           <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
               <h3>Client Management</h3>
-              <p>Some content.</p>
-                <a class="btn btn-success" href="/Signup">
-                    Add Client
-                </a>
+              <p>As a logistic user, you have the ability to sign-up clients, by creating a username and password for them.
+                <br>
+                <br>
+                Once they log in on the system, they can update their profile information even further.
+                <br>
+                <br>
+                You have the ability to view any client profile, as well as delete any client, but you are not allowed
+                    to change their personal information, nor modify their username or password.
+                <br>
+                <br>
+                The search engine allows you to find any client by any criteria, eg. username.
+                <br>
+                <br>
+                Number of clients: ${numberClients}
+              </p>
+              <div style="display: flex; justify-content:flex-start ;">
+                <a class="btn btn-success" href="/Signup" style="margin-right: 30px"> Add new Client</a>
+                <a class="btn btn-info" href="/Client/Search"> Search Clients</a>
+              </div>
             </div>
             <div id="menu1" class="tab-pane fade" color="white">
               <h3>Journey Management</h3>
-              <p>Some content in menu 1.</p>
+              <p>As a logistic user, you have the ability to accept any Journey request made by the clients.
+                <br>
+                <br>
+                Once the Journey is accepted, both the logistics user and the client user can track its history 
+                    on the World Map. 
+                <br>
+                <br>
+                The search engine allows you to find any journeys by any criteria, eg. destination port.
+                <br>
+                <br>
+                Everytime a client creates a new Journey, you will get a little notification on the button bellow
+                <br>
+                <br>
+                Number of active journeys: ${numberAprovedJourneys}
+              </p>
+              <div style="display: flex; justify-content:flex-start ;">
+                <a type="button" class="btn btn-info" href="/Journey/Search">
+                  Journeys <span class="badge bg-secondary">${numberJourneysToApprove}</span>
+                </a>
+              </div>
             </div>
             <div id="menu2" class="tab-pane fade">
               <h3>Container Management</h3>
