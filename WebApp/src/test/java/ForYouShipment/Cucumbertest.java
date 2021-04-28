@@ -19,4 +19,3 @@ public class Cucumbertest {
     
 }
 
-public class Cucumbertest {}
