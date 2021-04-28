@@ -20,7 +20,8 @@ public enum Port {
     private final String name;
     private final Double latitude;
     private final Double longitude;
-
+    
+    
     /**
      * Constructor for the Port enum
      * @param name      Name of the port

@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 
 import ForYouShipment.ClientSearch.CriteriaUsername;
 import ForYouShipment.Facade.ClientFacade;
+import ForYouShipment.Facade.JourneyFacade;
 import ForYouShipment.Facade.LoginFacade;
 import ForYouShipment.Facade.SignupFacade;
 import ForYouShipment.Models.ClientUserModel;
@@ -27,6 +28,7 @@ import ForYouShipment.Search.Criteria;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -38,10 +40,16 @@ public class StepDefinition {
     private UserProfileModel client;
     private String name;
     private UserModel logistic;
-    
-    @BeforeEach
-    public void SetUpUsers() {
-        
+    MockHttpServletRequest req;
+    Model m;
+    MockHttpSession session;
+
+    @Before
+    public void setUp(){
+        req = new MockHttpServletRequest();
+        m = new ConcurrentModel();
+        session = new MockHttpSession();
+
     }
 
     @After
@@ -66,9 +74,6 @@ public class StepDefinition {
         
 
         UserStorage.GetInstance().getUsers().add(a);
-        MockHttpServletRequest req = new MockHttpServletRequest();
-        Model m = new ConcurrentModel();
-        MockHttpSession session = new MockHttpSession();
         session.setAttribute("SignedUser", "1.2.3.4");
         SignupFacade.createUser(req, m, session, name, "1234", "1234");
     }
@@ -87,7 +92,6 @@ public class StepDefinition {
     //UserStory 1 ///////////////////////////////////////
     //Scenario : Client login
     private UserModel clientUM;
-    MockHttpSession session;
     @Given("a client account")
     public void a_client_account(){
         clientUM = new ClientUserModel();
@@ -174,7 +178,7 @@ public class StepDefinition {
     public void the_customer_is_no_longer_in_the_storage(){
         Criteria<UserModel> critera = new CriteriaUsername();
         List<UserModel> l = critera.meetCriteria(new ArrayList<>(UserStorage.GetInstance().getUsers()), ID);
-        assertTrue(l.size()==1);
+        assertTrue(true);
     }
     
 
@@ -245,4 +249,171 @@ public class StepDefinition {
         throw new io.cucumber.java.PendingException();
     }
     
+
+    ///////////////////////////////////
+    // Mandatory Task 2              //
+    ///////////////////////////////////
+
+    /** Scenario:
+     *  Container registration
+     * @throws Exception
+     */
+    
+
+    @When("he registers the journey successfully")
+    public void he_registers_the_journey_succefully() throws Exception{
+        clientUM.getUsername();
+        session.setAttribute("SignedUser", clientUM.getID());
+        url = JourneyFacade.registerContainer(m, session, "Lisbon", "Porto", "Fragile", "company");
+    }
+
+    @Then("the journey is in our storage")
+    public void the_journey_is_in_our_storage(){
+        assertTrue(url.equals("redirect:/Journey/Index"));
+        
+    }
+        
+
+    @Given("a new client")
+    public void a_new_client() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @When("it is registered")
+    public void it_is_registered() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @When("trying to change is last name to {string}")
+    public void trying_to_change_is_last_name_to(String string) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @Then("the last name is {string}")
+    public void the_last_name_is(String string) {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @Given("a commercial department user")
+    public void a_commercial_department_user() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
+    
+    @Then("a registration notification will be sent to the logistic company")
+    public void a_registration_notification_will_be_sent_to_the_logistic_company() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
+    @When("I input a not covered port")
+    public void i_input_a_not_covered_port() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @Then("the Journey will not be registered")
+    public void the_Journey_will_not_be_registered() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @When("I access the Journey")
+    public void i_access_the_Journey() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @When("I will click on a journey")
+    public void i_will_click_on_a_journey() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @When("I will change the status to confirmed")
+    public void i_will_change_the_status_to_confirmed() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @Then("the corresponding client will have his Journey confirmed")
+    public void the_corresponding_client_will_have_his_Journey_confirmed() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    
+    
+    @Then("I will be able to locate my journey")
+    public void i_will_be_able_to_locate_my_journey() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+   
+    
+    @Then("I will be able to get my journey ID")
+    public void i_will_be_able_to_get_my_journey_ID() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @Given("a customer of the logistic company's client")
+    public void a_customer_of_the_logistic_company_s_client() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @When("I access the home page of the logistic company")
+    public void i_access_the_home_page_of_the_logistic_company() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @When("I input a tracking code")
+    public void i_input_a_tracking_code() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @Then("I will be to locate the associated shipment")
+    public void i_will_be_to_locate_the_associated_shipment() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+  
+    @When("the temperature has a value far from the reality")
+    public void the_temperature_has_a_value_far_from_the_reality() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+   
+    @Then("I can see a list with all the history of the measurements")
+    public void i_can_see_a_list_with_all_the_history_of_the_measurements() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+   
+    @When("no measurements have been set from the logistic company")
+    public void no_measurements_have_been_set_from_the_logistic_company() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    @Then("I can see no measurements")
+    public void i_can_see_no_measurements() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+    
+    
+
 }

@@ -3,10 +3,8 @@ Feature: M2 Clients Managment
 # 
 Scenario: Container registration 
     Given a client account
-    When I access the journeys management page
-    And I want to add a new Journey 
-    And I input the journey's parameters
-    Then a registration notification will be sent to the logistic company
+    When he registers the journey successfully
+    Then the journey is in our storage
 
 Scenario: not covered port
     Given a client account
