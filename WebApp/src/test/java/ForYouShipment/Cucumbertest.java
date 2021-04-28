@@ -14,4 +14,6 @@ import io.cucumber.junit.CucumberOptions;
 @ContextConfiguration(classes = WebAppApplication.class)
 @CucumberOptions(
 		features="src/main/resources")
-public class Cucumbertest {}
+public class Cucumbertest {
+    
+}
