@@ -32,8 +32,8 @@ public class WebAppApplication {
 		InitialiseUsers();
 		StoragePersistance.LoadStoragesFromDisk();
 
-		// ContainerStorage.GetInstance();
-		// ContainerStorage.InitialiseContainers();
+		ContainerStorage.GetInstance();
+		ContainerStorage.InitialiseContainers();
 
 		PersistanceDaemon deamon = new PersistanceDaemon();
 		deamon.start();
