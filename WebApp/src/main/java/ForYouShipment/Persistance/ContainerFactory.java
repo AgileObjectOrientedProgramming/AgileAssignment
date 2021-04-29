@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import ForYouShipment.Constants.Port;
@@ -18,12 +19,14 @@ public class ContainerFactory {
     public static JSONObject ContainerToJSON(ContainerMeasurements container) {
         JSONObject obj = new JSONObject();
         obj.put("location", container.getLocation().toString());
-        obj.put("id", container.getId().toString());
+        obj.put("id", container.getId());
         if (container.getJourney()==null){
             return obj;
         }
+        System.out.println("Second try ID = " + container.getJourney().getId());
         obj.put("journeyId", container.getJourney().getId());
         int i = 0;
+        
         for (Map<String, String> measurement : container.getMeasurementsHistory()){
             final int i2 = i;
             measurement.forEach(((k,v) -> obj.put(k + i2, v)));
@@ -35,29 +38,39 @@ public class ContainerFactory {
 
     public static ContainerMeasurements ContainerFromJSON(JSONObject obj){
         ContainerMeasurements c = new ContainerMeasurements();
+
         c.setId(obj.getString("id"));
         try {
-            c.setLocation(Port.ofString(obj.getString("location")));
+            Port p = Port.ofString(obj.getString("location"));
+            c.setLocation(p);
+            c.setParameter("Latitude", p.getLatitude().toString());
+            c.setParameter("Longitude", p.getLongitude().toString());
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Criteria<JourneyInfo> m = new CriteriaJID();
-        try {
-            obj.getString("journeyID");
-            JourneyInfo j = m.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
-                        obj.getString("journeyID")).get(0);
-            c.setJourney(j);
-            c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time"));
-            c.setMeasurementsHistory(JSONtoHistory(obj));
             return c;
         }
-        catch (Exception e) {
+        try {
+            Criteria<JourneyInfo> m = new CriteriaJID();
+            String jID = obj.getString("journeyId");
+            System.out.println("Are we here?");
+
+            List<JourneyInfo> j2 = m.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
+                        jID);
+            
+            System.out.println("Are we here 2?");
+            JourneyInfo j = j2.get(0);
+            System.out.println("Are we here 3?");
+            c.setJourney(j);
+            c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time"));
+            JSONtoHistory(c, obj);
+            return c;
+        }
+        catch (JSONException e) {
             return c;
         }
     }
 
 
-    private static List<Map<String,String>> JSONtoHistory(JSONObject obj){
+    private static void JSONtoHistory(ContainerMeasurements c, JSONObject obj){
         List<Map<String,String>> measurementsHistory = new ArrayList<>();
         for  (int i = 0; i < Integer.valueOf(obj.getString("HistorySize")); i++){
             Map<String,String> m = new HashMap<>();
@@ -67,8 +80,10 @@ public class ContainerFactory {
             m.put("Longitude", obj.getString("Longitude" + i));
             m.put("Humidity", obj.getString("Humidity" + i));
             m.put("Time", obj.getString("Time" + i));
-            measurementsHistory.add(m);
+            c.setParameter("Latitude", obj.getString("Latitude" + i));
+            c.setParameter("Longitude", obj.getString("Longitude" + i));
+            c.saveMeasurements(m);
         } 
-        return measurementsHistory;
+        
     }
 }

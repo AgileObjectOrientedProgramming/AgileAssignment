@@ -38,8 +38,8 @@ public class StoragePersistance {
     private static List<Storage> GetAllStorages() {
         List<Storage> storages = new ArrayList<>(); 
         storages.add(UserStorage.GetInstance());
-        // storages.add(JourneyStorage.GetInstance());
-        // storages.add(ContainerStorage.GetInstance());
+        storages.add(JourneyStorage.GetInstance());
+        storages.add(ContainerStorage.GetInstance());
         return storages;
     }
 
@@ -74,6 +74,7 @@ public class StoragePersistance {
         LoggingWorker.GetInstance().Log("Loading items from memory");
         for (Storage item : GetAllStorages()) {
             try {
+                System.out.println(item.StorageName());
                 java.nio.file.Path path = Paths.get(GetFolderPath() + item.StorageName() + ".json");
                 String JSONtext = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
                 JSONArray array = new JSONArray(JSONtext);

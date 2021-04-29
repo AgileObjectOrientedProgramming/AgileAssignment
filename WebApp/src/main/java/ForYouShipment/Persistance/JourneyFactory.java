@@ -10,7 +10,7 @@ public class JourneyFactory {
         JSONObject obj = new JSONObject();
         obj.put("ContentType", journey.getContent_type());
         obj.put("Company", journey.getCompany());
-        obj.put("ID", journey.getId());
+        obj.put("jID", journey.getId());
         obj.put("Status", journey.getStatus());
         obj.put("Origin", journey.getOrigin().toString());
         obj.put("Destination", journey.getDestination().toString());
@@ -25,7 +25,7 @@ public class JourneyFactory {
     public static JourneyInfo JourneyFromJSON(JSONObject obj) throws Exception {
         JourneyInfo journey = new JourneyInfo(" ");
         
-        journey.setId(obj.getString("ID"));
+        journey.setId(obj.getString("jID"));
         journey.setCompany(obj.getString("Company"));
         journey.setContent_type(obj.getString("ContentType"));
         journey.setStatus(obj.getString("Status"));

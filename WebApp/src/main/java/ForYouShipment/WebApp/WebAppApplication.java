@@ -33,7 +33,7 @@ public class WebAppApplication {
 		StoragePersistance.LoadStoragesFromDisk();
 
 		ContainerStorage.GetInstance();
-		ContainerStorage.InitialiseContainers();
+		// ContainerStorage.InitialiseContainers();
 
 		PersistanceDaemon deamon = new PersistanceDaemon();
 		deamon.start();
