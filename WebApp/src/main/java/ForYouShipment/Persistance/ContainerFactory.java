@@ -71,8 +71,7 @@ public class ContainerFactory {
 
 
     private static void JSONtoHistory(ContainerMeasurements c, JSONObject obj){
-        List<Map<String,String>> measurementsHistory = new ArrayList<>();
-        for  (int i = 0; i < Integer.valueOf(obj.getString("HistorySize")); i++){
+        for  (int i = 0; i < obj.getInt("HistorySize"); i++){
             Map<String,String> m = new HashMap<>();
             m.put("Temperature", obj.getString("Temperature" + i));
             m.put("Pressure", obj.getString("Pressure" + i));
@@ -83,7 +82,6 @@ public class ContainerFactory {
             c.setParameter("Latitude", obj.getString("Latitude" + i));
             c.setParameter("Longitude", obj.getString("Longitude" + i));
             c.saveMeasurements(m);
-        } 
-        
+        }  
     }
 }

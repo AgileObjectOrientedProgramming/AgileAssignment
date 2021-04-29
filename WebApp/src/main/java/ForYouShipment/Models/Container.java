@@ -13,7 +13,7 @@ public class Container {
     private String id;
     private JourneyInfo journey;
     private List<JourneyInfo> journeyHistory;
-
+    private List<Map<String,String>> measurementsHistory = new ArrayList<>();
    
 
     public List<JourneyInfo> getJourneyHistory() {
@@ -24,8 +24,6 @@ public class Container {
         this.journeyHistory.add(journey);
     }
 
-    private List<Map<String,String>> measurementsHistory = new ArrayList<>();
-    
     public void setMeasurementsHistory(List<Map<String, String>> measurementsHistory) {
         this.measurementsHistory = measurementsHistory;
     }
