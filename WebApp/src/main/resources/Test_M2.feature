@@ -1,4 +1,4 @@
-Feature: M2 Clients Managment
+Feature: M2 Clients Management
 
 # 
 Scenario: Container registration 
