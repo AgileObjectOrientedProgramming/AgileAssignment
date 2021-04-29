@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.json.JSONArray;
 
+import ForYouShipment.Storage.ContainerStorage;
+import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Storage.Storage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.Workers.LoggingWorker;
@@ -36,6 +38,8 @@ public class StoragePersistance {
     private static List<Storage> GetAllStorages() {
         List<Storage> storages = new ArrayList<>(); 
         storages.add(UserStorage.GetInstance());
+        // storages.add(JourneyStorage.GetInstance());
+        // storages.add(ContainerStorage.GetInstance());
         return storages;
     }
 

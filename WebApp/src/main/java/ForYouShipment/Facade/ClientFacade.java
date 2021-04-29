@@ -83,9 +83,6 @@ public class ClientFacade extends Facade {
 
         UserStorage.GetInstance().getUsers().remove(user);
         
-        //FIXME 
-        //THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
-        StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Logistics";
     }
 
@@ -124,9 +121,6 @@ public class ClientFacade extends Facade {
             user.setPassword(Password);
         }
         
-        //FIXME
-        // THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
-        StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Client/View?ID=" + user.getID();
     }
 }

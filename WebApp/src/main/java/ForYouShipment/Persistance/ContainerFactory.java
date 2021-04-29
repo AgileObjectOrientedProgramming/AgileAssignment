@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import ForYouShipment.Constants.Port;
@@ -18,8 +17,8 @@ import ForYouShipment.Storage.JourneyStorage;
 public class ContainerFactory {
     public static JSONObject ContainerToJSON(ContainerMeasurements container) {
         JSONObject obj = new JSONObject();
-        obj.put("location", container.getLocation());
-        obj.put("id", container.getId());
+        obj.put("location", container.getLocation().toString());
+        obj.put("id", container.getId().toString());
         if (container.getJourney()==null){
             return obj;
         }
@@ -43,12 +42,18 @@ public class ContainerFactory {
             e.printStackTrace();
         }
         Criteria<JourneyInfo> m = new CriteriaJID();
-        JourneyInfo j = m.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
+        try {
+            obj.getString("journeyID");
+            JourneyInfo j = m.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
                         obj.getString("journeyID")).get(0);
-        c.setJourney(j);
-        c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time"));
-        c.setMeasurementsHistory(JSONtoHistory(obj));
-        return c;
+            c.setJourney(j);
+            c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time"));
+            c.setMeasurementsHistory(JSONtoHistory(obj));
+            return c;
+        }
+        catch (Exception e) {
+            return c;
+        }
     }
 
 

@@ -1,15 +1,13 @@
 package ForYouShipment.Storage;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import ForYouShipment.Models.UserModel;
-import ForYouShipment.Persistance.StoragePersistance;
 import ForYouShipment.Persistance.UserModelFactory;
 
 /**
@@ -21,7 +19,7 @@ public class UserStorage implements Storage {
     private Set <UserModel> Users;
 
     private UserStorage() {
-        Users = new HashSet<>();
+        Users = Collections.synchronizedSet(new HashSet<>());
     }
 
     public Set<UserModel> getUsers() {
@@ -41,7 +39,7 @@ public class UserStorage implements Storage {
     }
 
     public void ReadContentFromJSON(JSONArray array) {
-        Users = new HashSet<>();
+        Users = Collections.synchronizedSet(new HashSet<>());
 
         for (int i = 0; i < array.length(); i++) {
             JSONObject obj = array.getJSONObject(i);

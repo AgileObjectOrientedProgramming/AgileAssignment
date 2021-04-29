@@ -19,6 +19,10 @@ public class JourneyInfo extends Journey{
         Parameters = new HashMap<>();
     }
 
+    public JourneyInfo(String s) {
+        Parameters = new HashMap<>();
+    }
+
     /**
      * This returns all of the available parameters of the user's profile.
      * Ex: FirstName, LastName, email, etc. 

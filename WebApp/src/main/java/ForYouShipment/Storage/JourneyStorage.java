@@ -1,14 +1,19 @@
 package ForYouShipment.Storage;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Persistance.JourneyFactory;
 
 /**
  * Singleton class storing all informations.
  */
-public class JourneyStorage  {
+public class JourneyStorage implements Storage {
 
     // Items to save.
     private Set <JourneyInfo> Journeys;
@@ -16,12 +21,40 @@ public class JourneyStorage  {
     
 
     private JourneyStorage() {
-        Journeys = new HashSet<>();
+        Journeys = Collections.synchronizedSet(new HashSet<>());
     }
 
     public Set<JourneyInfo> getJourneys() {
         return Journeys;
     }
+
+    public JSONArray SaveContentToJSON() {
+        JSONArray array = new JSONArray();
+
+        for (JourneyInfo j : Journeys)
+            array.put(JourneyFactory.JourneyToJSON(j));
+        return array;
+    }
+
+    public void ReadContentFromJSON(JSONArray array) {
+        Journeys = Collections.synchronizedSet(new HashSet<>());
+
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject obj = array.getJSONObject(i);
+            JourneyInfo j;
+            try {
+                j = JourneyFactory.JourneyFromJSON(obj);
+                Journeys.add(j);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String StorageName() {
+        return "JourneyStorage";
+    }
+
 
     /**
      * This method returns the number of Journeys to aprove
