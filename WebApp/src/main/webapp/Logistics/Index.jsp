@@ -87,9 +87,10 @@
               <h3>Ports Management</h3>
               <div style="display: flex; justify-content: space-around; flex-wrap: wrap">
                 <c:forEach items="${portMap}" var="element">
-                  <button type="button" disabled class="btn btn-primary" style="margin: 10px;">
+                  <a class="btn btn-primary" style="margin: 10px;" 
+                      href='/Port/View?Port=${element.getKey()}'>
                     ${element.getKey()} <span class="badge bg-info text-dark">${element.getValue()}</span>
-                  </button>
+                  </a>
                 </c:forEach>
               </div> 
           </div>

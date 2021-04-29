@@ -67,7 +67,7 @@ public class ContainerStorage implements Storage{
         while (val-- > 0){
             ContainerMeasurements c = new ContainerMeasurements();
             c.setLocation(location);
-            instance.Containers.add(c);
+            GetInstance().Containers.add(c);
         }
     }
 
@@ -76,7 +76,7 @@ public class ContainerStorage implements Storage{
      * @return
      */
     public static int countContainers(){
-        return instance.Containers.size();
+        return GetInstance().Containers.size();
     }
 
     /**
@@ -101,7 +101,7 @@ public class ContainerStorage implements Storage{
      */
     public static int getFreeContainers(){
         int i = 0;
-        for (Container c : instance.Containers){
+        for (Container c : GetInstance().Containers){
             if (!(c.getJourney()==null)){
                 i++;
             }
@@ -116,7 +116,7 @@ public class ContainerStorage implements Storage{
      */
     public static int GetNrContainers(Port location) {
         int ans = 0;
-        for (Container c : instance.Containers) {
+        for (Container c : GetInstance().Containers) {
             if (c.getLocation().equals(location)) 
                 ans++;
         }

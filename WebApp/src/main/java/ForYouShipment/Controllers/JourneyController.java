@@ -70,6 +70,6 @@ public class JourneyController extends BaseController {
     @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
     public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) {
     
-        return JourneyFacade.SetMeasurement2(req, m, session);                            
+        return JourneyFacade.SetMeasurement2(req, m, session);                         
     }
 }

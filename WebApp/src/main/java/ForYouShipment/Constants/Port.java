@@ -5,6 +5,7 @@ import java.util.List;
 
 public enum Port {
 
+    TRANSIT("In Transit", 0., 0.),
     LISBON("Lisbon",38.7020,-9.1734),
     PORTO("Porto",41.1830,-8.7000),
     ROTTERDAM("Rotterdam",51.8850,4.2867),

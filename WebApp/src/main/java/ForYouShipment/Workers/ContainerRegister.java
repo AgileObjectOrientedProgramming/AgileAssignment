@@ -1,5 +1,7 @@
 package ForYouShipment.Workers;
 
+import java.util.stream.Collectors;
+
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.Container;
 import ForYouShipment.Models.ContainerMeasurements;
@@ -28,7 +30,10 @@ public class ContainerRegister {
                                     UserModel user) throws Exception {
 
                               
-        ContainerMeasurements container = ContainerRegister.getFreeContainer(Port.ofString(origin));             
+        ContainerMeasurements container = ContainerRegister.getFreeContainer(Port.ofString(origin));
+        if (container == null)
+            return null;
+
         JourneyInfo journey = new JourneyInfo();
         journey.setOrigin(Port.ofString(origin));
         journey.setDestination(Port.ofString(destination));
@@ -69,6 +74,22 @@ public class ContainerRegister {
         container.getJourney().setStatus("Completed");
         container.addToJourneyHistory(container.getJourney());
         container.setJourney(null);
+    }
+
+    public static void DeleteContainer(String ID) {
+        ContainerStorage.GetInstance().setContainers(
+            ContainerStorage.GetInstance().getContainers()
+            .stream()
+            .filter(container -> !container.getId().equals(ID))
+            .collect(Collectors.toSet())
+        );
+    }
+
+    public static ContainerMeasurements GetContainerByID(String ID) {
+        for (ContainerMeasurements c : ContainerStorage.GetInstance().getContainers())
+            if (c.getId().equals(ID))
+                return c;
+        return null;
     }
 }
 

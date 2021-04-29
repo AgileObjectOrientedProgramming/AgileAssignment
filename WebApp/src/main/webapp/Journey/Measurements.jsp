@@ -23,6 +23,11 @@
                 <br>
             </c:forEach>
             <input type = "hidden" name ="ContainerID" value = "${ContainerID}">
+            <label for="ReachedDestination">Reached Destination Port</label>
+            <select name="ReachedDestination" class="form-control">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
         </div>    
         <div style="display: flex; justify-content: space-between;" class="card-footer">
             <input type="submit" class="btn btn-success" value="Submit">

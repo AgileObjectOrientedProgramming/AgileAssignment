@@ -10,6 +10,9 @@ public final class SecurityAccessWorker {
     private static boolean LogisticUserHasAccessTo(AccessActionNounEnum noun,
                                     AccessActionVerbEnum verb) {
         switch(noun) {
+            case PORT_MANAGMENT:
+            case CONTAINER_MANAGEMENT:
+                return true;
             case CLIENT_MANAGEMENT:
                 return verb == AccessActionVerbEnum.SEARCH
                                 || verb == AccessActionVerbEnum.VIEW 

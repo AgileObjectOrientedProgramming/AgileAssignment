@@ -12,7 +12,7 @@ public class Container {
     private Port location;
     private String id;
     private JourneyInfo journey;
-    private List<JourneyInfo> journeyHistory;
+    private List<JourneyInfo> journeyHistory = new ArrayList<>();
     private List<Map<String,String>> measurementsHistory = new ArrayList<>();
    
 
