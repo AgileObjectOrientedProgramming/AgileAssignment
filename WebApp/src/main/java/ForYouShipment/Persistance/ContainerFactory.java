@@ -20,19 +20,19 @@ public class ContainerFactory {
         JSONObject obj = new JSONObject();
         obj.put("location", container.getLocation().toString());
         obj.put("id", container.getId());
-        if (container.getJourney()==null){
-            return obj;
-        }
-        System.out.println("Second try ID = " + container.getJourney().getId());
-        obj.put("journeyId", container.getJourney().getId());
         int i = 0;
-        
         for (Map<String, String> measurement : container.getMeasurementsHistory()){
             final int i2 = i;
             measurement.forEach(((k,v) -> obj.put(k + i2, v)));
             i++;
         }
         obj.put("HistorySize", i);
+        if (container.getJourney()==null){
+            return obj;
+        }
+
+        obj.put("journeyId", container.getJourney().getId());
+        
         return obj;
     }
 
@@ -77,6 +77,10 @@ public class ContainerFactory {
             m.put("Humidity", obj.getString("Humidity" + i));
             m.put("Time", obj.getString("Time" + i));
             m.put("JourneyID", obj.getString("JourneyID" + i));
+            Criteria<JourneyInfo> criteria = new CriteriaJID();
+            JourneyInfo j = criteria.meetCriteria(new ArrayList<>(JourneyStorage.GetInstance().getJourneys()), m.get("JourneyID")).get(0);
+            System.out.println("AHAH"+j.toString());
+            c.addToJourneyHistory(j);
             c.setParameter("Latitude", obj.getString("Latitude" + i));
             c.setParameter("Longitude", obj.getString("Longitude" + i));
             c.saveMeasurements(m);
