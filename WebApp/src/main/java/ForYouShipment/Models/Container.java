@@ -1,6 +1,7 @@
 package ForYouShipment.Models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class Container {
      * @param measurements Map containing the measurements done
      */
     public void saveMeasurements(Map<String,String> measurements) {
-        this.measurementsHistory.add(measurements);
+        this.measurementsHistory.add(new HashMap<>(measurements));
     }
 
     public Container() {

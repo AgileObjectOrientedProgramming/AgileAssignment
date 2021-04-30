@@ -17,12 +17,15 @@
         
         <div class="card-body"> 
             <c:forEach items="${Container.getAllParameters()}" var="element">
-                <label for="element">${element} </label>
-                <br>
-                <input type="text" class="form-control" name="${element}" value required>
-                <br>
+                <c:if test="${!element.equals('JourneyID')}">
+                        <label for="element">${element} </label>
+                        <br>
+                        <input type="text" class="form-control" name="${element}" value required>
+                    <br>
+                </c:if>
             </c:forEach>
             <input type = "hidden" name ="ContainerID" value = "${ContainerID}">
+            <input type = "hidden" name ="JourneyID" value = "${Container.getJourney().getId()}">
             <label for="ReachedDestination">Reached Destination Port</label>
             <select name="ReachedDestination" class="form-control">
                 <option value="Yes">Yes</option>

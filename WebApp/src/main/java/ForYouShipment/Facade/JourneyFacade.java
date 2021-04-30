@@ -129,7 +129,6 @@ public class JourneyFacade extends Facade{
     }
 
     public static String View(Model m, HttpSession session, String JourneyId) {
-        System.out.println("This is the id = " + JourneyId);
         Criteria<JourneyInfo> criteria = new CriteriaJID();
         Criteria<ContainerMeasurements> container = new CriteriaCJID();
         JourneyInfo j = criteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()), JourneyId).get(0);
@@ -142,7 +141,8 @@ public class JourneyFacade extends Facade{
         m.addAttribute("Latitude", Double.parseDouble(c.getParameter("Latitude")));
         m.addAttribute("Longitude", Double.parseDouble(c.getParameter("Longitude")));
         m.addAttribute("SignedUser", GetUser(session)); 
-        m.addAttribute("ports", Port.class.getEnumConstants());               
+        m.addAttribute("ports", Port.class.getEnumConstants());    
+        m.addAttribute("Container", c);           
         return "Journey/View";
     }
 

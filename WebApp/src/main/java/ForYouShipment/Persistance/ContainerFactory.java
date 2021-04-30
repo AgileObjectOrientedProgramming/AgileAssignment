@@ -51,16 +51,14 @@ public class ContainerFactory {
         try {
             Criteria<JourneyInfo> m = new CriteriaJID();
             String jID = obj.getString("journeyId");
-            System.out.println("Are we here?");
 
             List<JourneyInfo> j2 = m.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
                         jID);
             
-            System.out.println("Are we here 2?");
             JourneyInfo j = j2.get(0);
-            System.out.println("Are we here 3?");
+            
             c.setJourney(j);
-            c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time"));
+            c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time", "JourneyID"));
             JSONtoHistory(c, obj);
             return c;
         }
@@ -79,6 +77,7 @@ public class ContainerFactory {
             m.put("Longitude", obj.getString("Longitude" + i));
             m.put("Humidity", obj.getString("Humidity" + i));
             m.put("Time", obj.getString("Time" + i));
+            m.put("JourneyID", obj.getString("JourneyID" + i));
             c.setParameter("Latitude", obj.getString("Latitude" + i));
             c.setParameter("Longitude", obj.getString("Longitude" + i));
             c.saveMeasurements(m);
