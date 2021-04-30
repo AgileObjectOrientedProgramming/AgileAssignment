@@ -85,7 +85,7 @@
             </div>
             <div id="menu3" class="tab-pane fade">
               <h3>Ports Management</h3>
-              <div style="display: flex; justify-content: space-around; flex-wrap: wrap">
+              <div style="display: flex; justify-content: flex-start; flex-wrap: wrap">
                 <c:forEach items="${portMap}" var="element">
                   <a class="btn btn-primary" style="margin: 10px;" 
                       href='/Port/View?Port=${element.getKey()}'>
