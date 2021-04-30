@@ -56,7 +56,6 @@ public class ContainerFactory {
                         jID);
             
             JourneyInfo j = j2.get(0);
-            
             c.setJourney(j);
             c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time", "JourneyID"));
             JSONtoHistory(c, obj);
