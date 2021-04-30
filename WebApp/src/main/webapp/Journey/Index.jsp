@@ -28,13 +28,24 @@
 </thead>
 <tbody>
     <c:forEach items="${Ownjourneys}" var="element">
-        <tr style='cursor: pointer; cursor: hand;' onclick="window.location='/Journey/View?ID=${element.getId()}';">
-            <td>${element.getOrigin().toString()} </td>
-            <td>${element.getDestination().toString()} </td>
-            <td>${element.getContent_type()}</td>
-            <td>${element.getCompany()} </td>
-            <td>${element.getStatus()}</td>       
-        </tr>   
+        <c:if test="${!element.getStatus().equals('Completed')}"> 
+            <tr style='cursor: pointer; cursor: hand;' onclick="window.location='/Journey/View?ID=${element.getId()}';">
+                <td>${element.getOrigin().toString()} </td>
+                <td>${element.getDestination().toString()} </td>
+                <td>${element.getContent_type()}</td>
+                <td>${element.getCompany()} </td>
+                <td>${element.getStatus()}</td>
+            </tr>
+        </c:if>
+        <c:if test="${element.getStatus().equals('Completed')}"> 
+            <tr>
+                <td>${element.getOrigin().toString()} </td>
+                <td>${element.getDestination().toString()} </td>
+                <td>${element.getContent_type()}</td>
+                <td>${element.getCompany()} </td>
+                <td>${element.getStatus()}</td>
+            </tr>
+        </c:if>    
     </c:forEach>
 </tbody>
 </table>
