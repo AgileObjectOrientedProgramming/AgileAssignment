@@ -23,6 +23,7 @@
     <tr>
         <th>ID</th>
         <th>History Count</th>
+        <th>Status</th>
     </tr>
 </thead>
 <tbody>
@@ -30,6 +31,12 @@
          <tr style='cursor: pointer; cursor: hand;' onclick="window.location='/Container/View?ID=${element.getId()}';">
             <td>${element.getId()} </td>
             <td>${element.getJourneyHistory().size()} </td>
+            <c:if test="${element.getJourney() == null}">
+                <td>Free</td>
+            </c:if>
+            <c:if test="${!(element.getJourney() == null)}">
+                <td>${element.getJourney().getStatus()}</td>
+            </c:if>
         </tr>   
     </c:forEach>
 </tbody>
@@ -38,7 +45,7 @@
 
 <style>
     .body {
-        background-image: url("https://images.pexels.com/photos/1655166/pexels-photo-1655166.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        background-image: url("https://images.pexels.com/photos/2850287/pexels-photo-2850287.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
         width: 100;
         background-repeat: no-repeat;
         background-size: cover;
@@ -53,6 +60,7 @@
         color:white;
         backdrop-filter: blur(10px);
     }
+    h2 { color:white }
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

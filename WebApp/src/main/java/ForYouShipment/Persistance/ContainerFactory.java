@@ -57,7 +57,7 @@ public class ContainerFactory {
             
             JourneyInfo j = j2.get(0);
             c.setJourney(j);
-            c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time"));
+            c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time", "JourneyID"));
             JSONtoHistory(c, obj);
             return c;
         }
@@ -76,6 +76,7 @@ public class ContainerFactory {
             m.put("Longitude", obj.getString("Longitude" + i));
             m.put("Humidity", obj.getString("Humidity" + i));
             m.put("Time", obj.getString("Time" + i));
+            m.put("JourneyID", obj.getString("JourneyID" + i));
             c.setParameter("Latitude", obj.getString("Latitude" + i));
             c.setParameter("Longitude", obj.getString("Longitude" + i));
             c.saveMeasurements(m);

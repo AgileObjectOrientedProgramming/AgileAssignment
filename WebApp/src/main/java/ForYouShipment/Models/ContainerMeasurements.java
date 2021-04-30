@@ -15,7 +15,7 @@ public class ContainerMeasurements extends Container{
     public void setParameters(Map<String, String> parameters) {
         Parameters = parameters;
     }
-    private  List<String> AvailableParameters = Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time");
+    private  List<String> AvailableParameters = Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time", "JourneyID");
 
     public ContainerMeasurements() {
         Parameters = new HashMap<>();

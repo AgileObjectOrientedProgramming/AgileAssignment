@@ -10,9 +10,12 @@
 
 
   <c:if test="${SignedUser.IsLogisticUser()}">
-  <a class="btn btn-warning btn-lg" submit="${Journey.setStatus('Active')}" onclick="window.confirm('Are you sure you want to confirm the journey?');">
+    <c:if test="${Journey.getStatus().equals('Waiting for aproval')}">
+      <a class="btn btn-warning btn-lg" submit="${Journey.setStatus('Active')}" onclick="window.confirm('Are you sure you want to confirm the journey?');">
       Confirm Shipment
-  </a>
+      </a>
+    </c:if>
+ 
   <a class="btn btn-warning btn-lg" href="/Journey/Measurements?ID=${ContainerID}" >
       Set Measurements
   </a>
@@ -98,8 +101,22 @@
     </script>
    </head>
    <body>
-
     
+  <c:forEach items="${Container.getMeasurementsHistory()}" var="m">
+    <c:if test="${m.get('JourneyID').equals(ID)}">
+      <ul>
+        <c:forEach items="${m}" var="element">
+          <c:if test="${!element.getKey().equals('JourneyID')}">
+            <li>${element.getKey()}: ${element.getValue()}</li>
+            <br>
+          </c:if>
+        </c:forEach>
+      </ul>
+      <br>
+      <hr> 
+      <br>
+    </c:if>
+  </c:forEach>
     
     <br>
     <h3>Journey Map</h3>
@@ -112,6 +129,8 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPxzk8oahETNTmTJPn39scuPoHIj_yZSY&callback=initMap&libraries=&v=weekly"
       async
     ></script>
+
+
 
 <style>
   .card {

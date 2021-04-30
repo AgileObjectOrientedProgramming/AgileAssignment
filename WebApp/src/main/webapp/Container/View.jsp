@@ -9,34 +9,61 @@
 </div>
 <h2>Container #${Container.getId()}</h2> 
 
-<form action="/Container/Delete?ID=${Container.getId()}" method="post" style="display:flex;">
-    <input type="submit" class="btn btn-success" value="Delete Container" style="margin-left: 5px"> 
+<form action="/Container/Delete?ID=${Container.getId()}" method="post" style="display:flex; justify-content: flex-end;">
+    <c:if test="${Container.getJourney() == null}">
+        <input type="submit" class="btn btn-danger btn-lg float-end" value="Delete Container" style="margin-right: 5px"> 
+    </c:if>
+    <a class="btn btn-info btn-lg float-end" href="/Port/View?Port=${Container.getLocation().toString()}"> Back </a>   
 </form>
 
-
+<br>
 <br>
 
-<!-- <table class="table table-hover" >
-<thead class="thead-light" >
-    <tr>
-        <th>ID</th>
-        <th>History Count</th>
-    </tr>
-</thead>
-<tbody>
-    <c:forEach items="${Containers}" var="element">
-         <tr style='cursor: pointer; cursor: hand;' onclick="window.location='/Containers/View?ID=${element.getId()}';">
-            <td>${element.getId()} </td>
-            <td>${element.getJourneyHistory().size()} </td>
-        </tr>   
+<div class="panel-group" id="accordion">
+
+    <c:forEach items="${Container.getJourneyHistory()}" var="journey">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+            From ${journey.getOrigin().toString()} to ${journey.getDestination().toString()} ordered by ${journey.getParameter("Username")}: Journey ID #${journey.getId()}</a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat.</div>
+        </div>
+        </div>
     </c:forEach>
-</tbody>
-</table> -->
+</div>
 
 
 <style>
+    .panel-group {
+        color:white;
+        border-radius: 10px;
+        width: 100%;
+        margin: auto;
+    }
+    .panel-default {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        width: 100%;
+        margin: auto;
+    }
+    .panel-heading {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        backdrop-filter: blur(10px);
+        width: 100%;
+        margin: auto;
+    }
     .body {
-        background-image: url("https://images.pexels.com/photos/1655166/pexels-photo-1655166.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+        background-image: url("https://images.pexels.com/photos/2850287/pexels-photo-2850287.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
         width: 100;
         background-repeat: no-repeat;
         background-size: cover;
@@ -51,6 +78,7 @@
         color:white;
         backdrop-filter: blur(10px);
     }
+    h2 { color:white; text-align: center }
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
