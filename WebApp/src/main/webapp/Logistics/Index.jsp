@@ -30,6 +30,7 @@
             <li class="active"><a data-toggle="tab" href="#home">Clients</a></li>
             <li><a data-toggle="tab" href="#menu1">Journeys</a></li>
             <li><a data-toggle="tab" href="#menu2">Containers</a></li>
+            <li><a data-toggle="tab" href="#menu3">Ports</a></li>
           </ul>
           
           <div class="tab-content">
@@ -82,7 +83,16 @@
               <h3>Container Management</h3>
               <p>Some content in menu 2.</p>
             </div>
-            
+            <div id="menu3" class="tab-pane fade">
+              <h3>Ports Management</h3>
+              <div style="display: flex; justify-content: space-around; flex-wrap: wrap">
+                <c:forEach items="${portMap}" var="element">
+                  <a class="btn btn-primary" style="margin: 10px;" 
+                      href='/Port/View?Port=${element.getKey()}'>
+                    ${element.getKey()} <span class="badge bg-info text-dark">${element.getValue()}</span>
+                  </a>
+                </c:forEach>
+              </div> 
           </div>
     </div>
 </div>

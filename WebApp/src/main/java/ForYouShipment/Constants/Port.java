@@ -1,7 +1,11 @@
 package ForYouShipment.Constants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Port {
 
+    TRANSIT("In Transit", 0., 0.),
     LISBON("Lisbon",38.7020,-9.1734),
     PORTO("Porto",41.1830,-8.7000),
     ROTTERDAM("Rotterdam",51.8850,4.2867),
@@ -17,10 +21,12 @@ public enum Port {
     CONSTANTA("Constanta", 44.131050, 28.649421),
     NEKO("Neko",-64.833333, -62.55);
 
+
     private final String name;
     private final Double latitude;
     private final Double longitude;
-
+    
+    
     /**
      * Constructor for the Port enum
      * @param name      Name of the port
@@ -65,4 +71,19 @@ public enum Port {
     public static int countPorts(){
         return Port.values().length;
     }
+
+    /**
+     * Returns all the possible Ports 
+     * @return List of all ports
+     */
+    public static List<String> PortsToList() {
+        List<String> Ports = new ArrayList<>();
+
+        for (Port p: Port.class.getEnumConstants())
+            Ports.add(p.name);
+
+        return Ports;
+    }
+
+    
 }

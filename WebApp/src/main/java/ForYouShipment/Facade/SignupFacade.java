@@ -69,8 +69,6 @@ public class SignupFacade extends Facade{
         
         UserStorage.GetInstance().getUsers().add(user);
 
-        // THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
-        StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Logistics";
     }
     

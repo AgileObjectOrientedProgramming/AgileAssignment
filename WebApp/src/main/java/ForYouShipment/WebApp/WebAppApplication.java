@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Persistance.PersistanceDaemon;
 import ForYouShipment.Persistance.StoragePersistance;
 import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.UserStorage;
@@ -24,13 +25,18 @@ public class WebAppApplication {
 		admin.getProfile().setParameter("LastName", "Administrator");
 		admin.getProfile().setParameter("Email", "admin@dtu.dk");
 		admin.getProfile().setParameter("Role", "Admin");
-		ContainerStorage.GetInstance();
 		UserStorage.GetInstance().getUsers().add(admin);
 
 	}
 	public static void main(String[] args) {
-		StoragePersistance.LoadStoragesFromDisk();
 		InitialiseUsers();
+		StoragePersistance.LoadStoragesFromDisk();
+
+		// ContainerStorage.InitialiseContainers();
+
+		PersistanceDaemon deamon = new PersistanceDaemon();
+		deamon.start();
+
 		SpringApplication.run(WebAppApplication.class, args);
 	}
 

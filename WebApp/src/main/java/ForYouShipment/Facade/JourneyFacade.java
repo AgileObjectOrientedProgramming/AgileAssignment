@@ -75,7 +75,14 @@ public class JourneyFacade extends Facade{
         }
         UserModel user = GetUser(session);
 
-        ContainerRegister.setJourney(origin, destination, content_type, company, user );
+        ContainerMeasurements container = ContainerRegister.setJourney(origin, destination, content_type, company, user);
+
+        if (container == null) {
+            m.addAttribute("warning", "There aren't any free containers at the source port. Please try again later!");
+            m.addAttribute("SignedUser", GetUser(session));    
+            return "Journey/New";
+        }
+
         m.addAttribute("Ports", Port.class.getEnumConstants());
         m.addAttribute("SignedUser", GetUser(session));                    
         return "redirect:/Journey/Index";
@@ -122,13 +129,16 @@ public class JourneyFacade extends Facade{
     }
 
     public static String View(Model m, HttpSession session, String JourneyId) {
+        System.out.println("This is the id = " + JourneyId);
         Criteria<JourneyInfo> criteria = new CriteriaJID();
         Criteria<ContainerMeasurements> container = new CriteriaCJID();
         JourneyInfo j = criteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()), JourneyId).get(0);
+        System.out.println("Criteria ID" + JourneyId);
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), JourneyId).get(0);
         m.addAttribute("ContainerID", c.getId());
         m.addAttribute("Journey", j); 
         m.addAttribute("ID", JourneyId);
+        System.out.println("Here:" + c.getParameter("Latitude"));
         m.addAttribute("Latitude", Double.parseDouble(c.getParameter("Latitude")));
         m.addAttribute("Longitude", Double.parseDouble(c.getParameter("Longitude")));
         m.addAttribute("SignedUser", GetUser(session)); 
@@ -155,6 +165,12 @@ public class JourneyFacade extends Facade{
         Criteria<ContainerMeasurements> container = new CriteriaCID();
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), ID).get(0);
         
+        try {
+            c.setLocation(Port.ofString("In Transit"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         for (String Param : c.getAllParameters()) {
             String value = req.getParameter(Param);
             c.setParameter(Param, value);
@@ -162,8 +178,11 @@ public class JourneyFacade extends Facade{
 
         Map<String, String> measurements = c.getParameters();
         c.saveMeasurements(measurements);
-    	m.addAttribute("SignedUser", GetUser(session));
-    	
+
+        String reached_destination = req.getParameter("ReachedDestination");
+        if (reached_destination.equals("Yes"))
+            ContainerRegister.returnContainer(c);
+
         return "redirect:/Journey/Search/";
     }
 }

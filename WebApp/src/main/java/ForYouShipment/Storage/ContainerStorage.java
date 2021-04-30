@@ -1,10 +1,10 @@
 package ForYouShipment.Storage;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import ForYouShipment.Constants.Port;
@@ -23,11 +23,13 @@ public class ContainerStorage implements Storage{
     
 
     public void setContainers(Set<ContainerMeasurements> containers) {
-        Containers = containers;
+        Containers = Collections.synchronizedSet(new HashSet<>());
+        for (ContainerMeasurements m : containers)
+            Containers.add(m);
     }
 
     private ContainerStorage() {
-        Containers = new HashSet<>();
+        Containers = Collections.synchronizedSet(new HashSet<>());
     }
 
     public JSONArray SaveContentToJSON() {
@@ -39,7 +41,7 @@ public class ContainerStorage implements Storage{
     }
 
     public void ReadContentFromJSON(JSONArray array) {
-        Containers = new HashSet<>();
+        Containers = Collections.synchronizedSet(new HashSet<>());
 
         for (int i = 0; i < array.length(); i++) {
             JSONObject obj = array.getJSONObject(i);
@@ -65,7 +67,7 @@ public class ContainerStorage implements Storage{
         while (val-- > 0){
             ContainerMeasurements c = new ContainerMeasurements();
             c.setLocation(location);
-            instance.Containers.add(c);
+            GetInstance().Containers.add(c);
         }
     }
 
@@ -74,7 +76,7 @@ public class ContainerStorage implements Storage{
      * @return
      */
     public static int countContainers(){
-        return instance.Containers.size();
+        return GetInstance().Containers.size();
     }
 
     /**
@@ -99,12 +101,32 @@ public class ContainerStorage implements Storage{
      */
     public static int getFreeContainers(){
         int i = 0;
-        for (Container c : instance.Containers){
+        for (Container c : GetInstance().Containers){
             if (!(c.getJourney()==null)){
                 i++;
             }
         }
         return i;
+    }
+
+    /**
+     * Returns the number of containters in each Port
+     * @param location
+     * @return int
+     */
+    public static int GetNrContainers(Port location) {
+        int ans = 0;
+        for (Container c : GetInstance().Containers) {
+            if (c.getLocation().equals(location)) 
+                ans++;
+        }
+        return ans;
+    }
+
+
+    public static void InitialiseContainers() {
+        for (Port p: Port.class.getEnumConstants())
+                ContainerStorage.addContainers(50, p);
     }
 
 
@@ -113,8 +135,6 @@ public class ContainerStorage implements Storage{
     public static ContainerStorage GetInstance() {
         if (instance == null) {
             instance = new ContainerStorage();
-            for (Port p: Port.class.getEnumConstants())
-            ContainerStorage.addContainers(50, p);
         }
         return instance;
     }

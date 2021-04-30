@@ -12,7 +12,6 @@ import ForYouShipment.ClientSearch.CriteriaUsername;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Models.UserModel;
-import ForYouShipment.Persistance.StoragePersistance;
 import ForYouShipment.Search.Criteria;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.Workers.AuthenticateUserWorker;
@@ -83,9 +82,6 @@ public class ClientFacade extends Facade {
 
         UserStorage.GetInstance().getUsers().remove(user);
         
-        //FIXME 
-        //THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
-        StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Logistics";
     }
 
@@ -124,9 +120,6 @@ public class ClientFacade extends Facade {
             user.setPassword(Password);
         }
         
-        //FIXME
-        // THIS SHOULD NOT BE HERE BUT FOR NOW WELL... TESTING
-        StoragePersistance.SaveStoragesToDisk();
         return "redirect:/Client/View?ID=" + user.getID();
     }
 }
