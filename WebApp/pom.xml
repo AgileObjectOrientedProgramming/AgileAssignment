@@ -11,6 +11,7 @@
 	<groupId>ForYouShipment</groupId>
 	<artifactId>WebApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>WebApp</name>
 	<description>For You Shipment backend java server</description>
 	<properties>
@@ -64,6 +65,14 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/webapp</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -96,6 +105,21 @@
 					<target>1.8</target>
 				</configuration>
         	</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<attachClasses>true</attachClasses>
+					<webXml>WebApp.iml</webXml>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+						</resource>
+						<resource>
+							<directory>src/main/resources</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
