@@ -51,14 +51,11 @@ public class ContainerFactory {
         try {
             Criteria<JourneyInfo> m = new CriteriaJID();
             String jID = obj.getString("journeyId");
-            System.out.println("Are we here?");
 
             List<JourneyInfo> j2 = m.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()),
                         jID);
             
-            System.out.println("Are we here 2?");
             JourneyInfo j = j2.get(0);
-            System.out.println("Are we here 3?");
             c.setJourney(j);
             c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time"));
             JSONtoHistory(c, obj);
