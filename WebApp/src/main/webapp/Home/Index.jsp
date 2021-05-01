@@ -66,7 +66,7 @@
 <script>
     function GoToShimpentPage() {
         var button_content = document.getElementById('shipmentidinput').value
-        window.location.href = "/Journey/View?ID=" + button_content;
+        window.location.href = button_content;
     }
 </script>
 
