@@ -20,19 +20,19 @@ public class ContainerFactory {
         JSONObject obj = new JSONObject();
         obj.put("location", container.getLocation().toString());
         obj.put("id", container.getId());
-        if (container.getJourney()==null){
-            return obj;
-        }
-        System.out.println("Second try ID = " + container.getJourney().getId());
-        obj.put("journeyId", container.getJourney().getId());
         int i = 0;
-        
         for (Map<String, String> measurement : container.getMeasurementsHistory()){
             final int i2 = i;
             measurement.forEach(((k,v) -> obj.put(k + i2, v)));
             i++;
         }
         obj.put("HistorySize", i);
+        if (container.getJourney()==null){
+            return obj;
+        }
+
+        obj.put("journeyId", container.getJourney().getId());
+        
         return obj;
     }
 
@@ -40,14 +40,23 @@ public class ContainerFactory {
         ContainerMeasurements c = new ContainerMeasurements();
 
         c.setId(obj.getString("id"));
+        for  (int i = 0; i < obj.getInt("HistorySize"); i++){
+            Criteria<JourneyInfo> criteria = new CriteriaJID();
+            JourneyInfo j = criteria.meetCriteria(new ArrayList<>(JourneyStorage.GetInstance().getJourneys()), obj.getString("JourneyID" + i)).get(0);
+            System.out.println("AHAH"+j.toString());
+            c.addToJourneyHistory(j);
+        }
+        JSONtoHistory(c, obj);
         try {
             Port p = Port.ofString(obj.getString("location"));
             c.setLocation(p);
             c.setParameter("Latitude", p.getLatitude().toString());
             c.setParameter("Longitude", p.getLongitude().toString());
+            
         } catch (Exception e) {
             return c;
         }
+       
         try {
             Criteria<JourneyInfo> m = new CriteriaJID();
             String jID = obj.getString("journeyId");
@@ -58,7 +67,7 @@ public class ContainerFactory {
             JourneyInfo j = j2.get(0);
             c.setJourney(j);
             c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time", "JourneyID"));
-            JSONtoHistory(c, obj);
+            
             return c;
         }
         catch (JSONException e) {

@@ -20,6 +20,13 @@
         <c:if test="${SignedUser == ProfileUser}">
             <a href="/Client/Edit" class="btn btn-success">Edit Profile</a>
         </c:if>
+        <c:if test="${SignedUser != ProfileUser}">
+            <div style="display: flex; justify-content: space-between; flex-wrap: nowrap">
+                <a href="/Client/Delete?ID=${ProfileUser.getID()}" class="btn btn-danger">Delete User</a>
+                <a class="btn btn-info" href="#" onclick="history.go(-1)">Back</a>
+            </div>
+            
+        </c:if>
     </div>
   </div>
 

@@ -11,7 +11,7 @@
         </div>
     </c:if>
 
-    <form action="/Signup/CreateUser" method="post" class="card">
+    <form action="/Signup/${SubmitLink}" method="post" class="card">
         <div class="card-header">
             <h5>Create New User</h5>
         </div>
@@ -23,7 +23,7 @@
             <c:forEach items="${SignUpUser.getProfile().getAllParameters()}" var="element">
                 <label for="${element}">${element}:</label>
                 <br>
-                <input type="text" class="form-control" name="${element}" value="${SignUpUser.getProfile().getParameter(element)}" >
+                <input type="text" class="form-control" name="${element}" value="${SignUpUser.getProfile().getParameter(element)}" required>
                 <br>
             </c:forEach>
             <label for="Password">Password:</label>

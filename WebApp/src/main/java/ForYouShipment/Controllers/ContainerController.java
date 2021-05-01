@@ -1,5 +1,6 @@
 package ForYouShipment.Controllers;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
-import ForYouShipment.Facade.ContainerFacade;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Workers.ContainerRegister;
+import ForYouShipment.Workers.ContainerTracker;
 import ForYouShipment.Workers.LoggingWorker;
 
 
@@ -27,7 +28,15 @@ public class ContainerController extends BaseController {
     @RequestMapping(value={ "/Measurements", "/Measurements/" })
     public String New(HttpServletRequest req, Model m, HttpSession session) {
 
-        return ContainerFacade.New(req, m, session);
+        if (!HasAccess(AccessActionNounEnum.CONTAINER_PAGE, AccessActionVerbEnum.CREATE, session, req))
+            return "redirect:/Login/"; 
+        
+        
+
+        m.addAttribute("SignedUser", GetUser(session));
+        m.addAttribute("Measurements", new HashMap<String, String>());
+
+        return "Container/Measurements";
     }
         
     @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
@@ -35,8 +44,13 @@ public class ContainerController extends BaseController {
                         @RequestParam("Measurements") Map<String,String> measurements, 
                         @RequestParam("Journey") JourneyInfo journey){
         
-    	return ContainerFacade.doMeasurements(m, session, measurements, journey);                            
-    }
+        ContainerTracker.setMeasurements(measurements,journey); 
+
+        m.addAttribute("SignedUser", GetUser(session));
+        
+        return "redirect:/Journey/View?ID=$" + journey.getId();
+    }                            
+    
     
     @RequestMapping(value = {"/Delete" }, method = RequestMethod.POST)
     public String DeleteContainer(HttpServletRequest req, Model m, HttpSession session,

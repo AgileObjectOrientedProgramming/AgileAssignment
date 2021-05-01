@@ -102,23 +102,46 @@
    </head>
    <body>
     
-  <c:forEach items="${Container.getMeasurementsHistory()}" var="m">
-    <c:if test="${m.get('JourneyID').equals(ID)}">
-      <ul>
-        <c:forEach items="${m}" var="element">
-          <c:if test="${!element.getKey().equals('JourneyID')}">
-            <li>${element.getKey()}: ${element.getValue()}</li>
-            <br>
-          </c:if>
-        </c:forEach>
-      </ul>
-      <br>
-      <hr> 
-      <br>
-    </c:if>
-  </c:forEach>
+    <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+              History of the container's vitals</a>
+              </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse out">
+            <table class="table table-hover" >
+              <thead class="thead-light" >
+                  <tr>
+                      <th> Latitude </th>
+                      <th> Longitude </th>
+                      <th> Temperature </th>
+                      <th> Humidity </th>
+                      <th> Pressure </th>
+                      <th> Time </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <c:forEach items="${Container.getMeasurementsHistory()}" var="m">
+                    <tr>
+                    <c:if test="${m.get('JourneyID').equals(ID)}">
+                        <td>${m.get('Latitude')}</td>
+                        <td>${m.get('Longitude')}</td>
+                        <td>${m.get('Temperature')}</td>
+                        <td>${m.get('Humidity')}</td>
+                        <td>${m.get('Pressure')}</td>
+                        <td>${m.get('Time')}</td>
+                    </c:if>
+                    </tr>
+                </c:forEach> 
+              </tbody>
+              </table>
+        
+          </div>
+          </div>
+  </div>
     
-    <br>
     <h3>Journey Map</h3>
     <!--The div element for the map -->
     <div id="map"></div>
@@ -133,6 +156,26 @@
 
 
 <style>
+  .panel-group {
+        color:white;
+        border-radius: 10px;
+        width: 100%;
+        margin: auto;
+    }
+    .panel-default {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        border-radius: 10px;
+        width: 100%;
+        margin: auto;
+    }
+    .panel-heading {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        backdrop-filter: blur(10px);
+        width: 100%;
+        margin: auto;
+    }
   .card {
         background-color: rgba(0, 0, 0, 0.2);
         color:white;
@@ -148,6 +191,14 @@
         background-size: cover;
     }
     h1 { text-align: center }
+    .thead-light {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+    }
+    .table-hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+    }
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

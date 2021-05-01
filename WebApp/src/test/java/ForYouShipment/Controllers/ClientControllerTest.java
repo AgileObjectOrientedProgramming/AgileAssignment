@@ -143,6 +143,24 @@ public class ClientControllerTest {
         assertTrue(view_name.equals("redirect:/Login/")); 
     }
 
+    // @Test
+    // public void TestUnSuccessfulViewPage3() throws Exception {
+    //     MockHttpSession session = new MockHttpSession();
+    //     session.setAttribute("SignedUser", "1.2.3.4");
+
+	// 	MvcResult resultActions = 
+    //         this.mockMvc.perform(
+    //             get("/Client/View")
+    //             .param("ID", "1.1.1.2")
+    //             .session(session)
+    //         )
+    //         .andExpect(status().is(302))
+    //         .andReturn();
+    
+    //     String view_name = resultActions.getModelAndView().getViewName();       
+    //     assertTrue(view_name.equals("redirect:/Login/")); 
+    // }
+
 
 
 

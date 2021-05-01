@@ -7,12 +7,20 @@
 <div class=main-card>
 
 </div>
-<h2>Containers at port ${Port.toString()}</h2> 
+<c:if test="${!Port.toString().equals('In Transit')}">
+    <h2>Containers at port ${Port.toString()}</h2> 
+</c:if>
 
-<form action="/Port/NewContainer?Port=${Port.toString()}" method="post" style="display:flex;">
-    <input type="number" value="1" class="form-control" name="Count">
-    <input type="submit" class="btn btn-success" value="Add New Container" style="margin-left: 5px"> 
-</form> 
+<c:if test="${Port.toString().equals('In Transit')}">
+    <h2>Containers ${Port.toString()}</h2>
+</c:if>
+
+<c:if test="${!Port.toString().equals('In Transit')}">
+    <form action="/Port/NewContainer?Port=${Port.toString()}" method="post" style="display:flex;">
+        <input type="number" value="1" class="form-control" name="Count">
+        <input type="submit" class="btn btn-success" value="Add New Container" style="margin-left: 5px"> 
+    </form> 
+</c:if>
 <br>
 <br>
 

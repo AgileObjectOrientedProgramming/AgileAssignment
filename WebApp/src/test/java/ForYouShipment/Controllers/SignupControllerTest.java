@@ -54,11 +54,23 @@ public class SignupControllerTest {
 
 		MvcResult resultActions = 
             this.mockMvc.perform(
-                get("/Signup/Index")
+                get("/Signup/Client")
             )
             .andExpect(status().is(302))
             .andReturn();
     }
+
+    @Test
+	public void TestIndexLogisticsNotLoggedIn() throws Exception {
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Signup/Logistics")
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+    }
+
 
     
 	@Test
@@ -69,7 +81,7 @@ public class SignupControllerTest {
 
 		MvcResult resultActions = 
             this.mockMvc.perform(
-                post("/Signup/Index")
+                post("/Signup/Client")
                 .session(session)
             )
             .andExpect(status().isOk())
@@ -92,6 +104,39 @@ public class SignupControllerTest {
             .get("SignedUser") != null
         );
     }
+
+    @Test
+	public void TestIndexLoggedInLogistics() throws Exception {
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Signup/Logistics")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+        
+        assertTrue(
+            view_name.equals("Signup/Index")
+        );
+
+        assertTrue(
+            model
+            .get("SignUpUser") != null
+        );
+
+        assertTrue(
+            model
+            .get("SignedUser") != null
+        );
+    }
+
 
     @Test
 	public void TestUnsuccessfullCreateUser() throws Exception {
