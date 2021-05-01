@@ -23,7 +23,7 @@
             <c:forEach items="${SignUpUser.getProfile().getAllParameters()}" var="element">
                 <label for="${element}">${element}:</label>
                 <br>
-                <input type="text" class="form-control" name="${element}" value="${SignUpUser.getProfile().getParameter(element)}" >
+                <input type="text" class="form-control" name="${element}" value="${SignUpUser.getProfile().getParameter(element)}" required>
                 <br>
             </c:forEach>
             <label for="Password">Password:</label>

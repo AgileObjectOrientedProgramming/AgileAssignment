@@ -19,23 +19,49 @@
 <br>
 <br>
 
-<div class="panel-group" id="accordion">
 
-    <c:forEach items="${Container.getJourneyHistory()}" var="journey">
+<div class="panel-group" id="accordion"></div>
+    
+    <c:forEach items="${Container.getJourneyHistory()}" var="journey" >
+       
         <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-            From ${journey.getOrigin().toString()} to ${journey.getDestination().toString()} ordered by ${journey.getParameter("Username")}: Journey ID #${journey.getId()}</a>
-            </h4>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#${journey.getId()}">
+                    From ${journey.getOrigin().toString()} to ${journey.getDestination().toString()} ordered by ${journey.getParameter("Username")}: Journey ID #${journey.getId()}</a>
+                </h4>
+            </div>
+            <div id="${journey.getId()}" class="panel-collapse collapse out">
+                <table class="table table-hover" >
+                  <thead class="thead-light" >
+                      <tr>
+                          <th> Latitude </th>
+                          <th> Longitude </th>
+                          <th> Temperature </th>
+                          <th> Humidity </th>
+                          <th> Pressure </th>
+                          <th> Time </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                     
+                      <c:forEach items="${Container.getMeasurementsHistory()}" var="m">
+                        <tr>
+                        <c:if test="${m.get('JourneyID').equals(journey.getId())}">
+                            <td>${m.get('Latitude')}</td>
+                            <td>${m.get('Longitude')}</td>
+                            <td>${m.get('Temperature')}</td>
+                            <td>${m.get('Humidity')}</td>
+                            <td>${m.get('Pressure')}</td>
+                            <td>${m.get('Time')}</td>
+                        </c:if>
+                        </tr>
+                    </c:forEach> 
+                  </tbody>
+                  </table>
+              </div>
         </div>
-        <div id="collapse1" class="panel-collapse collapse in">
-            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat.</div>
-        </div>
-        </div>
+       
     </c:forEach>
 </div>
 

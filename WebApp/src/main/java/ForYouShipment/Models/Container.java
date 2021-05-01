@@ -2,8 +2,10 @@ package ForYouShipment.Models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Workers.IDGenerator;
@@ -13,11 +15,11 @@ public class Container {
     private Port location;
     private String id;
     private JourneyInfo journey;
-    private List<JourneyInfo> journeyHistory = new ArrayList<>();
+    private Set<JourneyInfo> journeyHistory = new HashSet<>();
     private List<Map<String,String>> measurementsHistory = new ArrayList<>();
    
 
-    public List<JourneyInfo> getJourneyHistory() {
+    public Set<JourneyInfo> getJourneyHistory() {
         return journeyHistory;
     }
 

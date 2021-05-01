@@ -1,8 +1,8 @@
-# Agile Assignment - ForYouShipment
+# Agile Assignment 
 ## Group 6 <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">
 
 Welcome to our repository! 
-We will use this repository for our Agile Object Oriented Software Development project.
+We will use this repository for our Agile project.
 
 ## BDD Assignment
 In this assignment we only inluded user stories related to `Clients management`. 

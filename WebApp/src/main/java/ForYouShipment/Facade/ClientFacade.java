@@ -8,11 +8,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
+import ForYouShipment.ClientSearch.CriteriaFirst_Name;
+import ForYouShipment.ClientSearch.CriteriaID;
+import ForYouShipment.ClientSearch.CriteriaLast_Name;
 import ForYouShipment.ClientSearch.CriteriaUsername;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Search.Criteria;
+import ForYouShipment.Search.OrCriteria;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.Workers.AuthenticateUserWorker;
 import ForYouShipment.Workers.ValidationWorker;
@@ -65,7 +69,11 @@ public class ClientFacade extends Facade {
         List<UserModel> answer = new ArrayList<>();
 
         Criteria<UserModel> username = new CriteriaUsername();
-        answer = username.meetCriteria(new ArrayList<UserModel>(UserStorage.GetInstance().getUsers()),
+        Criteria<UserModel> firstname = new CriteriaFirst_Name();
+        Criteria<UserModel> lastname = new CriteriaLast_Name();
+        Criteria<UserModel> id = new CriteriaID();
+        Criteria<UserModel> allCriteria = new OrCriteria<>(new OrCriteria<>(username, firstname), new OrCriteria<>(lastname, id));
+        answer = allCriteria.meetCriteria(new ArrayList<UserModel>(UserStorage.GetInstance().getUsers()),
         Query);
 
         m.addAttribute("Query", Query);
