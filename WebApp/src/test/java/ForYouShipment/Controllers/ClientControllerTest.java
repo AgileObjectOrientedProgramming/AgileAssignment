@@ -18,11 +18,13 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Models.UserProfileModel;
+import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
 
@@ -108,6 +110,33 @@ public class ClientControllerTest {
         assertTrue(view_name.equals("Client/Index"));
     }
 
+    @Test
+	public void TestSuccessfulClientPagewContainer() throws Exception {
+        ContainerStorage.addContainers(1, Port.PORTO);
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Index")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+
+        UserModel SignedUser = (UserModel)model.get("SignedUser");
+
+        assertTrue(
+            SignedUser
+            .getUsername()
+            .equals("test")
+        );  
+        assertTrue(view_name.equals("Client/Index"));
+    }
     @Test
 	public void TestUnSuccessfulViewPage() throws Exception {
         MockHttpSession session = new MockHttpSession();
