@@ -1,5 +1,4 @@
 package ForYouShipment.Persistance;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import ForYouShipment.Constants.Port;

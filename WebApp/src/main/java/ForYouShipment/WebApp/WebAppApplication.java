@@ -3,13 +3,13 @@ package ForYouShipment.WebApp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 
 import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Persistance.PersistanceDaemon;
 import ForYouShipment.Persistance.StoragePersistance;
-import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.UserStorage;
 
 @SpringBootApplication @ComponentScan(basePackages = { "ForYouShipment.Controllers" } )
@@ -21,8 +21,8 @@ public class WebAppApplication {
 		admin.setPassword("admin");
 		admin.setID("0.0.0.0");
 		admin.setProfile(new LogisticsProfileModel());
-		admin.getProfile().setParameter("FirstName", "Administrator");
-		admin.getProfile().setParameter("LastName", "Administrator");
+		admin.getProfile().setParameter("First Name", "Administrator");
+		admin.getProfile().setParameter("Last Name", "Administrator");
 		admin.getProfile().setParameter("Email", "admin@dtu.dk");
 		admin.getProfile().setParameter("Role", "Admin");
 		UserStorage.GetInstance().getUsers().add(admin);
@@ -31,8 +31,6 @@ public class WebAppApplication {
 	public static void main(String[] args) {
 		InitialiseUsers();
 		StoragePersistance.LoadStoragesFromDisk();
-
-		// ContainerStorage.InitialiseContainers();
 
 		PersistanceDaemon deamon = new PersistanceDaemon();
 		deamon.start();
