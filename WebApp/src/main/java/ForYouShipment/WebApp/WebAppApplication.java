@@ -21,8 +21,8 @@ public class WebAppApplication {
 		admin.setPassword("admin");
 		admin.setID("0.0.0.0");
 		admin.setProfile(new LogisticsProfileModel());
-		admin.getProfile().setParameter("FirstName", "Administrator");
-		admin.getProfile().setParameter("LastName", "Administrator");
+		admin.getProfile().setParameter("First Name", "Administrator");
+		admin.getProfile().setParameter("Last Name", "Administrator");
 		admin.getProfile().setParameter("Email", "admin@dtu.dk");
 		admin.getProfile().setParameter("Role", "Admin");
 		UserStorage.GetInstance().getUsers().add(admin);

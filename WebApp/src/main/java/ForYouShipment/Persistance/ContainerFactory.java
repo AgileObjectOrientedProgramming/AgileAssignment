@@ -40,14 +40,23 @@ public class ContainerFactory {
         ContainerMeasurements c = new ContainerMeasurements();
 
         c.setId(obj.getString("id"));
+        for  (int i = 0; i < obj.getInt("HistorySize"); i++){
+            Criteria<JourneyInfo> criteria = new CriteriaJID();
+            JourneyInfo j = criteria.meetCriteria(new ArrayList<>(JourneyStorage.GetInstance().getJourneys()), obj.getString("JourneyID" + i)).get(0);
+            System.out.println("AHAH"+j.toString());
+            c.addToJourneyHistory(j);
+        }
+        JSONtoHistory(c, obj);
         try {
             Port p = Port.ofString(obj.getString("location"));
             c.setLocation(p);
             c.setParameter("Latitude", p.getLatitude().toString());
             c.setParameter("Longitude", p.getLongitude().toString());
+            
         } catch (Exception e) {
             return c;
         }
+       
         try {
             Criteria<JourneyInfo> m = new CriteriaJID();
             String jID = obj.getString("journeyId");
@@ -58,7 +67,7 @@ public class ContainerFactory {
             JourneyInfo j = j2.get(0);
             c.setJourney(j);
             c.setAvailableParameters(Arrays.asList("Latitude","Longitude","Temperature", "Humidity","Pressure","Time", "JourneyID"));
-            JSONtoHistory(c, obj);
+            
             return c;
         }
         catch (JSONException e) {
@@ -77,10 +86,6 @@ public class ContainerFactory {
             m.put("Humidity", obj.getString("Humidity" + i));
             m.put("Time", obj.getString("Time" + i));
             m.put("JourneyID", obj.getString("JourneyID" + i));
-            Criteria<JourneyInfo> criteria = new CriteriaJID();
-            JourneyInfo j = criteria.meetCriteria(new ArrayList<>(JourneyStorage.GetInstance().getJourneys()), m.get("JourneyID")).get(0);
-            System.out.println("AHAH"+j.toString());
-            c.addToJourneyHistory(j);
             c.setParameter("Latitude", obj.getString("Latitude" + i));
             c.setParameter("Longitude", obj.getString("Longitude" + i));
             c.saveMeasurements(m);

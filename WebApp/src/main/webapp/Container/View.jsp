@@ -19,18 +19,19 @@
 <br>
 <br>
 
-<div class="panel-group" id="accordion">
 
-    <c:forEach items="${Container.getJourneyHistory()}" var="journey">
+<div class="panel-group" id="accordion"></div>
+    
+    <c:forEach items="${Container.getJourneyHistory()}" var="journey" >
+       
         <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-            From ${journey.getOrigin().toString()} to ${journey.getDestination().toString()} ordered by ${journey.getParameter("Username")}: Journey ID #${journey.getId()}</a>
-            </h4>
-        </div>
-        <div id="collapse1" class="panel-collapse collapse in">
-            <div id="collapse1" class="panel-collapse collapse out">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#${journey.getId()}">
+                    From ${journey.getOrigin().toString()} to ${journey.getDestination().toString()} ordered by ${journey.getParameter("Username")}: Journey ID #${journey.getId()}</a>
+                </h4>
+            </div>
+            <div id="${journey.getId()}" class="panel-collapse collapse out">
                 <table class="table table-hover" >
                   <thead class="thead-light" >
                       <tr>
@@ -43,6 +44,7 @@
                       </tr>
                   </thead>
                   <tbody>
+                     
                       <c:forEach items="${Container.getMeasurementsHistory()}" var="m">
                         <tr>
                         <c:if test="${m.get('JourneyID').equals(journey.getId())}">
@@ -59,7 +61,7 @@
                   </table>
               </div>
         </div>
-        </div>
+       
     </c:forEach>
 </div>
 
