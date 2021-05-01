@@ -11,14 +11,23 @@
 
 <form action="/Container/Delete?ID=${Container.getId()}" method="post" style="display:flex; justify-content: flex-end;">
     <c:if test="${Container.getJourney() == null}">
-        <input type="submit" class="btn btn-danger btn-lg float-end" value="Delete Container" style="margin-right: 5px"> 
+        <input type="submit" class="btn btn-danger btn-lg float-end" href="#" onclick="history.go(-1)" value="Delete Container" style="margin-right: 5px"> 
     </c:if>
-    <a class="btn btn-info btn-lg float-end" href="/Port/View?Port=${Container.getLocation().toString()}"> Back </a>   
+    <a class="btn btn-info btn-lg float-end" href="#" onclick="history.go(-1)"> Back </a>   
 </form>
 
 <br>
 <br>
 
+<c:if test="${Container.getJourneyHistory().size() == 0}">
+    <div class="card text-center">
+        <div class="card-body">
+            <h3 class="card-text"> There is no history of any Journey involved with this container.
+                <br>
+            </h3>
+        </div>
+    </div>
+</c:if>
 
 <div class="panel-group" id="accordion"></div>
     
@@ -105,6 +114,14 @@
         backdrop-filter: blur(10px);
     }
     h2 { color:white; text-align: center }
+    .card {
+        background-color: rgba(0, 0, 0, 0.2);
+        color:white;
+        margin: auto;
+        width: 70%;
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+    }
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

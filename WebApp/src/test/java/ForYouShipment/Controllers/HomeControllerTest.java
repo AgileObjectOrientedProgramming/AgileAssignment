@@ -2,9 +2,10 @@ package ForYouShipment.Controllers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
@@ -17,8 +18,12 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ClientUserModel;
+import ForYouShipment.Models.ContainerMeasurements;
+import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
 
@@ -75,4 +80,60 @@ public class HomeControllerTest {
         assertTrue(view_name.equals("Home/Index"));
     }
 
-   }
+    @Test
+    public void testUserManual() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/UserManual")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        assertTrue(view_name.equals("Home/UserManual"));
+    }
+
+    @Test
+    public void testAboutUs() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/AboutUs")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        assertTrue(view_name.equals("Home/AboutUs"));
+    }
+
+    @Test
+    public void testWorldMap() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        ContainerMeasurements c = new ContainerMeasurements();
+        c.setJourney(new JourneyInfo());
+        ContainerStorage.GetInstance().getContainers().add(c);
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/WorldMap")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        assertTrue(view_name.equals("Home/WorldMap"));
+    }
+}

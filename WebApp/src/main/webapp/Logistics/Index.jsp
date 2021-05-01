@@ -85,14 +85,30 @@
             </div>
             <div id="menu3" class="tab-pane fade">
               <h3>Ports Management</h3>
+              <p>
+              <c:forEach items="${portMap}" var="element">
+                  <c:if test="${element.getKey().equals('In Transit')}">
+                    Containers 
+                    <a class="btn btn-primary" style="margin: 10px;" 
+                      href='/Port/View?Port=${element.getKey()}'>
+                      ${element.getKey()} <span class="badge bg-info text-dark">${element.getValue()}</span>
+                    </a>
+                  </c:if>
+              </c:forEach>
+              <br>
+              All the available ports:
+              <br>
               <div style="display: flex; justify-content: flex-start; flex-wrap: wrap">
                 <c:forEach items="${portMap}" var="element">
-                  <a class="btn btn-primary" style="margin: 10px;" 
+                  <c:if test="${!element.getKey().equals('In Transit')}">
+                    <a class="btn btn-primary" style="margin: 10px;" 
                       href='/Port/View?Port=${element.getKey()}'>
-                    ${element.getKey()} <span class="badge bg-info text-dark">${element.getValue()}</span>
-                  </a>
+                      ${element.getKey()} <span class="badge bg-info text-dark">${element.getValue()}</span>
+                    </a>
+                  </c:if>
                 </c:forEach>
               </div> 
+              </p>
           </div>
     </div>
 </div>

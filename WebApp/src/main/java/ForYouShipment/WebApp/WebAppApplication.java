@@ -3,7 +3,6 @@ package ForYouShipment.WebApp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ImportResource;
 
 import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;

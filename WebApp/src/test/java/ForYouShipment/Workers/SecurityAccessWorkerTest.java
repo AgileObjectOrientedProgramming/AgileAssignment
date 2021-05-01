@@ -27,7 +27,7 @@ public class SecurityAccessWorkerTest {
     }
 
     @Test
-    public void TestHasAccessToL() {
+    public void TestHasAccessToLogisticsUser() {
         
         UserModel lu = new LogisticsUserModel();
         
@@ -56,6 +56,16 @@ public class SecurityAccessWorkerTest {
 
         assertTrue(!SecurityAccessWorker.HasAccessTo(AccessActionNounEnum.JOURNEY_PAGE,
                                                     AccessActionVerbEnum.INDEX, lu));
+
+        assertTrue(SecurityAccessWorker.HasAccessTo(AccessActionNounEnum.CONTAINER_MANAGEMENT,
+                                                    AccessActionVerbEnum.GENERAL, lu));
+
+        assertTrue(SecurityAccessWorker.HasAccessTo(AccessActionNounEnum.CONTAINER_PAGE,
+                                                    AccessActionVerbEnum.CREATE, lu));
+        
+        assertTrue(!SecurityAccessWorker.HasAccessTo(AccessActionNounEnum.CONTAINER_PAGE,
+                                                    AccessActionVerbEnum.GENERAL, lu));
+        
     }
 
     @Test

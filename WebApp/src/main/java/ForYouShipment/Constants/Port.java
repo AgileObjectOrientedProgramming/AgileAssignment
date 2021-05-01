@@ -1,8 +1,5 @@
 package ForYouShipment.Constants;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public enum Port {
 
     TRANSIT("In Transit", 0., 0.),
@@ -53,7 +50,7 @@ public enum Port {
         }
         System.out.println(name);
         System.out.println("Invalid port name");
-        throw new EnumConstantNotPresentException(null, "Invalid port name");
+        throw new EnumConstantNotPresentException(Port.class, "Invalid port name");
     }
 
     public Double getLatitude(){
@@ -72,18 +69,7 @@ public enum Port {
         return Port.values().length;
     }
 
-    /**
-     * Returns all the possible Ports 
-     * @return List of all ports
-     */
-    public static List<String> PortsToList() {
-        List<String> Ports = new ArrayList<>();
 
-        for (Port p: Port.class.getEnumConstants())
-            Ports.add(p.name);
-
-        return Ports;
-    }
 
     
 }

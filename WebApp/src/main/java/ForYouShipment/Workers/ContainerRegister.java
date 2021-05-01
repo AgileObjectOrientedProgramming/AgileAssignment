@@ -3,7 +3,6 @@ package ForYouShipment.Workers;
 import java.util.stream.Collectors;
 
 import ForYouShipment.Constants.Port;
-import ForYouShipment.Models.Container;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
