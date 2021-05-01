@@ -117,7 +117,7 @@ public class ContainerStorage implements Storage{
     public static int GetNrContainers(Port location) {
         int ans = 0;
         for (Container c : GetInstance().Containers) {
-            if (c.getLocation().equals(location)) 
+            if (c.getLocation() != null && c.getLocation().equals(location)) 
                 ans++;
         }
         return ans;

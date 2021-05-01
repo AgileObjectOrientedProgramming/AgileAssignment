@@ -7,30 +7,14 @@
 <h2 class="display-1">Welcome to the Logistics Board!</h2> 
 <br>
 
-<!-- <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Important Statistics</h5>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Number of clients: ${numberClients}</li>
-            <li class="list-group-item">Number of journeys: ${numberJourneys}</li>
-            <li class="list-group-item">Number of containers</li>
-            <li class="list-group-item">Number of ports</li>
-            </ul>
-      <a class="btn btn-success" href="/Signup">
-        Add Client
-        </a>
-    </div>
-  </div>
-  -->
-
 <div class="main-card">
     <div class="card-body">
         <h2 class="card-title">Important Statistics</h3>
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">Clients</a></li>
-            <li><a data-toggle="tab" href="#menu1">Journeys</a></li>
-            <li><a data-toggle="tab" href="#menu2">Containers</a></li>
-            <li><a data-toggle="tab" href="#menu3">Ports</a></li>
+            <li class="active"><a class="white-option" data-toggle="tab" href="#home">Clients</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu1">Journeys</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu2">Containers</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu3">Ports</a></li>
           </ul>
           
           <div class="tab-content">
@@ -52,7 +36,8 @@
                 Number of clients: ${numberClients}
               </p>
               <div style="display: flex; justify-content:flex-start ;">
-                <a class="btn btn-success" href="/Signup" style="margin-right: 30px"> Add new Client</a>
+                <a class="btn btn-success" href="/Signup/Client" style="margin-right: 30px"> Add new Client</a>
+                <a class="btn btn-success" href="/Signup/Logistics" style="margin-right: 30px"> Add new Manager</a>
                 <a class="btn btn-info" href="/Client/Search"> Search Clients</a>
               </div>
             </div>
@@ -133,11 +118,11 @@
         background-color: rgba(0, 0, 0, 0.2);
         color:white;
     }
-    a {
+    .white-option {
         color: #e9ecef;
         text-decoration: none;
     }
-    a {
+    .white-option {
         background-color: rgb(255 255 255 / 15%);
     }
     h2 { text-align: center }

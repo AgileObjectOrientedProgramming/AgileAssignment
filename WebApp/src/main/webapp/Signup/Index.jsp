@@ -11,7 +11,7 @@
         </div>
     </c:if>
 
-    <form action="/Signup/CreateUser" method="post" class="card">
+    <form action="/Signup/${SubmitLink}" method="post" class="card">
         <div class="card-header">
             <h5>Create New User</h5>
         </div>
