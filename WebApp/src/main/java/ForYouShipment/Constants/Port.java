@@ -1,8 +1,5 @@
 package ForYouShipment.Constants;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public enum Port {
 
     TRANSIT("In Transit", 0., 0.),
