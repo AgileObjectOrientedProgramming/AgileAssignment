@@ -185,22 +185,22 @@ public class ClientControllerTest {
 
 
 
-    @Test
-	public void TestSuccessfulSearchPage() throws Exception {
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("SignedUser", "1.2.3.4");
+    // @Test
+	// public void TestSuccessfulSearchPage() throws Exception {
+    //     MockHttpSession session = new MockHttpSession();
+    //     session.setAttribute("SignedUser", "1.2.3.4");
 
-		MvcResult resultActions = 
-            this.mockMvc.perform(
-                get("/Client/Search")
-                .session(session)
-            )
-            .andExpect(status().isOk())
-            .andReturn();
+	// 	MvcResult resultActions = 
+    //         this.mockMvc.perform(
+    //             get("/Client/Search")
+    //             .session(session)
+    //         )
+    //         .andExpect(status().isOk())
+    //         .andReturn();
 
-        String view_name = resultActions.getModelAndView().getViewName();
-        assertTrue(view_name.equals("Client/Search"));
-    }
+    //     String view_name = resultActions.getModelAndView().getViewName();
+    //     assertTrue(view_name.equals("Client/Search"));
+    // }
 
     @Test
 	public void TestUnSuccessfulSearchPage() throws Exception {
