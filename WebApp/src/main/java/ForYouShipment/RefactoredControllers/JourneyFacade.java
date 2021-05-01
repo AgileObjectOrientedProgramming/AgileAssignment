@@ -1,4 +1,4 @@
-package ForYouShipment.Controllers;
+package ForYouShipment.RefactoredControllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
@@ -33,15 +29,10 @@ import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Workers.ContainerRegister;
 
-
-
-
-@Controller
-@RequestMapping("/Journey")
-public class JourneyController extends BaseController {
+public class JourneyFacade extends Facade{
     
-    @RequestMapping(value={ "/Index", "/" , ""})
-    public String Index(HttpServletRequest req, Model m, HttpSession session) {
+
+    public static String Index(HttpServletRequest req, Model m, HttpSession session) {
         if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.INDEX, session, req))
             return "redirect:/Login/";
         
@@ -58,26 +49,21 @@ public class JourneyController extends BaseController {
         return "Journey/Index";
     }
 
+    
 
-    @RequestMapping(value={ "/New", "/New/" })
-    public String New(HttpServletRequest req, Model m, HttpSession session) {
+    public static String New(HttpServletRequest req, Model m, HttpSession session) {
         if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.CREATE, session, req))
             return "redirect:/Login/";
         
+  
 
         m.addAttribute("Ports", Port.class.getEnumConstants());
         m.addAttribute("SignedUser", GetUser(session));
         return "Journey/New";
     }
 
-
-    @RequestMapping(value = {"/New", "/New/"}, method = RequestMethod.POST)
-    public String registerContainer(HttpServletRequest req, Model m, HttpSession session,
-                        @RequestParam("Origin") String origin, 
-                        @RequestParam("Destination") String destination,
-                        @RequestParam("Content type") String content_type,
-                        @RequestParam("Company") String company) throws Exception {
-        
+    public static String registerContainer(Model m, HttpSession session, String origin, String destination, String content_type,
+            String company) throws Exception {
         try {
             Port.ofString(origin);
             Port.ofString(destination);
@@ -101,11 +87,8 @@ public class JourneyController extends BaseController {
         m.addAttribute("SignedUser", GetUser(session));                    
         return "redirect:/Journey/Index";
     }
-    
 
-
-    @RequestMapping(value={ "/Search" })
-    public String Search(HttpServletRequest req, Model m, HttpSession session) {
+    public static String Search(HttpServletRequest req, Model m, HttpSession session) {
         String Query = req.getParameter("Query");
         if (Query == null)
             Query = "";
@@ -145,10 +128,7 @@ public class JourneyController extends BaseController {
         return "Journey/Search";
     }
 
-    @RequestMapping(value={ "/View" })
-    public String View(HttpServletRequest req, Model m, HttpSession session,
-                    @RequestParam("ID") String JourneyId) {
-                        
+    public static String View(Model m, HttpSession session, String JourneyId) {
         Criteria<JourneyInfo> criteria = new CriteriaJID();
         Criteria<ContainerMeasurements> container = new CriteriaCJID();
         JourneyInfo j = criteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()), JourneyId).get(0);
@@ -166,13 +146,10 @@ public class JourneyController extends BaseController {
         return "Journey/View";
     }
 
-
-    @RequestMapping(value = {"/Measurements", "/Measurements/"})
-    public String SetMeasurement(HttpServletRequest req, Model m, HttpSession session,
-                                 @RequestParam("ID") String ID) {
-
+    
+    public static String SetMeasurement(HttpServletRequest req, Model m, HttpSession session, String ID) {
         if (!HasAccess(AccessActionNounEnum.CONTAINER_PAGE, AccessActionVerbEnum.CREATE, session, req))
-        return "redirect:/Login/";
+            return "redirect:/Login/";
         
         
         Criteria<ContainerMeasurements> container = new CriteriaCID();
@@ -183,10 +160,7 @@ public class JourneyController extends BaseController {
         return "Journey/Measurements" ;
     }
 
-    
-    @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
-    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) {
-    
+    public static String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) {
         String ID = req.getParameter("ContainerID");                   
         Criteria<ContainerMeasurements> container = new CriteriaCID();
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), ID).get(0);

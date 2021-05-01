@@ -53,7 +53,7 @@ public enum Port {
         }
         System.out.println(name);
         System.out.println("Invalid port name");
-        throw new EnumConstantNotPresentException(null, "Invalid port name");
+        throw new EnumConstantNotPresentException(Port.class, "Invalid port name");
     }
 
     public Double getLatitude(){

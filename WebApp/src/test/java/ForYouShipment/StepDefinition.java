@@ -16,13 +16,13 @@ import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 
 import ForYouShipment.ClientSearch.CriteriaUsername;
-import ForYouShipment.Facade.ClientFacade;
-import ForYouShipment.Facade.LoginFacade;
-import ForYouShipment.Facade.SignupFacade;
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Models.UserProfileModel;
+import ForYouShipment.RefactoredControllers.ClientFacade;
+import ForYouShipment.RefactoredControllers.LoginFacade;
+import ForYouShipment.RefactoredControllers.SignupFacade;
 import ForYouShipment.Search.Criteria;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
