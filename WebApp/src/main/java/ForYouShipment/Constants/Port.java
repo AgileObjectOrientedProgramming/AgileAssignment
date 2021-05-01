@@ -72,18 +72,7 @@ public enum Port {
         return Port.values().length;
     }
 
-    /**
-     * Returns all the possible Ports 
-     * @return List of all ports
-     */
-    public static List<String> PortsToList() {
-        List<String> Ports = new ArrayList<>();
 
-        for (Port p: Port.class.getEnumConstants())
-            Ports.add(p.name);
-
-        return Ports;
-    }
 
     
 }

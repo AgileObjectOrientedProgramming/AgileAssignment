@@ -46,7 +46,7 @@ public class UserModelFactory {
         
         for (String item : user.getProfile().getAllParameters())
             user.getProfile().setParameter(item, obj.getString(item));
-
+           
         return user;
     }
 }
