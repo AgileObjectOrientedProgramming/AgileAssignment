@@ -59,7 +59,7 @@ public class ClientController extends BaseController {
         if (!HasAccess(AccessActionNounEnum.CLIENT_MANAGEMENT, AccessActionVerbEnum.PERSONAL, session, req))
             return "redirect:/Login/";
 
-        if (signedUser != profileUser && !signedUser.IsLogisticUser())
+        if (!signedUser.IsLogisticUser() && signedUser != profileUser )
             return "redirect:/Login/";
 
 
@@ -96,6 +96,8 @@ public class ClientController extends BaseController {
         m.addAttribute("SignedUser", GetUser(session));
         return "Client/Search";
     }
+
+
 
 
     @RequestMapping(value={ "/Delete" })
