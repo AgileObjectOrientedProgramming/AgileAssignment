@@ -1,6 +1,7 @@
 package ForYouShipment.Controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +19,11 @@ import ForYouShipment.ClientSearch.CriteriaLast_Name;
 import ForYouShipment.ClientSearch.CriteriaUsername;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
+import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Search.Criteria;
 import ForYouShipment.Search.OrCriteria;
+import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.Workers.AuthenticateUserWorker;
 import ForYouShipment.Workers.ValidationWorker;
@@ -39,6 +42,18 @@ public class ClientController extends BaseController {
     UserModel user = GetUser(session);
 
     m.addAttribute("User", user);
+
+    // Sending the available ports to the views,
+    // so that the user can see where he/she can order.
+    Port[] Ports = Port.class.getEnumConstants();
+        m.addAttribute("Ports", Ports);
+
+    HashMap<String, Integer> portMap = new HashMap<>();
+    for (Port p : Ports) 
+        if (ContainerStorage.GetNrContainers(p) > 0)
+        portMap.put(p.toString(), ContainerStorage.GetNrContainers(p));
+    
+    m.addAttribute("portMap", portMap);
 
     // Send Username to the view
     m.addAttribute("Username", user.getUsername());

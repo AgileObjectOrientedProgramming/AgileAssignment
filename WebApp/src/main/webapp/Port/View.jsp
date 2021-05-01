@@ -11,8 +11,8 @@
     <h2>Containers at port ${Port.toString()}</h2> 
 </c:if>
 
-<c:if test="${!Port.toString().equals('In Transit')}"></c:iftest>
-<h2>Containers ${Port.toString()}</h2>
+<c:if test="${Port.toString().equals('In Transit')}">
+    <h2>Containers ${Port.toString()}</h2>
 </c:if>
 
 <c:if test="${!Port.toString().equals('In Transit')}">
