@@ -25,7 +25,7 @@
         <p class="card-text">As a company client you have access to a personalised account, 
                 where you can manage your orders. In order to log in on this website, you must 
                 use the unique password and username provided by our team. </p>
-        <a href="/UserManual" class="btn btn-primary">User Manual</a>
+        <a href="/UserManual" class="btn btn-primary">Short User Manual</a>
       </div>
     </div>
   </div>
