@@ -33,8 +33,10 @@ public class ContainerTrackerTest {
             container.setJourney(journey);
             String jid = journey.getId();
             ContainerMeasurements c = new ContainerMeasurements();
+            ContainerMeasurements c2 = new ContainerMeasurements();
             c = ContainerTracker.setMeasurements(measurements, journey);
-            assertTrue(c.getParameters().equals(measurements));
+            c2 = ContainerTracker.setMeasurements(measurements, journey);
+            assertTrue(c.equals(c2));
         }
 
 }

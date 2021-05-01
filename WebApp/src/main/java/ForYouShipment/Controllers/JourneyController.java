@@ -152,12 +152,10 @@ public class JourneyController extends BaseController {
         Criteria<JourneyInfo> criteria = new CriteriaJID();
         Criteria<ContainerMeasurements> container = new CriteriaCJID();
         JourneyInfo j = criteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()), JourneyId).get(0);
-        System.out.println("Criteria ID" + JourneyId);
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), JourneyId).get(0);
         m.addAttribute("ContainerID", c.getId());
         m.addAttribute("Journey", j); 
         m.addAttribute("ID", JourneyId);
-        System.out.println("Here:" + c.getParameter("Latitude"));
         m.addAttribute("Latitude", Double.parseDouble(c.getParameter("Latitude")));
         m.addAttribute("Longitude", Double.parseDouble(c.getParameter("Longitude")));
         m.addAttribute("SignedUser", GetUser(session)); 

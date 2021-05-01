@@ -1,7 +1,6 @@
 package ForYouShipment.Controllers;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.AfterEach;
@@ -15,11 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import ForYouShipment.Models.ClientUserModel;
-import ForYouShipment.Models.Container;
-import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
-import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
@@ -160,7 +156,6 @@ public class JourneyControllerTest {
             .andReturn();
         
         String view_name = resultActions.getModelAndView().getViewName();
-        System.out.print(view_name);
         assertTrue(
             view_name.equals("Journey/Search")
         );
@@ -226,7 +221,6 @@ public class JourneyControllerTest {
             .andReturn();
         
         String view_name = resultActions.getModelAndView().getViewName();
-        System.out.print(view_name);
         assertTrue(
             view_name.equals("Journey/Index")
         );
@@ -246,7 +240,6 @@ public class JourneyControllerTest {
             .andReturn();
         
         String view_name = resultActions.getModelAndView().getViewName();
-        System.out.print(view_name);
         assertTrue(
             view_name.equals("redirect:/Login/")
         );

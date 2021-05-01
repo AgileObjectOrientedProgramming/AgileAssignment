@@ -59,7 +59,6 @@ public class ClientControllerTest {
         a.setProfile(pa);
         UserStorage.GetInstance().getUsers().add(a);
         b = UserStorage.GetInstance().getUsers();
-        System.out.println("x");
     }
 
     @AfterEach
@@ -319,7 +318,6 @@ public class ClientControllerTest {
             .andReturn();
 
         String view_name = resultActions.getModelAndView().getViewName();
-        System.out.println(view_name);
         assertTrue(view_name.equals("redirect:/Login/"));
     }
 

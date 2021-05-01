@@ -48,8 +48,6 @@ public enum Port {
             if (p.toString().equals(name))
                 return p;
         }
-        System.out.println(name);
-        System.out.println("Invalid port name");
         throw new EnumConstantNotPresentException(Port.class, "Invalid port name");
     }
 

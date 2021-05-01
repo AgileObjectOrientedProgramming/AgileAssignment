@@ -1,10 +1,11 @@
 package ForYouShipment.Controllers;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Set;
+import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,12 +16,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
-import ForYouShipment.Models.UserProfileModel;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
 
@@ -53,16 +53,36 @@ public class PortControllerTest {
 
 
 
+    // @Test FIXME
+    // public void ViewValid() throws Exception{
+    //     MockHttpSession session = new MockHttpSession();
+    //     session.setAttribute("SignedUser", "0.0.0.0");
+    //     ContainerMeasurements c = new ContainerMeasurements();
+    //     c.setLocation(Port.NEKO);
+    //     ContainerStorage.GetInstance().getContainers().add(c);
+
+	// 	MvcResult resultActions = 
+    //         this.mockMvc.perform(
+    //             get("/Port/View")
+    //             .param("Port", "Neko")
+    //             .session(session))
+    //         .andExpect(status().isOk())
+    //         .andReturn();
+        
+    //     String view_name = resultActions.getModelAndView().getViewName();       
+    //     assertTrue(view_name.equals("Port/View")); 
+    // }
+
+    
     @Test
-    public void ViewTest() throws Exception{
+    public void ViewNoAccount() throws Exception{
         MockHttpSession session = new MockHttpSession();
-        session.setAttribute("SignedUser", "0.0.0.0");
 
 		MvcResult resultActions = 
             this.mockMvc.perform(
                 get("/Port/View")
                 .param("Port", "Lisbon")
-            )
+                .session(session))
             .andExpect(status().is(302))
             .andReturn();
         
@@ -70,6 +90,96 @@ public class PortControllerTest {
         assertTrue(view_name.equals("redirect:/Login/")); 
     }
 
+    @Test
+    public void NewContainterValid() throws Exception{
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "0.0.0.0");
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Port/NewContainer")
+                .param("Port", "Lisbon")
+                .param("Count", "2")
+                .session(session))
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();       
+        assertTrue(view_name.equals("redirect:/Port/View?Port=Lisbon")); 
+    }
 
+    @Test
+    public void NewContainterNoAccount() throws Exception{
+        MockHttpSession session = new MockHttpSession();
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Port/NewContainer")
+                .param("Port", "Lisbon")
+                .param("Count", "2")
+                .session(session))
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();       
+        assertTrue(view_name.equals("redirect:/Login/")); 
+    }
 
+    @Test
+    public void NewContainterLargeNr() throws Exception{
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "0.0.0.0");
+        
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Port/NewContainer")
+                .param("Port", "Lisbon")
+                .param("Count", "100000000")
+                .session(session))
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();  
+  
+        assertTrue(view_name.equals("redirect:/Port/View?Port=Lisbon")); 
+    }
+    
+    @Test
+    public void NewContainterSmallNr() throws Exception{
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "0.0.0.0");
+        
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Port/NewContainer")
+                .param("Port", "Lisbon")
+                .param("Count", "0")
+                .session(session))
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();  
+  
+        assertTrue(view_name.equals("redirect:/Port/View?Port=Lisbon")); 
+    }
+
+    @Test
+    public void NewContainterException() throws Exception{
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "0.0.0.0");
+        
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Port/NewContainer")
+                .param("Port", "asdasda")
+                .param("Count", "100000000")
+                .session(session))
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();  
+  
+        assertTrue(view_name.equals("redirect:/error/view")); 
+    }
 }
