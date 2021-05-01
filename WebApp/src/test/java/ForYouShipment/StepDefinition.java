@@ -20,9 +20,6 @@ import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Models.UserProfileModel;
-import ForYouShipment.RefactoredControllers.ClientFacade;
-import ForYouShipment.RefactoredControllers.LoginFacade;
-import ForYouShipment.RefactoredControllers.SignupFacade;
 import ForYouShipment.Search.Criteria;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
@@ -70,7 +67,7 @@ public class StepDefinition {
         Model m = new ConcurrentModel();
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("SignedUser", "1.2.3.4");
-        SignupFacade.createUser(req, m, session, name, "1234", "1234");
+        //SignupFacade.createUser(req, m, session, name, "1234", "1234");
     }
     
     @Then("storage has the client named {string}")
@@ -102,7 +99,7 @@ public class StepDefinition {
         MockHttpServletRequest req = new MockHttpServletRequest();
         Model m = new ConcurrentModel();
         session = new MockHttpSession();
-        LoginFacade.Login(m, session, "1234", "1234");
+       // LoginFacade.Login(m, session, "1234", "1234");
     }
 
     @Then("he is logged in his account") //Shared with next scenario
@@ -133,7 +130,7 @@ public class StepDefinition {
         MockHttpServletRequest req = new MockHttpServletRequest();
         Model m = new ConcurrentModel();
         session = new MockHttpSession();
-        LoginFacade.Login(m, session, "1234", "1234");
+   //     LoginFacade.Login(m, session, "1234", "1234");
     }
 
 
@@ -151,7 +148,7 @@ public class StepDefinition {
     public void he_tries_to_login_with_wrong_crendencials(){
         Model m = new ConcurrentModel();
         session = new MockHttpSession();
-        url = LoginFacade.Login(m, session, "1234", "1234");
+     //   url = LoginFacade.Login(m, session, "1234", "1234");
     }
     
     @Then("the login is unsuccessful")
@@ -167,7 +164,7 @@ public class StepDefinition {
     public void he_deletes_a_customer(){
         MockHttpServletRequest req = new MockHttpServletRequest();
         ID = clientUM.getID();
-        ClientFacade.Delete(req, session, ID);
+  //      ClientFacade.Delete(req, session, ID);
     }
 
     @Then("the customer is no longer in the storage")
