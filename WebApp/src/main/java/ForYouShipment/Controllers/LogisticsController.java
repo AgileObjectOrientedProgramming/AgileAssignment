@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ForYouShipment.Facade.LogisticsFacade;
+import ForYouShipment.RefactoredControllers.LogisticsFacade;
 
 
 
