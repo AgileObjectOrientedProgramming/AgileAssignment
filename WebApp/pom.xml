@@ -92,7 +92,8 @@
                     <exclude>**/*ContainerFactory.class</exclude>
 					<exclude>**/*StoragePersistance.class</exclude>
 					<exclude>**/*UserModelFactory.class</exclude>
-					<exclude>**/*PersitanceDaemon.class</exclude>
+					<exclude>**/*JourneyFactory.class</exclude>
+					<exclude>**/*PersistanceDaemon.class</exclude>
 					<exclude>**/*WebAppApplication.class</exclude>
                 </excludes>
             </configuration>
