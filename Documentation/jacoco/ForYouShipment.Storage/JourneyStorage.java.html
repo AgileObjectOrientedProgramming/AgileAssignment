@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JourneyStorage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.Storage</a> &gt; <span class="el_source">JourneyStorage.java</span></div><h1>JourneyStorage.java</h1><pre class="source lang-java linenums">package ForYouShipment.Storage;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Persistance.JourneyFactory;
+
+/**
+ * Singleton class storing all informations.
+ */
+public class JourneyStorage implements Storage {
+
+    // Items to save.
+    private Set &lt;JourneyInfo&gt; Journeys;
+
+    
+
+<span class="fc" id="L23">    private JourneyStorage() {</span>
+<span class="fc" id="L24">        Journeys = Collections.synchronizedSet(new HashSet&lt;&gt;());</span>
+<span class="fc" id="L25">    }</span>
+
+    public Set&lt;JourneyInfo&gt; getJourneys() {
+<span class="fc" id="L28">        return Journeys;</span>
+    }
+
+    public JSONArray SaveContentToJSON() {
+<span class="fc" id="L32">        JSONArray array = new JSONArray();</span>
+
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        for (JourneyInfo j : Journeys)</span>
+<span class="fc" id="L35">            array.put(JourneyFactory.JourneyToJSON(j));</span>
+<span class="fc" id="L36">        return array;</span>
+    }
+
+    public void ReadContentFromJSON(JSONArray array) {
+<span class="fc" id="L40">        Journeys = Collections.synchronizedSet(new HashSet&lt;&gt;());</span>
+
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (int i = 0; i &lt; array.length(); i++) {</span>
+<span class="fc" id="L43">            JSONObject obj = array.getJSONObject(i);</span>
+            JourneyInfo j;
+            try {
+<span class="fc" id="L46">                j = JourneyFactory.JourneyFromJSON(obj);</span>
+<span class="fc" id="L47">                Journeys.add(j);</span>
+<span class="nc" id="L48">            } catch (Exception e) {</span>
+<span class="nc" id="L49">                e.printStackTrace();</span>
+<span class="fc" id="L50">            }</span>
+        }
+<span class="fc" id="L52">    }</span>
+
+    public String StorageName() {
+<span class="fc" id="L55">        return &quot;JourneyStorage&quot;;</span>
+    }
+
+
+    /**
+     * This method returns the number of Journeys to aprove
+     * @return Number of Journeys waiting for aproval as int
+     */
+    public int countJourneysToApprove(){
+<span class="fc" id="L64">        int i = 0;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        for (JourneyInfo j : instance.Journeys){</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">            if (j.getStatus().contains(&quot;Waiting&quot;))</span>
+<span class="fc" id="L67">                i++;</span>
+<span class="fc" id="L68">        }</span>
+<span class="fc" id="L69">        return i;</span>
+    }
+    /**
+     * This method returns the number of aproved Journeys
+     * @return Number of Journeys waiting for aproval as int
+     */
+    public int countJourneysApproved(){
+<span class="fc" id="L76">        int i = 0;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (JourneyInfo j : instance.Journeys){</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">            if (j.getStatus().contains(&quot;Active&quot;))</span>
+<span class="fc" id="L79">                i++;</span>
+<span class="fc" id="L80">        }</span>
+<span class="fc" id="L81">        return i;</span>
+    }
+
+<span class="fc" id="L84">    private static JourneyStorage instance = null;</span>
+
+    public static JourneyStorage GetInstance() {
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L88">            instance = new JourneyStorage();</span>
+        }
+<span class="fc" id="L90">        return instance;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

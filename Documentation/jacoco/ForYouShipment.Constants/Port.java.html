@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Port.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.Constants</a> &gt; <span class="el_source">Port.java</span></div><h1>Port.java</h1><pre class="source lang-java linenums">package ForYouShipment.Constants;
+
+<span class="fc" id="L3">public enum Port {</span>
+
+<span class="fc" id="L5">    TRANSIT(&quot;In Transit&quot;, 0., 0.),</span>
+<span class="fc" id="L6">    LISBON(&quot;Lisbon&quot;,38.7020,-9.1734),</span>
+<span class="fc" id="L7">    PORTO(&quot;Porto&quot;,41.1830,-8.7000),</span>
+<span class="fc" id="L8">    ROTTERDAM(&quot;Rotterdam&quot;,51.8850,4.2867),</span>
+<span class="fc" id="L9">    NEW_YORK(&quot;New York&quot;,40.6677,-74.0407), </span>
+<span class="fc" id="L10">    RIO_DE_JANEIRO(&quot;Rio de Janeiro&quot;,-22.8981,-43.1808), </span>
+<span class="fc" id="L11">    CAPETOWN(&quot;Capetown&quot;,-33.9043,18.4301), </span>
+<span class="fc" id="L12">    SHANGHAI(&quot;Shanghai&quot;,31.2198,121.4870), </span>
+<span class="fc" id="L13">    SYDNEY(&quot;Sydney&quot;, -33.8462,151.2489), </span>
+<span class="fc" id="L14">    COPENHAGEN(&quot;Copenhagen&quot;,55.6718,12.5817),</span>
+<span class="fc" id="L15">    LA(&quot;Los Angeles&quot;,33.7291858, -118.262015),</span>
+<span class="fc" id="L16">    GENOVA(&quot;Genova&quot;, 44.4222, 8.9052),</span>
+<span class="fc" id="L17">    MESSINA(&quot;Messina&quot;, 38.1943, 15.5505),</span>
+<span class="fc" id="L18">    CONSTANTA(&quot;Constanta&quot;, 44.131050, 28.649421),</span>
+<span class="fc" id="L19">    NEKO(&quot;Neko&quot;,-64.833333, -62.55);</span>
+
+
+    private final String name;
+    private final Double latitude;
+    private final Double longitude;
+    
+    
+    /**
+     * Constructor for the Port enum
+     * @param name      Name of the port
+     * @param latitude  Latidude in decimal degrees
+     * @param longitude Longitude in decimal degrees
+     */
+<span class="fc" id="L33">    Port(String name, Double latitude, Double longitude){</span>
+<span class="fc" id="L34">        this.name = name;</span>
+<span class="fc" id="L35">        this.latitude = latitude;</span>
+<span class="fc" id="L36">        this.longitude = longitude;</span>
+<span class="fc" id="L37">    }</span>
+
+    @Override
+    public String toString(){
+<span class="fc" id="L41">        return name;</span>
+    }
+    
+    
+    public static Port ofString(String name) throws Exception{
+<span class="fc" id="L46">        name = name.substring(0,1).toUpperCase() + name.substring(1);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (Port p: Port.class.getEnumConstants()){</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            if (p.toString().equals(name))</span>
+<span class="fc" id="L49">                return p;</span>
+        }
+<span class="fc" id="L51">        throw new EnumConstantNotPresentException(Port.class, &quot;Invalid port name&quot;);</span>
+    }
+
+    public Double getLatitude(){
+<span class="fc" id="L55">      return latitude;</span>
+    }
+
+    public Double getLongitude(){
+<span class="fc" id="L59">       return longitude;        </span>
+    }
+    
+    /**
+     * Returns the number of Ports
+     * @return Number of Ports as int
+     */
+    public static int countPorts(){
+<span class="fc" id="L67">        return Port.values().length;</span>
+    }
+
+
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

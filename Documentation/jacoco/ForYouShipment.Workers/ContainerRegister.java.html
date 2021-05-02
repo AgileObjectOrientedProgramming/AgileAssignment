@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContainerRegister.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.Workers</a> &gt; <span class="el_source">ContainerRegister.java</span></div><h1>ContainerRegister.java</h1><pre class="source lang-java linenums">package ForYouShipment.Workers;
+
+import java.util.stream.Collectors;
+
+import ForYouShipment.Constants.Port;
+import ForYouShipment.Models.ContainerMeasurements;
+import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Models.UserModel;
+import ForYouShipment.Storage.ContainerStorage;
+
+public class ContainerRegister {
+    
+    private ContainerRegister() {};
+
+    /**  This method searches for an available container
+    * and sets a JourneyInfo for it
+    * @param  origin         A string with the name of the origin
+    * @param destination    A string with the name of the destination
+    * @param content_type   A string with the name of the content_type
+    * @param cargo        A string with the name of the cargo
+    * @param user           The user's UserModel
+    * @return container
+     * @throws Exception
+    */
+    public static ContainerMeasurements setJourney(String origin,
+                                    String destination,
+                                    String content_type,
+                                    String cargo,
+                                    UserModel user) throws Exception {
+
+                              
+<span class="fc" id="L32">        ContainerMeasurements container = ContainerRegister.getFreeContainer(Port.ofString(origin));</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (container == null)</span>
+<span class="fc" id="L34">            return null;</span>
+
+<span class="fc" id="L36">        JourneyInfo journey = new JourneyInfo();</span>
+<span class="fc" id="L37">        journey.setOrigin(Port.ofString(origin));</span>
+<span class="fc" id="L38">        journey.setDestination(Port.ofString(destination));</span>
+<span class="fc" id="L39">        journey.setContent_type(content_type);</span>
+<span class="fc" id="L40">        journey.setCargo(cargo);</span>
+<span class="fc" id="L41">        journey.setParameter(&quot;Username&quot;, user.getUsername());</span>
+<span class="fc" id="L42">        journey.setParameter(&quot;ID&quot;, user.getID());</span>
+        
+<span class="fc" id="L44">        container.setJourney(journey);</span>
+<span class="fc" id="L45">        container.setParameter(&quot;Latitude&quot;, &quot;&quot; + Port.ofString(origin).getLatitude());</span>
+<span class="fc" id="L46">        container.setParameter(&quot;Longitude&quot;,&quot;&quot; + Port.ofString(origin).getLongitude());</span>
+<span class="fc" id="L47">        return container;</span>
+    }
+
+    /**  Gets a random availabe container from the storage
+     *   that is located at the given Port.
+     */
+    public static ContainerMeasurements getFreeContainer(Port origin) {
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        for (ContainerMeasurements c: ContainerStorage.GetInstance().getContainers()) {</span>
+<span class="fc bfc" id="L55" title="All 4 branches covered.">            if (c.getJourney() == null &amp;&amp; c.getLocation() == origin)  </span>
+<span class="fc" id="L56">                return c;</span>
+                
+<span class="fc" id="L58">        }</span>
+<span class="fc" id="L59">        return null;</span>
+    }
+
+      /**  Using this method on a container completes the Journey.
+       *  It sets the location of the container to the destination of the journey,
+       *  marks the journey status as &quot;Completed&quot;
+       *  and dissociates the container from the journey.
+       * @param container Container to return
+     */
+    public static void returnContainer(ContainerMeasurements container) {
+<span class="fc" id="L69">        Port destination = container.getJourney().getDestination();</span>
+<span class="fc" id="L70">        container.setParameter(&quot;Latitude&quot;, destination.getLatitude().toString());</span>
+<span class="fc" id="L71">        container.setParameter(&quot;Longitude&quot;, destination.getLongitude().toString());</span>
+<span class="fc" id="L72">        container.setLocation(container.getJourney().getDestination());</span>
+<span class="fc" id="L73">        container.getJourney().setStatus(&quot;Completed&quot;);</span>
+<span class="fc" id="L74">        container.addToJourneyHistory(container.getJourney());</span>
+<span class="fc" id="L75">        container.setJourney(null);</span>
+<span class="fc" id="L76">    }</span>
+
+    public static void DeleteContainer(String ID) {
+<span class="fc" id="L79">        ContainerStorage.GetInstance().setContainers(</span>
+<span class="fc" id="L80">            ContainerStorage.GetInstance().getContainers()</span>
+<span class="fc" id="L81">            .stream()</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">            .filter(container -&gt; !container.getId().equals(ID))</span>
+<span class="fc" id="L83">            .collect(Collectors.toSet())</span>
+        );
+<span class="fc" id="L85">    }</span>
+
+    public static ContainerMeasurements GetContainerByID(String ID) {
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        for (ContainerMeasurements c : ContainerStorage.GetInstance().getContainers())</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            if (c.getId().equals(ID))</span>
+<span class="fc" id="L90">                return c;</span>
+<span class="fc" id="L91">        return null;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

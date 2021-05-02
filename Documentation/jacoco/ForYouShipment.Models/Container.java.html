@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Container.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.Models</a> &gt; <span class="el_source">Container.java</span></div><h1>Container.java</h1><pre class="source lang-java linenums">package ForYouShipment.Models;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import ForYouShipment.Constants.Port;
+import ForYouShipment.Workers.IDGenerator;
+
+public class Container {
+
+    private Port location;
+    private String id;
+    private JourneyInfo journey;
+<span class="fc" id="L18">    private Set&lt;JourneyInfo&gt; journeyHistory = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L19">    private List&lt;Map&lt;String,String&gt;&gt; measurementsHistory = new ArrayList&lt;&gt;();</span>
+   
+
+    public Set&lt;JourneyInfo&gt; getJourneyHistory() {
+<span class="nc" id="L23">        return journeyHistory;</span>
+    }
+
+    public void addToJourneyHistory(JourneyInfo journey) {
+<span class="fc" id="L27">        this.journeyHistory.add(journey);</span>
+<span class="fc" id="L28">    }</span>
+
+    public void setMeasurementsHistory(List&lt;Map&lt;String, String&gt;&gt; measurementsHistory) {
+<span class="nc" id="L31">        this.measurementsHistory = measurementsHistory;</span>
+<span class="nc" id="L32">    }</span>
+
+    public List&lt;Map&lt;String,String&gt;&gt; getMeasurementsHistory() {
+<span class="fc" id="L35">        return measurementsHistory;</span>
+    }
+
+    /**
+     * This method saves a measurement in the history
+     * of measurements on the container
+     * @param measurements Map containing the measurements done
+     */
+    public void saveMeasurements(Map&lt;String,String&gt; measurements) {
+<span class="fc" id="L44">        this.measurementsHistory.add(new HashMap&lt;&gt;(measurements));</span>
+<span class="fc" id="L45">    }</span>
+
+<span class="fc" id="L47">    public Container() {</span>
+<span class="fc" id="L48">       setId(IDGenerator.GenerateID());</span>
+<span class="fc" id="L49">    }</span>
+
+    public String getId() {
+<span class="fc" id="L52">        return id;</span>
+    }
+
+    public void setId(String id) {
+<span class="fc" id="L56">        this.id = id;</span>
+<span class="fc" id="L57">    }</span>
+
+    public JourneyInfo getJourney() {
+<span class="fc" id="L60">        return journey;</span>
+    }
+
+    public void setJourney(JourneyInfo journey) {
+<span class="fc" id="L64">        this.journey = journey;</span>
+<span class="fc" id="L65">    }</span>
+
+    public Port getLocation() {
+<span class="fc" id="L68">        return location;</span>
+    }
+
+    public void setLocation(Port location) {
+<span class="fc" id="L72">        this.location = location;</span>
+<span class="fc" id="L73">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

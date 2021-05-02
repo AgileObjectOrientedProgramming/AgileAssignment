@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityAccessWorker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.Workers</a> &gt; <span class="el_source">SecurityAccessWorker.java</span></div><h1>SecurityAccessWorker.java</h1><pre class="source lang-java linenums">package ForYouShipment.Workers;
+
+import ForYouShipment.Constants.AccessActionNounEnum;
+import ForYouShipment.Constants.AccessActionVerbEnum;
+import ForYouShipment.Models.UserModel;
+
+public final class SecurityAccessWorker {
+    private SecurityAccessWorker() {}
+
+    private static boolean LogisticUserHasAccessTo(AccessActionNounEnum noun,
+                                    AccessActionVerbEnum verb) {
+<span class="pc bpc" id="L12" title="1 of 6 branches missed.">        switch(noun) {</span>
+            case PORT_MANAGMENT:
+            case CONTAINER_MANAGEMENT:
+<span class="fc" id="L15">                return true;</span>
+            case CLIENT_MANAGEMENT:
+<span class="fc bfc" id="L17" title="All 8 branches covered.">                return verb == AccessActionVerbEnum.SEARCH</span>
+                                || verb == AccessActionVerbEnum.VIEW 
+                                || verb == AccessActionVerbEnum.PERSONAL
+                                || verb == AccessActionVerbEnum.DELETE;
+            case JOURNEY_PAGE: 
+<span class="fc bfc" id="L22" title="All 4 branches covered.">                return verb == AccessActionVerbEnum.SEARCH </span>
+                                || verb == AccessActionVerbEnum.VIEW ;
+            case CONTAINER_PAGE:
+<span class="fc bfc" id="L25" title="All 2 branches covered.">                return verb == AccessActionVerbEnum.CREATE;</span>
+            case HOME_PAGE:
+            case LOGIN_PAGE:
+            case SIGNUP_PAGE:
+            case LOGISTICS_MANAGEMENT:
+<span class="fc" id="L30">                return true;</span>
+            default:
+<span class="nc" id="L32">                return false;</span>
+        }
+    }
+
+    private static boolean ClientUserHasAccessTo(AccessActionNounEnum noun,
+                                    AccessActionVerbEnum verb) {
+<span class="fc bfc" id="L38" title="All 4 branches covered.">        switch(noun) {</span>
+            case CLIENT_MANAGEMENT: 
+<span class="fc bfc" id="L40" title="All 6 branches covered.">                return verb == AccessActionVerbEnum.INDEX || verb == AccessActionVerbEnum.EDIT </span>
+                                || verb == AccessActionVerbEnum.PERSONAL;
+            case JOURNEY_PAGE:
+<span class="fc bfc" id="L43" title="All 6 branches covered.">                return verb == AccessActionVerbEnum.INDEX || verb == AccessActionVerbEnum.CREATE || verb == AccessActionVerbEnum.SEARCH;</span>
+            case HOME_PAGE:
+            case LOGIN_PAGE:
+<span class="fc" id="L46">                return true;</span>
+            default:
+<span class="fc" id="L48">                return false;</span>
+        }
+    }
+
+    public static boolean UnSignedUserHasAccessTo(AccessActionNounEnum noun,
+                                    AccessActionVerbEnum verb) {
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        switch(noun) {</span>
+            case HOME_PAGE:
+            case LOGIN_PAGE:
+<span class="fc" id="L57">                return true;</span>
+            default:
+<span class="fc" id="L59">                return false;</span>
+        }      
+    }
+
+    public static boolean HasAccessTo(AccessActionNounEnum noun,
+                                    AccessActionVerbEnum verb, UserModel user) {
+<span class="fc" id="L65">        boolean access = false;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (user == null) </span>
+<span class="fc" id="L67">            access = UnSignedUserHasAccessTo(noun, verb);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        else if (user.IsLogisticUser()) </span>
+<span class="fc" id="L69">            access =  LogisticUserHasAccessTo(noun, verb);</span>
+        else
+<span class="fc" id="L71">            access = ClientUserHasAccessTo(noun, verb);</span>
+<span class="fc" id="L72">        LoggingWorker.GetInstance().Log(</span>
+<span class="fc" id="L73">            &quot;Some user tried to access &quot; + noun.name() + &quot; &quot; +verb.name() + &quot;. Accepted: &quot; + String.valueOf(access) </span>
+        );
+<span class="fc" id="L75">        return access;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

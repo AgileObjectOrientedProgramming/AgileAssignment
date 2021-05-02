@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JourneyController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.Controllers</a> &gt; <span class="el_source">JourneyController.java</span></div><h1>JourneyController.java</h1><pre class="source lang-java linenums">package ForYouShipment.Controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import ForYouShipment.Constants.AccessActionNounEnum;
+import ForYouShipment.Constants.AccessActionVerbEnum;
+import ForYouShipment.Constants.Port;
+import ForYouShipment.JourneySearch.CriteriaCID;
+import ForYouShipment.JourneySearch.CriteriaCJID;
+import ForYouShipment.JourneySearch.CriteriaCargo;
+import ForYouShipment.JourneySearch.CriteriaContent_Type;
+import ForYouShipment.JourneySearch.CriteriaDestination;
+import ForYouShipment.JourneySearch.CriteriaJID;
+import ForYouShipment.JourneySearch.CriteriaOrigin;
+import ForYouShipment.JourneySearch.CriteriaUser;
+import ForYouShipment.Models.ContainerMeasurements;
+import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Models.UserModel;
+import ForYouShipment.Search.Criteria;
+import ForYouShipment.Search.OrCriteria;
+import ForYouShipment.Storage.ContainerStorage;
+import ForYouShipment.Storage.JourneyStorage;
+import ForYouShipment.Workers.ContainerRegister;
+
+
+
+
+@Controller
+@RequestMapping(&quot;/Journey&quot;)
+<span class="fc" id="L41">public class JourneyController extends BaseController {</span>
+    
+    @RequestMapping(value={ &quot;/Index&quot;, &quot;/&quot; , &quot;&quot;})
+    public String Index(HttpServletRequest req, Model m, HttpSession session) {
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.INDEX, session, req))</span>
+<span class="fc" id="L46">            return &quot;redirect:/Login/&quot;;</span>
+        
+<span class="fc" id="L48">        List&lt;JourneyInfo&gt; journey_list = new ArrayList&lt;&gt;(); </span>
+        
+<span class="fc" id="L50">        UserModel user = GetUser(session);</span>
+<span class="fc" id="L51">        Criteria&lt;JourneyInfo&gt; user_journeys = new CriteriaUser();</span>
+<span class="fc" id="L52">        journey_list = user_journeys.meetCriteria(new ArrayList&lt;JourneyInfo&gt;(JourneyStorage.GetInstance().getJourneys()),</span>
+<span class="fc" id="L53">                                                    user.getUsername());</span>
+
+
+<span class="fc" id="L56">        m.addAttribute(&quot;Ownjourneys&quot;, journey_list);</span>
+<span class="fc" id="L57">        m.addAttribute(&quot;SignedUser&quot;, GetUser(session));</span>
+<span class="fc" id="L58">        return &quot;Journey/Index&quot;;</span>
+    }
+
+
+    @RequestMapping(value={ &quot;/New&quot;, &quot;/New/&quot; })
+    public String New(HttpServletRequest req, Model m, HttpSession session) {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (!HasAccess(AccessActionNounEnum.JOURNEY_PAGE, AccessActionVerbEnum.CREATE, session, req))</span>
+<span class="fc" id="L65">            return &quot;redirect:/Login/&quot;;</span>
+        
+
+<span class="fc" id="L68">        m.addAttribute(&quot;Ports&quot;, Port.class.getEnumConstants());</span>
+<span class="fc" id="L69">        m.addAttribute(&quot;SignedUser&quot;, GetUser(session));</span>
+<span class="fc" id="L70">        return &quot;Journey/New&quot;;</span>
+    }
+
+
+    @RequestMapping(value = {&quot;/New&quot;, &quot;/New/&quot;}, method = RequestMethod.POST)
+    public String registerContainer(HttpServletRequest req, Model m, HttpSession session,
+                        @RequestParam(&quot;Origin&quot;) String origin, 
+                        @RequestParam(&quot;Destination&quot;) String destination,
+                        @RequestParam(&quot;Content type&quot;) String content_type,
+                        @RequestParam(&quot;Cargo&quot;) String cargo) throws Exception {
+        
+        try {
+<span class="fc" id="L82">            Port.ofString(origin);</span>
+<span class="fc" id="L83">            Port.ofString(destination);</span>
+            
+<span class="fc" id="L85">        } catch (Exception e) {</span>
+<span class="fc" id="L86">            m.addAttribute(&quot;warning&quot;, &quot;Invalid origin or destination&quot;);</span>
+<span class="fc" id="L87">            m.addAttribute(&quot;SignedUser&quot;, GetUser(session));    </span>
+<span class="fc" id="L88">            return &quot;Journey/New&quot;;</span>
+<span class="fc" id="L89">        }</span>
+<span class="fc" id="L90">        UserModel user = GetUser(session);</span>
+
+<span class="fc" id="L92">        ContainerMeasurements container = ContainerRegister.setJourney(origin, destination, content_type, cargo, user);</span>
+
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (container == null) {</span>
+<span class="fc" id="L95">            m.addAttribute(&quot;warning&quot;, &quot;There aren't any free containers at the source port. Please try again later!&quot;);</span>
+<span class="fc" id="L96">            m.addAttribute(&quot;SignedUser&quot;, GetUser(session));    </span>
+<span class="fc" id="L97">            return &quot;Journey/New&quot;;</span>
+        }
+
+<span class="fc" id="L100">        m.addAttribute(&quot;Ports&quot;, Port.class.getEnumConstants());</span>
+<span class="fc" id="L101">        m.addAttribute(&quot;SignedUser&quot;, GetUser(session));                    </span>
+<span class="fc" id="L102">        return &quot;redirect:/Journey/Index&quot;;</span>
+    }
+    
+
+
+    @RequestMapping(value={ &quot;/Search&quot; })
+    public String Search(HttpServletRequest req, Model m, HttpSession session) {
+<span class="fc" id="L109">        String Query = req.getParameter(&quot;Query&quot;);</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if (Query == null)</span>
+<span class="fc" id="L111">            Query = &quot;&quot;;</span>
+
+<span class="fc" id="L113">        List&lt;JourneyInfo&gt; answer = new ArrayList&lt;&gt;();</span>
+        
+<span class="fc" id="L115">        Criteria&lt;JourneyInfo&gt; origin = new CriteriaOrigin();</span>
+<span class="fc" id="L116">        Criteria&lt;JourneyInfo&gt; destination = new CriteriaDestination();</span>
+<span class="fc" id="L117">        Criteria&lt;JourneyInfo&gt; content = new CriteriaContent_Type();</span>
+<span class="fc" id="L118">        Criteria&lt;JourneyInfo&gt; cargo = new CriteriaCargo();</span>
+<span class="fc" id="L119">        Criteria&lt;JourneyInfo&gt; originOrDestination = new OrCriteria&lt;JourneyInfo&gt;(origin, destination);</span>
+<span class="fc" id="L120">        Criteria&lt;JourneyInfo&gt; contentOrCargo = new OrCriteria&lt;JourneyInfo&gt;(content, cargo);</span>
+<span class="fc" id="L121">        Criteria&lt;JourneyInfo&gt; allCriteria = new OrCriteria&lt;JourneyInfo&gt;(originOrDestination, contentOrCargo);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (GetUser(session).IsLogisticUser()) {</span>
+<span class="fc" id="L123">            Criteria&lt;JourneyInfo&gt; user = new CriteriaUser();</span>
+<span class="fc" id="L124">            allCriteria = new OrCriteria&lt;JourneyInfo&gt;(allCriteria, user);</span>
+<span class="fc" id="L125">            answer = allCriteria.meetCriteria(new ArrayList&lt;JourneyInfo&gt;(JourneyStorage.GetInstance().getJourneys()),</span>
+                                                    Query);
+<span class="fc" id="L127">        }</span>
+        else { 
+<span class="fc" id="L129">            List&lt;JourneyInfo&gt; journey_list = new ArrayList&lt;&gt;(); </span>
+        
+<span class="fc" id="L131">            UserModel user = GetUser(session);</span>
+<span class="fc" id="L132">            Criteria&lt;JourneyInfo&gt; user_journeys = new CriteriaUser();</span>
+<span class="fc" id="L133">            journey_list = user_journeys.meetCriteria(new ArrayList&lt;JourneyInfo&gt;(JourneyStorage.GetInstance().getJourneys()),</span>
+<span class="fc" id="L134">                                                        user.getUsername());</span>
+
+<span class="fc" id="L136">            answer = allCriteria.meetCriteria(journey_list, Query);</span>
+
+        }
+        /* We are matching our query with all the fields set up by the user for a Journey*/
+        
+
+<span class="fc" id="L142">        m.addAttribute(&quot;Query&quot;, Query);</span>
+<span class="fc" id="L143">        m.addAttribute(&quot;answer&quot;, answer);</span>
+<span class="fc" id="L144">        m.addAttribute(&quot;SignedUser&quot;, GetUser(session));</span>
+<span class="fc" id="L145">        return &quot;Journey/Search&quot;;</span>
+    }
+
+    @RequestMapping(value={ &quot;/View&quot; })
+    public String View(HttpServletRequest req, Model m, HttpSession session,
+                    @RequestParam(&quot;ID&quot;) String JourneyId) {
+                        
+<span class="fc" id="L152">        Criteria&lt;JourneyInfo&gt; criteria = new CriteriaJID();</span>
+<span class="fc" id="L153">        Criteria&lt;ContainerMeasurements&gt; container = new CriteriaCJID();</span>
+<span class="fc" id="L154">        JourneyInfo j = criteria.meetCriteria(new ArrayList&lt;JourneyInfo&gt;(JourneyStorage.GetInstance().getJourneys()), JourneyId).get(0);</span>
+<span class="fc" id="L155">        ContainerMeasurements c = container.meetCriteria(new ArrayList&lt;ContainerMeasurements&gt;(ContainerStorage.GetInstance().getContainers()), JourneyId).get(0);</span>
+<span class="fc" id="L156">        m.addAttribute(&quot;ContainerID&quot;, c.getId());</span>
+<span class="fc" id="L157">        m.addAttribute(&quot;Journey&quot;, j); </span>
+<span class="fc" id="L158">        m.addAttribute(&quot;ID&quot;, JourneyId);</span>
+<span class="fc" id="L159">        m.addAttribute(&quot;Latitude&quot;, Double.parseDouble(c.getParameter(&quot;Latitude&quot;)));</span>
+<span class="fc" id="L160">        m.addAttribute(&quot;Longitude&quot;, Double.parseDouble(c.getParameter(&quot;Longitude&quot;)));</span>
+<span class="fc" id="L161">        m.addAttribute(&quot;SignedUser&quot;, GetUser(session)); </span>
+<span class="fc" id="L162">        m.addAttribute(&quot;ports&quot;, Port.class.getEnumConstants());    </span>
+<span class="fc" id="L163">        m.addAttribute(&quot;Container&quot;, c);           </span>
+<span class="fc" id="L164">        return &quot;Journey/View&quot;;</span>
+    }
+
+
+    @RequestMapping(value = {&quot;/Measurements&quot;, &quot;/Measurements/&quot;})
+    public String SetMeasurement(HttpServletRequest req, Model m, HttpSession session,
+                                 @RequestParam(&quot;ID&quot;) String ID) {
+
+<span class="fc bfc" id="L172" title="All 2 branches covered.">        if (!HasAccess(AccessActionNounEnum.CONTAINER_PAGE, AccessActionVerbEnum.CREATE, session, req))</span>
+<span class="fc" id="L173">        return &quot;redirect:/Login/&quot;;</span>
+        
+        
+<span class="fc" id="L176">        Criteria&lt;ContainerMeasurements&gt; container = new CriteriaCID();</span>
+<span class="fc" id="L177">        ContainerMeasurements c = container.meetCriteria(new ArrayList&lt;ContainerMeasurements&gt;(ContainerStorage.GetInstance().getContainers()), ID).get(0);</span>
+<span class="fc" id="L178">        m.addAttribute(&quot;SignedUser&quot;, GetUser(session));</span>
+<span class="fc" id="L179">        m.addAttribute(&quot;Container&quot;, c);</span>
+<span class="fc" id="L180">        m.addAttribute(&quot;ContainerID&quot;, ID);</span>
+<span class="fc" id="L181">        return &quot;Journey/Measurements&quot; ;</span>
+    }
+
+    
+    @RequestMapping(value = {&quot;/Measurements&quot;, &quot;/Measurements/&quot;}, method = RequestMethod.POST)
+    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) throws Exception {
+    
+<span class="fc" id="L188">        String ID = req.getParameter(&quot;ContainerID&quot;);                   </span>
+<span class="fc" id="L189">        Criteria&lt;ContainerMeasurements&gt; container = new CriteriaCID();</span>
+<span class="fc" id="L190">        ContainerMeasurements c = container.meetCriteria(new ArrayList&lt;ContainerMeasurements&gt;(ContainerStorage.GetInstance().getContainers()), ID).get(0);</span>
+        
+        
+<span class="fc" id="L193">        c.setLocation(Port.ofString(&quot;In Transit&quot;));</span>
+        
+
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        for (String Param : c.getAllParameters()) {</span>
+<span class="fc" id="L197">            String value = req.getParameter(Param);</span>
+<span class="fc" id="L198">            c.setParameter(Param, value);</span>
+<span class="fc" id="L199">        }</span>
+
+<span class="fc" id="L201">        Map&lt;String, String&gt; measurements = c.getParameters();</span>
+<span class="fc" id="L202">        c.saveMeasurements(measurements);</span>
+
+<span class="fc" id="L204">        String reached_destination = req.getParameter(&quot;ReachedDestination&quot;);</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">        if (reached_destination.equals(&quot;Yes&quot;))</span>
+<span class="fc" id="L206">            ContainerRegister.returnContainer(c);</span>
+
+<span class="fc" id="L208">        return &quot;redirect:/Journey/Search/&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

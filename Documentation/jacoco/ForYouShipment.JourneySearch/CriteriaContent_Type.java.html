@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CriteriaContent_Type.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.JourneySearch</a> &gt; <span class="el_source">CriteriaContent_Type.java</span></div><h1>CriteriaContent_Type.java</h1><pre class="source lang-java linenums">package ForYouShipment.JourneySearch;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Search.Criteria;
+
+<span class="fc" id="L9">public class CriteriaContent_Type implements Criteria&lt;JourneyInfo&gt;{</span>
+    @Override
+    public List&lt;JourneyInfo&gt; meetCriteria(List&lt;JourneyInfo&gt; Journeys, String query) {
+<span class="fc" id="L12">            List&lt;JourneyInfo&gt; Journeys_origin = new ArrayList&lt;JourneyInfo&gt;();</span>
+            
+<span class="fc bfc" id="L14" title="All 2 branches covered.">            for (JourneyInfo j: Journeys ){</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">                if(j.getContent_type().toString().toLowerCase().contains(query.toLowerCase()))</span>
+<span class="fc" id="L16">                    Journeys_origin.add(j);</span>
+
+<span class="fc" id="L18">            }</span>
+<span class="fc" id="L19">        return Journeys_origin;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

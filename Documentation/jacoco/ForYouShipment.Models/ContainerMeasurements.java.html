@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContainerMeasurements.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.Models</a> &gt; <span class="el_source">ContainerMeasurements.java</span></div><h1>ContainerMeasurements.java</h1><pre class="source lang-java linenums">package ForYouShipment.Models;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ContainerMeasurements extends Container{
+	private  Map&lt;String, String&gt; Parameters;
+
+	public Map&lt;String, String&gt; getParameters() {
+<span class="fc" id="L12">        return Parameters;</span>
+    }
+
+    public void setParameters(Map&lt;String, String&gt; parameters) {
+<span class="nc" id="L16">        Parameters = parameters;</span>
+<span class="nc" id="L17">    }</span>
+<span class="fc" id="L18">    private  List&lt;String&gt; AvailableParameters = Arrays.asList(&quot;Latitude&quot;,&quot;Longitude&quot;,&quot;Temperature&quot;, &quot;Humidity&quot;,&quot;Pressure&quot;,&quot;Time&quot;, &quot;JourneyID&quot;);</span>
+
+<span class="fc" id="L20">    public ContainerMeasurements() {</span>
+<span class="fc" id="L21">        Parameters = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L22">    }</span>
+
+    /**
+     * This returns all of the available parameters of the user's profile.
+     * Ex: FirstName, LastName, email, etc. 
+     */
+    public List&lt;String&gt; getAllParameters() {
+<span class="fc" id="L29">        return AvailableParameters;</span>
+    }
+
+    /**
+     * This function gets a value of a certain parameter of the user.
+     * Ex: getParameter(&quot;FirstName&quot;)
+     */
+    public String getParameter(String Param) {
+<span class="fc" id="L37">        return Parameters.get(Param);</span>
+    }
+
+    /**
+     * This function sets a value of a certain parameter of the user.
+     * Ex: setParameter(&quot;FirstName&quot;, &quot;Alex&quot;)
+     */
+    public void setParameter(String Param, String Value) {
+<span class="fc" id="L45">        Parameters.put(Param, Value);</span>
+<span class="fc" id="L46">    }</span>
+    /**
+	 * This is used to change the available measurements
+	 * Ex: setAvailableParameters(Arrays.asList(&quot;Temperature&quot;,&quot;Pressure&quot;))
+	 */
+	public void setAvailableParameters(List&lt;String&gt; availableParameters){
+<span class="nc" id="L52">		AvailableParameters = availableParameters; </span>
+<span class="nc" id="L53">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

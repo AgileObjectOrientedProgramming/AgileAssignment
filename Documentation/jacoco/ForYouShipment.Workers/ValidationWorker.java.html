@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidationWorker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.Workers</a> &gt; <span class="el_source">ValidationWorker.java</span></div><h1>ValidationWorker.java</h1><pre class="source lang-java linenums">package ForYouShipment.Workers;
+
+import ForYouShipment.Models.*;
+import ForYouShipment.Storage.UserStorage;
+
+public class ValidationWorker {
+
+    private ValidationWorker() {}
+
+    public static String UsernameIsValid(String Username) {
+        /**
+         * This function verifies if the username is valid is not already taken.
+         * Returns null if the username is ok, otherwise returns why it is not ok.
+         */
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        if (Username == null) </span>
+<span class="fc" id="L16">            return &quot;No username!&quot;;</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">        if (Username.length() &lt; 4)</span>
+<span class="fc" id="L18">            return &quot;Username is too short!&quot;;</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        if (Username.length() &gt; 21)</span>
+<span class="fc" id="L20">            return &quot;Username is too long!&quot;;</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (!Username.matches(&quot;[A-Za-z0-9]+&quot;))</span>
+<span class="fc" id="L22">            return &quot;Please only use letters and numbers!&quot;;</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        for (UserModel i : UserStorage.GetInstance().getUsers()) </span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">            if (Username.equals(i.getUsername()))</span>
+<span class="fc" id="L25">                return &quot;Username is already taken!&quot;;</span>
+<span class="fc" id="L26">        return null;</span>
+    }
+
+    public static String PasswordIsValid(String Password, String PasswordRetype) {
+        /**
+         * This function verifies if the password and the retyped passowrd are valid.
+         * Returns null if the password is ok, otherwise returns why it is not ok.
+         */
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (Password == null) </span>
+<span class="fc" id="L35">            return &quot;No password!&quot;;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (Password.length() &lt; 4)</span>
+<span class="fc" id="L37">            return &quot;Password is too short!&quot;;</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (!Password.equals(PasswordRetype))</span>
+<span class="fc" id="L39">            return &quot;The passwords do not match!&quot;;</span>
+<span class="fc" id="L40">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContainerStorage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WebApp</a> &gt; <a href="index.source.html" class="el_package">ForYouShipment.Storage</a> &gt; <span class="el_source">ContainerStorage.java</span></div><h1>ContainerStorage.java</h1><pre class="source lang-java linenums">package ForYouShipment.Storage;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import ForYouShipment.Constants.Port;
+import ForYouShipment.Models.Container;
+import ForYouShipment.Models.ContainerMeasurements;
+import ForYouShipment.Persistance.ContainerFactory;
+
+/**
+ * Singleton class storing all informations.
+ */
+public class ContainerStorage implements Storage{
+
+    // Items to save.
+    private Set &lt;ContainerMeasurements&gt; Containers;
+
+    
+
+    public void setContainers(Set&lt;ContainerMeasurements&gt; containers) {
+<span class="fc" id="L26">        Containers = Collections.synchronizedSet(new HashSet&lt;&gt;());</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (ContainerMeasurements m : containers)</span>
+<span class="fc" id="L28">            Containers.add(m);</span>
+<span class="fc" id="L29">    }</span>
+
+<span class="fc" id="L31">    private ContainerStorage() {</span>
+<span class="fc" id="L32">        Containers = Collections.synchronizedSet(new HashSet&lt;&gt;());</span>
+<span class="fc" id="L33">    }</span>
+
+    public JSONArray SaveContentToJSON() {
+<span class="fc" id="L36">        JSONArray array = new JSONArray();</span>
+
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        for (ContainerMeasurements c : Containers)</span>
+<span class="fc" id="L39">            array.put(ContainerFactory.ContainerToJSON(c));</span>
+<span class="fc" id="L40">        return array;</span>
+    }
+
+    public void ReadContentFromJSON(JSONArray array) {
+<span class="fc" id="L44">        Containers = Collections.synchronizedSet(new HashSet&lt;&gt;());</span>
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for (int i = 0; i &lt; array.length(); i++) {</span>
+<span class="fc" id="L47">            JSONObject obj = array.getJSONObject(i);</span>
+<span class="fc" id="L48">            ContainerMeasurements u = ContainerFactory.ContainerFromJSON(obj);</span>
+<span class="fc" id="L49">            Containers.add(u);</span>
+        }
+<span class="fc" id="L51">    }</span>
+
+    public String StorageName() { 
+<span class="fc" id="L54">        return &quot;ContainerStorage&quot;; </span>
+    }
+
+    public Set&lt;ContainerMeasurements&gt; getContainers() {
+<span class="fc" id="L58">        return Containers;</span>
+    }
+
+    /**
+     * This static method adds new Containers in a given location
+     * @param val       Number of new containers to add
+     * @param location  Port where to add the containers
+     */
+    public static void addContainers(int val, Port location) {
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        while (val-- &gt; 0){</span>
+<span class="fc" id="L68">            ContainerMeasurements c = new ContainerMeasurements();</span>
+<span class="fc" id="L69">            c.setLocation(location);</span>
+<span class="fc" id="L70">            GetInstance().Containers.add(c);</span>
+<span class="fc" id="L71">        }</span>
+<span class="fc" id="L72">    }</span>
+
+    /**
+     * Gets the total number of containers
+     * @return
+     */
+    public static int countContainers(){
+<span class="fc" id="L79">        return GetInstance().Containers.size();</span>
+    }
+
+    /**
+     * Gets the used containers (not in
+     * a journey)
+     * @return Used containers in a set
+     */
+    public static Set&lt;ContainerMeasurements&gt; getUsedContainers(){
+<span class="fc" id="L88">        Set&lt;ContainerMeasurements&gt; used = new HashSet&lt;&gt;();</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for (ContainerMeasurements c : instance.Containers){</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            if (c.getJourney()!=null){</span>
+<span class="fc" id="L91">                used.add(c);</span>
+            }
+<span class="fc" id="L93">        }</span>
+<span class="fc" id="L94">        return used;</span>
+    }
+
+    //     /**
+    //  * Gets the number of free containers (not in
+    //  * a journey)
+    //  * @return Number of available container as int
+    //  */
+    // public static int getFreeContainers(){
+    //     int i = 0;
+    //     for (Container c : GetInstance().Containers){
+    //         if (!(c.getJourney()==null)){
+    //             i++;
+    //         }
+    //     }
+    //     return i;
+    // }
+
+    /**
+     * Returns the number of containters in each Port
+     * @param location
+     * @return int
+     */
+    public static int GetNrContainers(Port location) {
+<span class="fc" id="L118">        int ans = 0;</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        for (Container c : GetInstance().Containers) {</span>
+<span class="pc bpc" id="L120" title="1 of 4 branches missed.">            if (c.getLocation() != null &amp;&amp; c.getLocation().equals(location)) </span>
+<span class="fc" id="L121">                ans++;</span>
+<span class="fc" id="L122">        }</span>
+<span class="fc" id="L123">        return ans;</span>
+    }
+
+
+    public static void InitialiseContainers() {
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        for (Port p: Port.class.getEnumConstants())</span>
+<span class="fc" id="L129">                ContainerStorage.addContainers(50, p);</span>
+<span class="fc" id="L130">    }</span>
+
+
+<span class="fc" id="L133">    private static ContainerStorage instance = null;</span>
+
+    public static ContainerStorage GetInstance() {
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L137">            instance = new ContainerStorage();</span>
+        }
+<span class="fc" id="L139">        return instance;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
