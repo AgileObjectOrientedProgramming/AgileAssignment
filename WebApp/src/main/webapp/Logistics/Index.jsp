@@ -15,7 +15,8 @@
             <li><a class="white-option" data-toggle="tab" href="#menu1">Journeys</a></li>
             <li><a class="white-option" data-toggle="tab" href="#menu2">Containers</a></li>
             <li><a class="white-option" data-toggle="tab" href="#menu3">Ports</a></li>
-            <li><a class="white-option" data-toggle="tab" href="#menu4">Profile</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu4">Coordinates</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu5">Profile</a></li>
           </ul>
           
           <div class="tab-content">
@@ -120,7 +121,22 @@
               </div> 
               </p>
           </div>
-            <div id="menu4" class="tab-pane fade">
+          <div id="menu4" class="tab-pane fade">
+            <h3>Coordinates of all ports</h3>
+            <p>
+              You can check all the coordinates of all ports here:
+              <br>
+            <c:forEach items="${Ports}" var="element">
+              <ul>
+                <c:if test="${!(element.toString().equals('In Transit'))}"> 
+                  <li>${element.toString()}(${element.getLongitude()}, ${element.getLatitude()})</li>
+                </c:if>
+              </ul>
+                
+            </c:forEach>
+            </p>
+        </div>
+            <div id="menu5" class="tab-pane fade">
               <h3>Your Profile</h3>
               <p> 
                 <ul class="list-group"  >
