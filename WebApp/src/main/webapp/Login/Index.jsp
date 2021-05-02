@@ -47,6 +47,9 @@
         width:70%;
         margin:auto
     }
+    .warning {
+        width:70%;
+    }
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

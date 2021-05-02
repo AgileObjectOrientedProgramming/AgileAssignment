@@ -8,10 +8,10 @@
 
 <div class="main-card">
     <div class="card-body">
-        <h2 class="card-title">How to Use</h3>
+        <!-- <h2 class="card-title">How to Use</h3> -->
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">General</a></li>
-            <li><a data-toggle="tab" href="#menu1">Journeys</a></li>
+            <li class="active"><a class="white-option" data-toggle="tab" href="#home">General</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu1">Journeys</a></li>
           </ul>
           
           <div class="tab-content">
@@ -22,43 +22,42 @@
                 <br>
                 <br>
                 As a client user, you have the ability to view your profile, aswell as update your personal details.
-                <br>
-                <br>
-                You have the ability to view any client profile, as well as delete any client, but you are not allowed
-                    to change their personal information, nor modify their username or password.
-                <br>
-                <br>
-                The search engine allows you to find any client by any criteria, eg. username.
               </p>
               <div style="display: flex; justify-content:flex-start ;">
                 <a class="btn btn-success" href="/Client/View?ID=${SignedUser.getID()}" style="margin-right: 30px"> View your profile</a>
               </div>
             </div>
             <div id="menu1" class="tab-pane fade" color="white">
-              <h3>Orders</h3>
-              <p>As a logistic user, you have the ability to accept any Journey request made by the clients.
+              <h3>Your Journeys</h3>
+              <p>As our client, you can send your packages all over the world!
                 <br>
                 <br>
-                Once the Journey is accepted, both the logistics user and the client user can track its history 
-                    on the World Map. 
-                <br>
-                <br>
-                The search engine allows you to find any journeys by any criteria, eg. destination port.
-                <br>
-                <br>
-                Everytime a client creates a new Journey, you will get a little notification on the button bellow
-                <br>
-                <br>
-                Available ports:
+                Available containers for new Journeys in the following ports:
                 <ul>
-                    <!-- <c:if test="${!element.getKey().equals('In Transit')}">
-                    <a class="btn btn-primary" style="margin: 10px;" 
-                      href='/Port/View?Port=${element.getKey()}'>
-                      ${element.getKey()} <span class="badge bg-info text-dark">${element.getValue()}</span>
-                    </a>
-                  </c:if> -->
+                    <c:if test="${portMap.size() == 0}">
+                      <li>There are no free containers at the moment. We apologise for the inconvenience, please try again later!</li>
+                    </c:if>
+                    <c:if test="${portMap.size() > 0}">
+                      <c:forEach items="${portMap}" var="element">
+                          <li>${element.getKey()}</li>
+                      </c:forEach>
+                    </c:if>
                 </ul>
+                <br>
+                All you need to do is to go to the Journey Page, order the available container for your journey, and wait for our approval. 
+                  Once we approve it, your package is on its way to its destination.
+                <br>
+                <br>
+                Follow the internal status and position of your package whenever you want! Share the ID of the journey with your customers, so they can follow the package as easily as you. 
+                  You can see the package's location on World Map as well.
+                <br>
+                <br>
+                To find your current or previous journeys, it is enough to search it by simple criteria, by anything you can remember about that journey. 
+                Maintaining your personal page is also very easy, go to your profile's page and update your information if necessary.                
               </p>
+              <div style="display: flex; justify-content:flex-start ;">
+                <a class="btn btn-success" href="/Journey" style="margin-right: 30px"> Your Journeys</a>
+              </div>
             </div>
     </div>
 </div>
@@ -86,15 +85,14 @@
         width: 50%;
         height: 50%;
     }
-    .jumbotron {
-        background-color: rgba(0, 0, 0, 0.2);
-        color:white;
-        margin: auto;
-        width: 70%;
-        backdrop-filter: blur(10px);
-        border-radius: 10px;
+    .white-option {
+        color: #e9ecef;
+        text-decoration: none;
     }
-    h2 { text-align: center }
+    .white-option {
+        background-color: rgb(255 255 255 / 15%);
+    }
+    h2 { text-align: center; color:white }
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

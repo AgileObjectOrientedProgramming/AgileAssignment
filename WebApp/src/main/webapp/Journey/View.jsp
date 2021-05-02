@@ -6,20 +6,27 @@
 
 
 <h1>Your Journey information</h1> 
+<h3>${Journey.getStatus()}
+<button type="button" class="btn btn-secondary" onclick="myFunction();window.alert('The Journey ID was copyed and you can share it with other people.');">Get ID</button>
+</h3>
 
-
-
+<div style="display: flex; justify-content:flex-end ;">
   <c:if test="${SignedUser.IsLogisticUser()}">
     <c:if test="${Journey.getStatus().equals('Waiting for aproval')}">
-      <a class="btn btn-warning btn-lg" submit="${Journey.setStatus('Active')}" onclick="window.confirm('Are you sure you want to confirm the journey?');">
+      <a class="btn btn-success btn float-end" style="margin-right: 15px" submit="${Journey.setStatus('Active')}" onclick="window.confirm('Are you sure you want to confirm the journey?'); window.location.reload()">
       Confirm Shipment
       </a>
     </c:if>
- 
-  <a class="btn btn-warning btn-lg" href="/Journey/Measurements?ID=${ContainerID}" >
+    <a class="btn btn-warning btn float-end" href="/Journey/Measurements?ID=${ContainerID}" style="margin-right: 15px" >
       Set Measurements
-  </a>
+    </a>
   </c:if>
+  <a class="btn btn-info btn float-end" href="#" onclick="history.go(-1)" style="margin-right: 10%" >
+    Back
+  </a>
+</div>
+
+  
 
   <c:if test="${warning != null}">
     <div class="alert alert-danger" role="alert">
@@ -27,8 +34,8 @@
     </div>
   </c:if>
   
-
-<button type="button" class="btn btn-secondary" onclick="myFunction();window.alert('The Journey ID was copyed and you can share it with other people.');">Get ID</button>    
+<br>
+    
 <div class="card">
   <div class="card-body">
     <style type="text/css">
@@ -107,7 +114,7 @@
           <div class="panel-heading">
               <h4 class="panel-title">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-              History of the container's vitals</a>
+              History of the container's measurements</a>
               </h4>
           </div>
           <div id="collapse1" class="panel-collapse collapse out">
@@ -142,7 +149,7 @@
           </div>
   </div>
     
-    <h3>Journey Map</h3>
+    
     <!--The div element for the map -->
     <div id="map"></div>
     
@@ -156,7 +163,7 @@
 
 
 <style>
-  .panel-group {
+    .panel-group {
         color:white;
         border-radius: 10px;
         width: 100%;
@@ -191,6 +198,7 @@
         background-size: cover;
     }
     h1 { text-align: center }
+    h3 { text-align: center }
     .thead-light {
         background-color: rgba(0, 0, 0, 0.2);
         color:white;
