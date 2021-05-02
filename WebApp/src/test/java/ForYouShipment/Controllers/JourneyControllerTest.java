@@ -232,24 +232,7 @@ public class JourneyControllerTest {
             view_name.equals("Journey/Search")
         );      
     }
-    @Test
-    public void TestSearchNull() throws Exception {
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("SignedUser", "1.2.3.4");
-
-		MvcResult resultActions = 
-            this.mockMvc.perform(
-                get("/Journey/Search")
-                .session(session)
-            )
-            .andExpect(status().isOk())
-            .andReturn();
-        
-        String view_name = resultActions.getModelAndView().getViewName();
-        assertTrue(
-            view_name.equals("Journey/Search")
-        );      
-    }
+  
 
     @Test
     public void TestIndexAccess() throws Exception {

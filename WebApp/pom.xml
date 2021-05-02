@@ -87,6 +87,15 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+                <excludes>
+                    <exclude>**/*ContainerFactory.class</exclude>
+					<exclude>**/*StoragePersistance.class</exclude>
+					<exclude>**/*UserModelFactory.class</exclude>
+					<exclude>**/*PersitanceDaemon.class</exclude>
+					<exclude>**/*WebAppApplication.class</exclude>
+                </excludes>
+            </configuration>
 			</plugin>
 			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
