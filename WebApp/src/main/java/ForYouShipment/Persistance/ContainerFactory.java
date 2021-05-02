@@ -9,10 +9,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ForYouShipment.Constants.Port;
+import ForYouShipment.JourneySearch.CriteriaJID;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Search.Criteria;
-import ForYouShipment.Search.CriteriaJID;
 import ForYouShipment.Storage.JourneyStorage;
 
 public class ContainerFactory {

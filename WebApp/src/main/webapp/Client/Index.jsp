@@ -11,7 +11,8 @@
         <!-- <h2 class="card-title">How to Use</h3> -->
         <ul class="nav nav-tabs">
             <li class="active"><a class="white-option" data-toggle="tab" href="#home">General</a></li>
-            <li><a class="white-option" data-toggle="tab" href="#menu1">Journeys</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu1">Destinations</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu2">Journeys</a></li>
           </ul>
           
           <div class="tab-content">
@@ -28,11 +29,27 @@
               </div>
             </div>
             <div id="menu1" class="tab-pane fade" color="white">
-              <h3>Your Journeys</h3>
+              <h3>Destinations</h3>
               <p>As our client, you can send your packages all over the world!
                 <br>
                 <br>
-                Available containers for new Journeys in the following ports:
+                Below you can find a list of all available destinations for your packages.
+                <br>
+                <br>
+                Just remember that you can only start a Journey from the available destinations found in the tab "Journeys".
+                <ul>
+                  <c:forEach items="${Ports}" var="element">
+                      <c:if test="${!(element.toString().equals('In Transit'))}">
+                        <li>${element.toString()}</li>
+                      </c:if>
+                  </c:forEach>
+                </ul>
+              </p>
+            </div>
+            <div id="menu2" class="tab-pane fade" color="white">
+              <h3>Your Journeys</h3>
+              <p>
+                Available containers for starting a new Journeys from the following ports:
                 <ul>
                     <c:if test="${portMap.size() == 0}">
                       <li>There are no free containers at the moment. We apologise for the inconvenience, please try again later!</li>

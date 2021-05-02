@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import ForYouShipment.JourneySearch.CriteriaCargo;
 import ForYouShipment.Models.JourneyInfo;
 
 public class CriteriaCompanyTest {

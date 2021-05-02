@@ -1,9 +1,10 @@
-package ForYouShipment.Search;
+package ForYouShipment.JourneySearch;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ForYouShipment.Models.ContainerMeasurements;
+import ForYouShipment.Search.Criteria;
 
 /** Use this class to filter find a container by JourneyInfo */
 public class CriteriaJourney implements Criteria<ContainerMeasurements> {

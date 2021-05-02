@@ -1,9 +1,10 @@
-package ForYouShipment.Search;
+package ForYouShipment.JourneySearch;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Search.Criteria;
 
 
 public class CriteriaCargo implements Criteria<JourneyInfo>{

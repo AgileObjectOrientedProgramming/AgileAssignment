@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import ForYouShipment.JourneySearch.CriteriaCID;
 import ForYouShipment.Models.ContainerMeasurements;
 
 public class CriteriaCIDTest {
