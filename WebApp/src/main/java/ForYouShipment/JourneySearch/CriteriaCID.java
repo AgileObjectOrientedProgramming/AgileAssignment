@@ -1,9 +1,10 @@
-package ForYouShipment.Search;
+package ForYouShipment.JourneySearch;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ForYouShipment.Models.ContainerMeasurements;
+import ForYouShipment.Search.Criteria;
 /**  Gets the container with the provided journey*/
 public class CriteriaCID implements Criteria<ContainerMeasurements> {
 

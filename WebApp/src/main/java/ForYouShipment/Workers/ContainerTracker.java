@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import ForYouShipment.JourneySearch.CriteriaJourney;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Search.Criteria;
-import ForYouShipment.Search.CriteriaJourney;
 import ForYouShipment.Storage.ContainerStorage;
 
 public class ContainerTracker {
