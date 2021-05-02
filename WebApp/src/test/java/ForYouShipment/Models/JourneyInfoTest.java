@@ -10,11 +10,11 @@ public class JourneyInfoTest {
 
 
     @Test
-    public void TestGetCompany() {
+    public void TestGetCargo() {
         JourneyInfo j = new JourneyInfo();
-        assertTrue(j.getCompany() == null);
-        j.setCompany("test");
-        assertTrue(j.getCompany().equals("test"));
+        assertTrue(j.getCargo() == null);
+        j.setCargo("test");
+        assertTrue(j.getCargo().equals("test"));
     }
     
     @Test

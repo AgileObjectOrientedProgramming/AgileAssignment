@@ -9,6 +9,7 @@
         <div class="alert alert-danger" role="alert">
             ${warning}
         </div>
+        <br>
     </c:if>
 
    
@@ -29,16 +30,16 @@
             <br>
         </div>
         <div class = "card-body">
-            <label for="Company">Company:</label>
+            <label for="Cargo">Cargo:</label>
             <br>
-            <input type="text" class="form-control" name="Company" value required>
+            <input type="text" class="form-control" name="Cargo" value required>
             <br>
             <label for="Content type">Content type</label>
             <br>
             <select id="Content type" name="Content type" class='form-control' value required>
-                <option value="Fragile">Standard</option>
+                <option value="Fragile">Fragile</option>
                 <option value="Flamable">Flamable</option>
-                <option value="Standard">Fragile</option>
+                <option value="Standard">Standard</option>
                 <option value="Food">Food</option>
               </select>
               
@@ -219,6 +220,7 @@
       background-color: DodgerBlue !important;
       color: #ffffff;
     }
+    .alert {width: 70%; margin:auto}
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

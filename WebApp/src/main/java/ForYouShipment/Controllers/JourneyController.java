@@ -22,7 +22,7 @@ import ForYouShipment.Models.UserModel;
 import ForYouShipment.Search.Criteria;
 import ForYouShipment.Search.CriteriaCID;
 import ForYouShipment.Search.CriteriaCJID;
-import ForYouShipment.Search.CriteriaCompany;
+import ForYouShipment.Search.CriteriaCargo;
 import ForYouShipment.Search.CriteriaContent_Type;
 import ForYouShipment.Search.CriteriaDestination;
 import ForYouShipment.Search.CriteriaJID;
@@ -76,7 +76,7 @@ public class JourneyController extends BaseController {
                         @RequestParam("Origin") String origin, 
                         @RequestParam("Destination") String destination,
                         @RequestParam("Content type") String content_type,
-                        @RequestParam("Company") String company) throws Exception {
+                        @RequestParam("Cargo") String cargo) throws Exception {
         
         try {
             Port.ofString(origin);
@@ -89,7 +89,7 @@ public class JourneyController extends BaseController {
         }
         UserModel user = GetUser(session);
 
-        ContainerMeasurements container = ContainerRegister.setJourney(origin, destination, content_type, company, user);
+        ContainerMeasurements container = ContainerRegister.setJourney(origin, destination, content_type, cargo, user);
 
         if (container == null) {
             m.addAttribute("warning", "There aren't any free containers at the source port. Please try again later!");
@@ -115,10 +115,10 @@ public class JourneyController extends BaseController {
         Criteria<JourneyInfo> origin = new CriteriaOrigin();
         Criteria<JourneyInfo> destination = new CriteriaDestination();
         Criteria<JourneyInfo> content = new CriteriaContent_Type();
-        Criteria<JourneyInfo> company = new CriteriaCompany();
+        Criteria<JourneyInfo> cargo = new CriteriaCargo();
         Criteria<JourneyInfo> originOrDestination = new OrCriteria<JourneyInfo>(origin, destination);
-        Criteria<JourneyInfo> contentOrCompany = new OrCriteria<JourneyInfo>(content, company);
-        Criteria<JourneyInfo> allCriteria = new OrCriteria<JourneyInfo>(originOrDestination, contentOrCompany);
+        Criteria<JourneyInfo> contentOrCargo = new OrCriteria<JourneyInfo>(content, cargo);
+        Criteria<JourneyInfo> allCriteria = new OrCriteria<JourneyInfo>(originOrDestination, contentOrCargo);
         if (GetUser(session).IsLogisticUser()) {
             Criteria<JourneyInfo> user = new CriteriaUser();
             allCriteria = new OrCriteria<JourneyInfo>(allCriteria, user);

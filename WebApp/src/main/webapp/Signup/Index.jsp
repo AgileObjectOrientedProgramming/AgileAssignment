@@ -9,6 +9,7 @@
         <div class="alert alert-danger" role="alert">
             ${warning}
         </div>
+        <br>
     </c:if>
 
     <form action="/Signup/${SubmitLink}" method="post" class="card">
@@ -58,6 +59,7 @@
         backdrop-filter: blur(10px);
         border-radius: 10px;
     }
+    .alert {width: 70%; margin:auto}
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

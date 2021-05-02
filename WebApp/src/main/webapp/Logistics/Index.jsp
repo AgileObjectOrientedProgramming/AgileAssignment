@@ -77,7 +77,7 @@
               In order for a Journey to be started, it is necessary that you, as a logistic user, confirm the order.
               <br>
               <br>
-              Likewise, in order to end it, you must choose the option "Yes" in the measuremets form for the Journey to end.
+              Likewise, in order to end it, you must choose the option "Yes" in the measurements form for the Journey to end.
               <br>
               <br>
               Finally, the used container will become free to use from the destination port.

@@ -56,7 +56,7 @@
     <div class="input-group" style="display: flex; flex-wrap: nowrap;">
         <span class="input-group-text" id="addon-wrapping">#</span>
         <input type="text" id="shipmentidinput" class="form-control"
-                placeholder="Shipment ID" aria-label="Shipment ID"
+                placeholder="Shipment URL" aria-label="Shipment URL"
                 aria-describedby="addon-wrapping">
     </div>
     <button class="btn btn-success" onclick="GoToShimpentPage()"

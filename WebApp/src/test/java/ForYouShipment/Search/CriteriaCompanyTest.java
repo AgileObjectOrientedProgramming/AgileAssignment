@@ -18,11 +18,11 @@ public class CriteriaCompanyTest {
         List<JourneyInfo > journeys = new ArrayList<>();
         JourneyInfo j = new JourneyInfo();
         JourneyInfo j2 = new JourneyInfo();
-        j.setCompany("Test");
-        j2.setCompany("company");
+        j.setCargo("Test");
+        j2.setCargo("company");
         journeys.add(j);
         journeys.add(j2);
-        Criteria<JourneyInfo > c = new CriteriaCompany();
+        Criteria<JourneyInfo > c = new CriteriaCargo();
         journeys = c.meetCriteria(journeys, "Test");
         assertTrue(journeys.size() == 1);
 

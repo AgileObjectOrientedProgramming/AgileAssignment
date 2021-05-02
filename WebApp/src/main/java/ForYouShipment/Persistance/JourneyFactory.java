@@ -8,7 +8,7 @@ public class JourneyFactory {
     public static JSONObject JourneyToJSON(JourneyInfo journey) {
         JSONObject obj = new JSONObject();
         obj.put("ContentType", journey.getContent_type());
-        obj.put("Company", journey.getCompany());
+        obj.put("Cargo", journey.getCargo());
         obj.put("jID", journey.getId());
         obj.put("Status", journey.getStatus());
         obj.put("Origin", journey.getOrigin().toString());
@@ -25,7 +25,7 @@ public class JourneyFactory {
         JourneyInfo journey = new JourneyInfo(" ");
         
         journey.setId(obj.getString("jID"));
-        journey.setCompany(obj.getString("Company"));
+        journey.setCargo(obj.getString("Cargo"));
         journey.setContent_type(obj.getString("ContentType"));
         journey.setStatus(obj.getString("Status"));
         journey.setOrigin(Port.ofString(obj.getString("Origin")));
