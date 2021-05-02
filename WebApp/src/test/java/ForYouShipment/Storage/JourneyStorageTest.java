@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ClientProfileModel;
 import ForYouShipment.Models.ClientUserModel;
+import ForYouShipment.Models.Container;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Models.UserProfileModel;
@@ -39,6 +40,7 @@ public class JourneyStorageTest {
     public void clearGarbage() {
         UserStorage.GetInstance().getUsers().clear();
         JourneyStorage.GetInstance().getJourneys().clear();
+        ContainerStorage.GetInstance().getContainers().clear();
     }
 
     
