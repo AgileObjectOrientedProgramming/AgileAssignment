@@ -32,7 +32,7 @@
         <th> Origin </th>
         <th> Destination </th>
         <th> Content type </th>
-        <th> Company </th>
+        <th> Cargo </th>
         <th> Status </th>
     </tr>
 </thead>
@@ -44,7 +44,7 @@
                 <td>${element.getOrigin().toString()} </td>
                 <td>${element.getDestination().toString()} </td>
                 <td>${element.getContent_type()}</td>
-                <td>${element.getCompany()} </td>
+                <td>${element.getCargo()} </td>
                 <td>${element.getStatus()}</td>
             </tr>
         </c:if>
@@ -54,7 +54,7 @@
                 <td>${element.getOrigin().toString()} </td>
                 <td>${element.getDestination().toString()} </td>
                 <td>${element.getContent_type()}</td>
-                <td>${element.getCompany()} </td>
+                <td>${element.getCargo()} </td>
                 <td>${element.getStatus()}</td>
             </tr>
         </c:if>    

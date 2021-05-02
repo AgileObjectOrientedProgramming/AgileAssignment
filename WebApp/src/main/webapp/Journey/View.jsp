@@ -7,7 +7,7 @@
 
 <h1>Your Journey information</h1> 
 <h3>${Journey.getStatus()}
-<button type="button" class="btn btn-secondary" onclick="myFunction();window.alert('The Journey ID was copyed and you can share it with other people.');">Get ID</button>
+<button type="button" class="btn btn-secondary" onclick="myFunction();window.alert('The Journey URL was copyed and you can share it with other people.');">Get URL</button>
 </h3>
 
 <div style="display: flex; justify-content:flex-end ;">
@@ -32,6 +32,7 @@
     <div class="alert alert-danger" role="alert">
         ${warning}
     </div>
+    <br>
   </c:if>
   
 <br>
@@ -207,6 +208,7 @@
         background-color: rgba(0, 0, 0, 0.2);
         color:white;
     }
+    .alert {width: 80%; margin:auto}
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>
