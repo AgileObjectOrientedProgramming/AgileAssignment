@@ -17,7 +17,7 @@ public class ContainerRegister {
     * @param  origin         A string with the name of the origin
     * @param destination    A string with the name of the destination
     * @param content_type   A string with the name of the content_type
-    * @param company        A string with the name of the company
+    * @param cargo        A string with the name of the cargo
     * @param user           The user's UserModel
     * @return container
      * @throws Exception
@@ -25,7 +25,7 @@ public class ContainerRegister {
     public static ContainerMeasurements setJourney(String origin,
                                     String destination,
                                     String content_type,
-                                    String company,
+                                    String cargo,
                                     UserModel user) throws Exception {
 
                               
@@ -37,7 +37,7 @@ public class ContainerRegister {
         journey.setOrigin(Port.ofString(origin));
         journey.setDestination(Port.ofString(destination));
         journey.setContent_type(content_type);
-        journey.setCompany(company);
+        journey.setCargo(cargo);
         journey.setParameter("Username", user.getUsername());
         journey.setParameter("ID", user.getID());
         

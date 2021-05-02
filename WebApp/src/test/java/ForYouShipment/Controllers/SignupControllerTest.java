@@ -246,5 +246,114 @@ public class SignupControllerTest {
         );
 
     }
+    
+    @Test
+	public void TestUnsuccessfullCreateManager() throws Exception {
 
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Signup/CreateManager")
+                .param("Username", "abcd")
+                .param("Password", "1234")
+                .param("PasswordRetype", "1234")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+        
+
+        assertTrue(
+            view_name.equals("redirect:/Login")
+        );
+    }
+
+    @Test
+	public void TestUnsuccessfullCreateManager4() throws Exception {
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Signup/CreateManager")
+                .param("Username", "")
+                .param("Password", "1234")
+                .param("PasswordRetype", "12345")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+        
+
+        assertTrue(
+            view_name.equals("Signup/Index")
+        );
+    }
+
+
+    @Test
+	public void TestUnsuccessfullCreateManager2() throws Exception {
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Signup/CreateManager")
+                .param("Username", "abcd")
+                .param("Password", "1234")
+                .param("PasswordRetype", "12345")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+        
+        assertTrue(
+            model.get("warning") != null 
+            && model.get("SignedUser") != null
+        );
+
+        assertTrue(
+            view_name.equals("Signup/Index")
+        );
+    }
+    
+    @Test
+	public void TestSuccessfullCreateManager() throws Exception {
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Signup/CreateManager")
+                .param("Username", "abcd")
+                .param("Password", "1234")
+                .param("PasswordRetype", "1234")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        assertTrue(
+            UserStorage
+            .GetInstance()
+            .getUsers()
+            .size() == 2
+        );
+
+    }
+    
 }

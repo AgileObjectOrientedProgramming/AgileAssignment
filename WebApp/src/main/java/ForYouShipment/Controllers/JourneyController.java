@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ForYouShipment.Constants.AccessActionNounEnum;
 import ForYouShipment.Constants.AccessActionVerbEnum;
 import ForYouShipment.Constants.Port;
+import ForYouShipment.JourneySearch.CriteriaCID;
+import ForYouShipment.JourneySearch.CriteriaCJID;
+import ForYouShipment.JourneySearch.CriteriaCargo;
+import ForYouShipment.JourneySearch.CriteriaContent_Type;
+import ForYouShipment.JourneySearch.CriteriaDestination;
+import ForYouShipment.JourneySearch.CriteriaJID;
+import ForYouShipment.JourneySearch.CriteriaOrigin;
+import ForYouShipment.JourneySearch.CriteriaUser;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Search.Criteria;
-import ForYouShipment.Search.CriteriaCID;
-import ForYouShipment.Search.CriteriaCJID;
-import ForYouShipment.Search.CriteriaCompany;
-import ForYouShipment.Search.CriteriaContent_Type;
-import ForYouShipment.Search.CriteriaDestination;
-import ForYouShipment.Search.CriteriaJID;
-import ForYouShipment.Search.CriteriaOrigin;
-import ForYouShipment.Search.CriteriaUser;
 import ForYouShipment.Search.OrCriteria;
 import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.JourneyStorage;
@@ -76,7 +76,7 @@ public class JourneyController extends BaseController {
                         @RequestParam("Origin") String origin, 
                         @RequestParam("Destination") String destination,
                         @RequestParam("Content type") String content_type,
-                        @RequestParam("Company") String company) throws Exception {
+                        @RequestParam("Cargo") String cargo) throws Exception {
         
         try {
             Port.ofString(origin);
@@ -89,7 +89,7 @@ public class JourneyController extends BaseController {
         }
         UserModel user = GetUser(session);
 
-        ContainerMeasurements container = ContainerRegister.setJourney(origin, destination, content_type, company, user);
+        ContainerMeasurements container = ContainerRegister.setJourney(origin, destination, content_type, cargo, user);
 
         if (container == null) {
             m.addAttribute("warning", "There aren't any free containers at the source port. Please try again later!");
@@ -115,10 +115,10 @@ public class JourneyController extends BaseController {
         Criteria<JourneyInfo> origin = new CriteriaOrigin();
         Criteria<JourneyInfo> destination = new CriteriaDestination();
         Criteria<JourneyInfo> content = new CriteriaContent_Type();
-        Criteria<JourneyInfo> company = new CriteriaCompany();
+        Criteria<JourneyInfo> cargo = new CriteriaCargo();
         Criteria<JourneyInfo> originOrDestination = new OrCriteria<JourneyInfo>(origin, destination);
-        Criteria<JourneyInfo> contentOrCompany = new OrCriteria<JourneyInfo>(content, company);
-        Criteria<JourneyInfo> allCriteria = new OrCriteria<JourneyInfo>(originOrDestination, contentOrCompany);
+        Criteria<JourneyInfo> contentOrCargo = new OrCriteria<JourneyInfo>(content, cargo);
+        Criteria<JourneyInfo> allCriteria = new OrCriteria<JourneyInfo>(originOrDestination, contentOrCargo);
         if (GetUser(session).IsLogisticUser()) {
             Criteria<JourneyInfo> user = new CriteriaUser();
             allCriteria = new OrCriteria<JourneyInfo>(allCriteria, user);
@@ -152,12 +152,10 @@ public class JourneyController extends BaseController {
         Criteria<JourneyInfo> criteria = new CriteriaJID();
         Criteria<ContainerMeasurements> container = new CriteriaCJID();
         JourneyInfo j = criteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()), JourneyId).get(0);
-        System.out.println("Criteria ID" + JourneyId);
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), JourneyId).get(0);
         m.addAttribute("ContainerID", c.getId());
         m.addAttribute("Journey", j); 
         m.addAttribute("ID", JourneyId);
-        System.out.println("Here:" + c.getParameter("Latitude"));
         m.addAttribute("Latitude", Double.parseDouble(c.getParameter("Latitude")));
         m.addAttribute("Longitude", Double.parseDouble(c.getParameter("Longitude")));
         m.addAttribute("SignedUser", GetUser(session)); 
@@ -185,17 +183,15 @@ public class JourneyController extends BaseController {
 
     
     @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
-    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) {
+    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) throws Exception {
     
         String ID = req.getParameter("ContainerID");                   
         Criteria<ContainerMeasurements> container = new CriteriaCID();
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), ID).get(0);
         
-        try {
-            c.setLocation(Port.ofString("In Transit"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
+        c.setLocation(Port.ofString("In Transit"));
+        
 
         for (String Param : c.getAllParameters()) {
             String value = req.getParameter(Param);

@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import ForYouShipment.Constants.Port;
+import ForYouShipment.JourneySearch.CriteriaOrigin;
 import ForYouShipment.Models.JourneyInfo;
 
 public class CriteriaOriginTest {

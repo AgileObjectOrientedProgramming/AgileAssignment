@@ -1,9 +1,10 @@
-package ForYouShipment.Search;
+package ForYouShipment.JourneySearch;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ForYouShipment.Models.JourneyInfo;
+import ForYouShipment.Search.Criteria;
 
 public class CriteriaUser implements Criteria<JourneyInfo> {
 
@@ -12,7 +13,6 @@ public class CriteriaUser implements Criteria<JourneyInfo> {
             List<JourneyInfo> Journeys_User = new ArrayList<JourneyInfo>();
             
             for (JourneyInfo j: Journeys){
-                System.out.println(query);
                 if(j.getParameter("Username").toLowerCase().contains(query.toLowerCase()))
                     Journeys_User.add(j);
             }

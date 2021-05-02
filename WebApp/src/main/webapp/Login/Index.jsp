@@ -3,12 +3,14 @@
     <jsp:param name="SignedUser" value="${SignedUser}"/>
 </jsp:include>
 
-<div   >
+<div>
     <c:if test="${warning != null}">
         <div class="alert alert-danger" role="alert">
             ${warning}
         </div>
+        <br>
     </c:if>
+    
 
     <form action="/Login/Login" method="post" class="card">
         <div class="card-header">
@@ -47,6 +49,10 @@
         width:70%;
         margin:auto
     }
+    .warning {
+        width:70%;
+    }
+    .alert {width: 70%; margin:auto}
 </style>
 
 <jsp:include page="../Shared/MainLayoutBottom.jsp"></jsp:include>

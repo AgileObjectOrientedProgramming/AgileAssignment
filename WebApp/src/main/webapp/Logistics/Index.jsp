@@ -9,12 +9,14 @@
 
 <div class="main-card">
     <div class="card-body">
-        <h2 class="card-title">Important Statistics</h3>
+        <!-- <h2 class="card-title">Important Statistics</h3> -->
         <ul class="nav nav-tabs">
             <li class="active"><a class="white-option" data-toggle="tab" href="#home">Clients</a></li>
             <li><a class="white-option" data-toggle="tab" href="#menu1">Journeys</a></li>
             <li><a class="white-option" data-toggle="tab" href="#menu2">Containers</a></li>
             <li><a class="white-option" data-toggle="tab" href="#menu3">Ports</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu4">Coordinates</a></li>
+            <li><a class="white-option" data-toggle="tab" href="#menu5">Profile</a></li>
           </ul>
           
           <div class="tab-content">
@@ -66,11 +68,35 @@
             </div>
             <div id="menu2" class="tab-pane fade">
               <h3>Container Management</h3>
-              <p>Some content in menu 2.</p>
+              <p>Every time a client request a Journey, an available container will be assigned to it.
+              <br>
+              <br>
+              Each Journey can be tracked in terms of the measurements for a container, for eg. Longitute and Latitute.
+                As a logistic user, you need to insert this measures manually.
+              <br>
+              <br>
+              In order for a Journey to be started, it is necessary that you, as a logistic user, confirm the order.
+              <br>
+              <br>
+              Likewise, in order to end it, you must choose the option "Yes" in the measurements form for the Journey to end.
+              <br>
+              <br>
+              Finally, the used container will become free to use from the destination port.
+            </p>
             </div>
             <div id="menu3" class="tab-pane fade">
               <h3>Ports Management</h3>
               <p>
+                By clicking on the specific ports bellow, you can add or delete the containers located there.
+                <br>
+                <br>
+                Moreover, you can check the history of each container on all the Journeys it went on. 
+                  For every Journey there is a history of measurements included too.
+                <br>
+                <br>
+                To be noted that in order for a client to request a Journey from a specific port, it is manditory
+                  that in that location there exists free containers.
+                  <br>
               <c:forEach items="${portMap}" var="element">
                   <c:if test="${element.getKey().equals('In Transit')}">
                     Containers 
@@ -81,7 +107,7 @@
                   </c:if>
               </c:forEach>
               <br>
-              All the available ports:
+              All ports with the number of containers located in each one of them:
               <br>
               <div style="display: flex; justify-content: flex-start; flex-wrap: wrap">
                 <c:forEach items="${portMap}" var="element">
@@ -95,6 +121,33 @@
               </div> 
               </p>
           </div>
+          <div id="menu4" class="tab-pane fade">
+            <h3>Coordinates of all ports</h3>
+            <p>
+              You can check all the coordinates of all ports here:
+              <br>
+            <c:forEach items="${Ports}" var="element">
+              <ul>
+                <c:if test="${!(element.toString().equals('In Transit'))}"> 
+                  <li>${element.toString()}(${element.getLongitude()}, ${element.getLatitude()})</li>
+                </c:if>
+              </ul>
+                
+            </c:forEach>
+            </p>
+        </div>
+            <div id="menu5" class="tab-pane fade">
+              <h3>Your Profile</h3>
+              <p> 
+                <ul class="list-group"  >
+                  <c:forEach items="${SignedUser.getProfile().getAllParameters()}" var="element">
+                      <li class="list-group-item">
+                          ${element}:     ${SignedUser.getProfile().getParameter(element)}
+                      </li>   
+                  </c:forEach>
+              </ul>
+              </p>
+            </div>
     </div>
 </div>
 

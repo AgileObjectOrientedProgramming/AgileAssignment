@@ -25,7 +25,7 @@
         <p class="card-text">As a company client you have access to a personalised account, 
                 where you can manage your orders. In order to log in on this website, you must 
                 use the unique password and username provided by our team. </p>
-        <a href="/UserManual" class="btn btn-primary">User Manual</a>
+        <a href="/UserManual" class="btn btn-primary">Short User Manual</a>
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@
     <div class="input-group" style="display: flex; flex-wrap: nowrap;">
         <span class="input-group-text" id="addon-wrapping">#</span>
         <input type="text" id="shipmentidinput" class="form-control"
-                placeholder="Shipment ID" aria-label="Shipment ID"
+                placeholder="Shipment URL" aria-label="Shipment URL"
                 aria-describedby="addon-wrapping">
     </div>
     <button class="btn btn-success" onclick="GoToShimpentPage()"

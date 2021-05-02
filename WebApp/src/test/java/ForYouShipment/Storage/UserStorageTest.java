@@ -75,8 +75,23 @@ public class UserStorageTest {
         assertEquals(1, UserStorage.GetInstance().getUsers().size());
     }
 
+    @Test
+    public void StorageNameTest() {
+        assertTrue(("UserStorage").equals(UserStorage.GetInstance().StorageName()));
+    }
+
+
+    @Test
+    public void CountClientsTest() {
+        assertEquals(1, UserStorage.GetInstance().countClients());
+    }
+
+    
+
     @AfterEach
     public void ClearGarbage() {
         UserStorage.GetInstance().getUsers().clear();
     }
+
+
 }

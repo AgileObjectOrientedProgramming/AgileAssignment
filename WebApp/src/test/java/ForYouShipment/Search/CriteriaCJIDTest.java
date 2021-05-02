@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import ForYouShipment.JourneySearch.CriteriaCJID;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.Journey;
 import ForYouShipment.Models.JourneyInfo;

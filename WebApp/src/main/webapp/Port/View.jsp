@@ -24,6 +24,7 @@
 <br>
 <br>
 
+<a class="btn btn-info btn-lg float-end" href="/Logistics" > Back</a>
 <br>
 
 <table class="table table-hover" >

@@ -50,7 +50,7 @@ public class ClientController extends BaseController {
 
     HashMap<String, Integer> portMap = new HashMap<>();
     for (Port p : Ports) 
-        if (ContainerStorage.GetNrContainers(p) > 0)
+        if (ContainerStorage.GetNrContainers(p) > 0 && (!p.toString().equals("In Transit")))
         portMap.put(p.toString(), ContainerStorage.GetNrContainers(p));
     
     m.addAttribute("portMap", portMap);

@@ -9,10 +9,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ForYouShipment.Constants.Port;
+import ForYouShipment.JourneySearch.CriteriaJID;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Search.Criteria;
-import ForYouShipment.Search.CriteriaJID;
 import ForYouShipment.Storage.JourneyStorage;
 
 public class ContainerFactory {
@@ -43,7 +43,6 @@ public class ContainerFactory {
         for  (int i = 0; i < obj.getInt("HistorySize"); i++){
             Criteria<JourneyInfo> criteria = new CriteriaJID();
             JourneyInfo j = criteria.meetCriteria(new ArrayList<>(JourneyStorage.GetInstance().getJourneys()), obj.getString("JourneyID" + i)).get(0);
-            System.out.println("AHAH"+j.toString());
             c.addToJourneyHistory(j);
         }
         JSONtoHistory(c, obj);
