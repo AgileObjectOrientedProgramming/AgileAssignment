@@ -7,6 +7,7 @@ Feature: M1 Clients Managment
 
     Scenario Outline: Register Client
         Given a new client named "<name>"
+        And I am a logistic user
         When I create his profile 
         Then storage has the client named "<name>"
 
