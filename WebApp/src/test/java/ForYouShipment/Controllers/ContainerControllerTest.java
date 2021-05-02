@@ -5,6 +5,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.HashMap;
+import java.util.Map;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -88,22 +91,23 @@ public class ContainerControllerTest {
     }
 
 
-    // @Test
-    // public void DoMeasurements() throws Exception{
-    //     MockHttpSession session = new MockHttpSession();
-    //     session.setAttribute("SignedUser", "1.2.3.1");
-	// 	MvcResult resultActions = 
-    //         this.mockMvc.perform(
-    //             post("/Container/Measurements")
-    //             .param("Measurements", "asd")
-    //             .param("Journey", "asd")
-    //             .session(session))
-    //         .andExpect(status().is(302))
-    //         .andReturn();
+    @Test //FIXME
+    public void DoMeasurements() throws Exception{
+        Map<String, String> measurements = new HashMap<>();
+        measurements.put("Temperature", "2");
+        JourneyInfo j = new JourneyInfo();
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.1");
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Container/Measurements")
+                .param("Measurements", new ObjectMapper().writeValueAsString(measurements))
+                .param("Journey", new ObjectMapper().writeValueAsString(j))
+                .session(session))
+            .andExpect(status().is(500))
+            .andReturn();
         
-    //     String view_name = resultActions.getModelAndView().getViewName();       
-    //     assertTrue(view_name.equals("Container/Measurements")); 
-    // }
+    }
 
     @Test
     public void DoDelete() throws Exception{

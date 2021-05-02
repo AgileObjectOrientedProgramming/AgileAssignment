@@ -5,8 +5,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Map;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,11 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import ForYouShipment.Constants.Port;
+import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
 
@@ -53,27 +53,47 @@ public class PortControllerTest {
 
 
 
-    // @Test FIXME
-    // public void ViewValid() throws Exception{
-    //     MockHttpSession session = new MockHttpSession();
-    //     session.setAttribute("SignedUser", "0.0.0.0");
-    //     ContainerMeasurements c = new ContainerMeasurements();
-    //     c.setLocation(Port.NEKO);
-    //     ContainerStorage.GetInstance().getContainers().add(c);
+    @Test 
+    public void ViewValid() throws Exception{
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "0.0.0.0");
+        ContainerMeasurements c = new ContainerMeasurements();
+        c.setLocation(Port.NEKO);
+        ContainerStorage.GetInstance().getContainers().add(c);
 
-	// 	MvcResult resultActions = 
-    //         this.mockMvc.perform(
-    //             get("/Port/View")
-    //             .param("Port", "Neko")
-    //             .session(session))
-    //         .andExpect(status().isOk())
-    //         .andReturn();
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Port/View")
+                .param("Port", "Neko")
+                .session(session))
+            .andExpect(status().isOk())
+            .andReturn();
         
-    //     String view_name = resultActions.getModelAndView().getViewName();       
-    //     assertTrue(view_name.equals("Port/View")); 
-    // }
+        String view_name = resultActions.getModelAndView().getViewName();       
+        assertTrue(view_name.equals("Port/View")); 
+    }
 
     
+    @Test 
+    public void ViewInvalid() throws Exception{
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "0.0.0.0");
+        ContainerMeasurements c = new ContainerMeasurements();
+        c.setLocation(Port.NEKO);
+        ContainerStorage.GetInstance().getContainers().add(c);
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Port/View")
+                .param("Port", "asd")
+                .session(session))
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();       
+        assertTrue(view_name.equals("redirect:/error/display")); 
+    }
+
     @Test
     public void ViewNoAccount() throws Exception{
         MockHttpSession session = new MockHttpSession();

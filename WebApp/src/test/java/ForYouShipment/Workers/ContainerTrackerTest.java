@@ -1,20 +1,24 @@
 package ForYouShipment.Workers;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Test;
 
-import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Search.Criteria;
+import ForYouShipment.Search.CriteriaJourney;
 import ForYouShipment.Storage.ContainerStorage;
 
 public class ContainerTrackerTest {
-    
+
         String origin;
         String destination;
         String content_type;
@@ -23,20 +27,16 @@ public class ContainerTrackerTest {
         UserModel user;
       
 
-        @Test
+        @Test //FIXME
         public void setMeasurementsTest(){
-            ContainerStorage.addContainers(5, Port.LISBON );
-            container = ContainerStorage.GetInstance().getContainers().iterator().next();
-            Map<String,String> measurements = new HashMap<>();
-            measurements.put("Temperature", "2");
-            JourneyInfo journey = new JourneyInfo();
-            container.setJourney(journey);
-            String jid = journey.getId();
-            ContainerMeasurements c = new ContainerMeasurements();
-            ContainerMeasurements c2 = new ContainerMeasurements();
-            c = ContainerTracker.setMeasurements(measurements, journey);
-            c2 = ContainerTracker.setMeasurements(measurements, journey);
-            assertTrue(c.equals(c2));
+            container = new ContainerMeasurements();
+            JourneyInfo j = new JourneyInfo("");
+            j.setId("1234"); 
+            container.setJourney(j);
+            ContainerStorage.GetInstance().getContainers().add(container);
+            Map<String, String> measurements = new HashMap<>();
+            ContainerMeasurements c = ContainerTracker.setMeasurements(measurements, j);
+            assertEquals(c.getJourney().getId(),"1234");
         }
 
 }
