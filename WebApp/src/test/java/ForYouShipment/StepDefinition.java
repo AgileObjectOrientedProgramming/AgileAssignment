@@ -8,12 +8,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.ui.ConcurrentModel;
@@ -48,13 +50,12 @@ public class StepDefinition {
     public void SetUpUsers() {
         
     }
-
     @After
     public void clearGarbage(){
         UserStorage.GetInstance().getUsers().clear();
     }
 
-    
+
     @Given("a new client named {string}")
     public void a_new_client_named_(String name) {
         this.name = name;
@@ -73,16 +74,27 @@ public class StepDefinition {
         a.setProfile(pa);
         UserStorage.GetInstance().getUsers().add(a);
     }
-    
-    @When("I create his profile")
+
+    @Test
+    // @When("I create his profile")
     public void i_create_his_profile() throws Exception {
+        UserModel a = new LogisticsUserModel();
+        a.setID("1.2.3.4");
+        a.setUsername("admin");
+        a.setPassword("admin");
+        UserProfileModel pa = new LogisticsProfileModel();
+        for (String s : pa.getAllParameters()) {
+            pa.setParameter(s, "test");
+        }
+        a.setProfile(pa);
+        UserStorage.GetInstance().getUsers().add(a);
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("SignedUser", "1.2.3.4");
 
         MvcResult resultActions = 
             this.mockMvc.perform(
                 post("/Signup/CreateUser")
-                .param("Username", name)
+                .param("Username", "ola")
                 .param("Password", "1234")
                 .param("PasswordRetype", "1234")
                 .session(session)
