@@ -29,11 +29,13 @@ public class ContainerStorageTest {
         ContainerStorage.addContainers( 200 , Port.LISBON);
     }
 
+    
     @AfterEach
     public void clearGarbage() {
+        UserStorage.GetInstance().getUsers().clear();
+        JourneyStorage.GetInstance().getJourneys().clear();
         ContainerStorage.GetInstance().getContainers().clear();
     }
-
     @Test
     public void TestgetContainers() {
         assertTrue(
