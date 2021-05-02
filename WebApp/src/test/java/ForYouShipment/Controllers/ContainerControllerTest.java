@@ -61,53 +61,6 @@ public class ContainerControllerTest {
     }
 
 
-    @Test
-    public void NewNoUser() throws Exception{
-        MockHttpSession session = new MockHttpSession();
-		MvcResult resultActions = 
-            this.mockMvc.perform(
-                get("/Container/Measurements")
-                .session(session))
-            .andExpect(status().is(302))
-            .andReturn();
-        
-        String view_name = resultActions.getModelAndView().getViewName();       
-        assertTrue(view_name.equals("redirect:/Login/")); 
-    }
-
-    @Test
-    public void NewValid() throws Exception{
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("SignedUser", "1.2.3.1");
-		MvcResult resultActions = 
-            this.mockMvc.perform(
-                get("/Container/Measurements")
-                .session(session))
-            .andExpect(status().isOk())
-            .andReturn();
-        
-        String view_name = resultActions.getModelAndView().getViewName();       
-        assertTrue(view_name.equals("Container/Measurements")); 
-    }
-
-
-    @Test //FIXME
-    public void DoMeasurements() throws Exception{
-        Map<String, String> measurements = new HashMap<>();
-        measurements.put("Temperature", "2");
-        JourneyInfo j = new JourneyInfo();
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("SignedUser", "1.2.3.1");
-		MvcResult resultActions = 
-            this.mockMvc.perform(
-                post("/Container/Measurements")
-                .param("Measurements", new ObjectMapper().writeValueAsString(measurements))
-                .param("Journey", new ObjectMapper().writeValueAsString(j))
-                .session(session))
-            .andExpect(status().is(500))
-            .andReturn();
-        
-    }
 
     @Test
     public void DoDelete() throws Exception{
