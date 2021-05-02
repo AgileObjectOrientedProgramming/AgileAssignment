@@ -12,7 +12,6 @@ public class CriteriaUser implements Criteria<JourneyInfo> {
             List<JourneyInfo> Journeys_User = new ArrayList<JourneyInfo>();
             
             for (JourneyInfo j: Journeys){
-                System.out.println(query);
                 if(j.getParameter("Username").toLowerCase().contains(query.toLowerCase()))
                     Journeys_User.add(j);
             }

@@ -18,11 +18,14 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import ForYouShipment.Constants.Port;
 import ForYouShipment.Models.ClientUserModel;
 import ForYouShipment.Models.LogisticsProfileModel;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
 import ForYouShipment.Models.UserProfileModel;
+import ForYouShipment.Storage.ContainerStorage;
+import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
 
@@ -49,20 +52,20 @@ public class ClientControllerTest {
         }
         a.setProfile(pa);
         UserStorage.GetInstance().getUsers().add(a);
-        Set<UserModel> b = UserStorage.GetInstance().getUsers();
+        
         a = new ClientUserModel();
         a.setID("1.1.1.1");
         a.setUsername("test");
         a.setPassword("test");
         a.setProfile(pa);
         UserStorage.GetInstance().getUsers().add(a);
-        b = UserStorage.GetInstance().getUsers();
-        System.out.println("x");
     }
 
     @AfterEach
     public void ClearGarbage() {
         UserStorage.GetInstance().getUsers().clear();
+        ContainerStorage.GetInstance().getContainers().clear();
+        JourneyStorage.GetInstance().getJourneys().clear();
     }
 
 	@Test
@@ -109,6 +112,63 @@ public class ClientControllerTest {
     }
 
     @Test
+	public void TestSuccessfulClientPagewContainer() throws Exception {
+        ContainerStorage.addContainers(1, Port.PORTO);
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Index")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+
+        UserModel SignedUser = (UserModel)model.get("SignedUser");
+
+        assertTrue(
+            SignedUser
+            .getUsername()
+            .equals("test")
+        );  
+        assertTrue(view_name.equals("Client/Index"));
+    }
+
+    @Test
+	public void TestSuccessfulClientPage2() throws Exception {
+        ContainerStorage.addContainers(1, Port.TRANSIT);
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Client/Index")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+
+        UserModel SignedUser = (UserModel)model.get("SignedUser");
+
+        assertTrue(
+            SignedUser
+            .getUsername()
+            .equals("test")
+        );  
+        assertTrue(view_name.equals("Client/Index"));
+    }
+
+    @Test
 	public void TestUnSuccessfulViewPage() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("SignedUser", "1.2.3.4");
@@ -116,13 +176,14 @@ public class ClientControllerTest {
 		MvcResult resultActions = 
             this.mockMvc.perform(
                 get("/Client/View")
-                .param("ID", "1.2.3.4")
+                .param("ID", "1.2.3.5")
+                .session(session)
             )
-            .andExpect(status().is(302))
+            .andExpect(status().isOk())
             .andReturn();
     
         String view_name = resultActions.getModelAndView().getViewName();       
-        assertTrue(view_name.equals("redirect:/Login/")); 
+        assertTrue(view_name.equals("Client/View")); 
     }
 
     @Test
@@ -142,24 +203,6 @@ public class ClientControllerTest {
         String view_name = resultActions.getModelAndView().getViewName();       
         assertTrue(view_name.equals("redirect:/Login/")); 
     }
-
-    // @Test
-    // public void TestUnSuccessfulViewPage3() throws Exception {
-    //     MockHttpSession session = new MockHttpSession();
-    //     session.setAttribute("SignedUser", "1.2.3.4");
-
-	// 	MvcResult resultActions = 
-    //         this.mockMvc.perform(
-    //             get("/Client/View")
-    //             .param("ID", "1.1.1.2")
-    //             .session(session)
-    //         )
-    //         .andExpect(status().is(302))
-    //         .andReturn();
-    
-    //     String view_name = resultActions.getModelAndView().getViewName();       
-    //     assertTrue(view_name.equals("redirect:/Login/")); 
-    // }
 
 
 
@@ -228,6 +271,7 @@ public class ClientControllerTest {
 		MvcResult resultActions = 
             this.mockMvc.perform(
                 get("/Client/Search")
+                .param("ID", "1.1.1.2")
                 .session(session)
             )
             .andExpect(status().is(302))
@@ -290,7 +334,6 @@ public class ClientControllerTest {
             .andReturn();
 
         String view_name = resultActions.getModelAndView().getViewName();
-        System.out.println(view_name);
         assertTrue(view_name.equals("redirect:/Login/"));
     }
 
@@ -377,5 +420,28 @@ public class ClientControllerTest {
         assertTrue(view_name.equals("Client/Edit"));
     }
     
+    @Test
+    public void TestSuccessfulEditPagePost3() throws Exception {
+
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.1.1.1");
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Client/Edit")
+                .param("Password","")
+                .param("PasswordRetype","")
+                .session(session)
+            )
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
+        UserModel SignedUser = (UserModel)model.get("SignedUser");
+        UserModel ProfileUser = (UserModel)model.get("ProfileUser");
+
+
+        assertTrue(view_name.equals("redirect:/Client/View?ID=1.1.1.1"));
+    }
     
 }

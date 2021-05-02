@@ -152,12 +152,10 @@ public class JourneyController extends BaseController {
         Criteria<JourneyInfo> criteria = new CriteriaJID();
         Criteria<ContainerMeasurements> container = new CriteriaCJID();
         JourneyInfo j = criteria.meetCriteria(new ArrayList<JourneyInfo>(JourneyStorage.GetInstance().getJourneys()), JourneyId).get(0);
-        System.out.println("Criteria ID" + JourneyId);
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), JourneyId).get(0);
         m.addAttribute("ContainerID", c.getId());
         m.addAttribute("Journey", j); 
         m.addAttribute("ID", JourneyId);
-        System.out.println("Here:" + c.getParameter("Latitude"));
         m.addAttribute("Latitude", Double.parseDouble(c.getParameter("Latitude")));
         m.addAttribute("Longitude", Double.parseDouble(c.getParameter("Longitude")));
         m.addAttribute("SignedUser", GetUser(session)); 
@@ -185,17 +183,15 @@ public class JourneyController extends BaseController {
 
     
     @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
-    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) {
+    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) throws Exception {
     
         String ID = req.getParameter("ContainerID");                   
         Criteria<ContainerMeasurements> container = new CriteriaCID();
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), ID).get(0);
         
-        try {
-            c.setLocation(Port.ofString("In Transit"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
+        c.setLocation(Port.ofString("In Transit"));
+        
 
         for (String Param : c.getAllParameters()) {
             String value = req.getParameter(Param);
