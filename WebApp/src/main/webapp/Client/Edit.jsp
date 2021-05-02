@@ -4,12 +4,14 @@
 </jsp:include>
 
 
-<div   >
+<div>
     <c:if test="${warning != null}">
         <div class="alert alert-danger" role="alert">
             ${warning}
         </div>
+        <br>
     </c:if>
+    
 
     <form action="/Client/Edit" method="post" class="card">
         <div class="card-header">
@@ -55,6 +57,7 @@
         backdrop-filter: blur(10px);
         border-radius: 10px;
     }
+    .alert {width: 70%; margin:auto}
 </style>
 
 

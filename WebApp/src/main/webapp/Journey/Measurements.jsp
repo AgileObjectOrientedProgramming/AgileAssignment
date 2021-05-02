@@ -8,6 +8,7 @@
         <div class="alert alert-danger" role="alert">
             ${warning}
         </div>
+        <br>
     </c:if>
 </div>
 
@@ -33,8 +34,8 @@
         <input type = "hidden" name ="JourneyID" value = "${Container.getJourney().getId()}">
         <label for="ReachedDestination">Reached Destination Port</label>
         <select name="ReachedDestination" class="form-control">
-            <option value="Yes">Yes</option>
             <option value="No">No</option>
+            <option value="Yes">Yes</option>
         </select>
     </div>    
     <div style="display: flex; justify-content: space-between;" class="card-footer">
@@ -59,6 +60,7 @@
         background-size: cover;
     }
     h1 { text-align: center }
+    .alert {width: 70%; margin:auto}
 </style>
 
 

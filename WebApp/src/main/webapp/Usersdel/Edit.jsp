@@ -6,6 +6,7 @@
         <div class="alert alert-danger" role="alert">
             ${warning}
         </div>
+        <br>
     </c:if>
 
     <form action="/Users/Edit" method="post" class="card">

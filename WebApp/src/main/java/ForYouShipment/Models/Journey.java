@@ -4,7 +4,7 @@ import ForYouShipment.Constants.Port;
 
 public class Journey {
 
-    private String content_type, company, id, status;
+    private String content_type, cargo, id, status;
     private Port origin, destination;
 
 
@@ -22,12 +22,12 @@ public class Journey {
         this.content_type = content_type;
     }
 
-    public String getCompany() {
-        return company;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public String getId() {
