@@ -17,9 +17,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import ForYouShipment.Models.ClientUserModel;
+import ForYouShipment.Models.ContainerMeasurements;
 import ForYouShipment.Models.JourneyInfo;
 import ForYouShipment.Models.LogisticsUserModel;
 import ForYouShipment.Models.UserModel;
+import ForYouShipment.Storage.ContainerStorage;
 import ForYouShipment.Storage.JourneyStorage;
 import ForYouShipment.Storage.UserStorage;
 import ForYouShipment.WebApp.WebAppApplication;
@@ -134,6 +136,53 @@ public class ContainerControllerTest {
         assertTrue(view_name.equals("redirect:/Login/")); 
     }
 
-    // @Test
-    // public void ViewNoUser
+    @Test
+    public void ViewNoUser() throws Exception{
+        MockHttpSession session = new MockHttpSession();
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Container/View")
+                .param("ID","1234")
+                .session(session))
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();       
+        assertTrue(view_name.equals("redirect:/Login/")); 
+    }
+
+    @Test
+    public void ViewInvalid() throws Exception{
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.1");
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Container/View")
+                .param("ID","1234")
+                .session(session))
+            .andExpect(status().is(302))
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();       
+        assertTrue(view_name.equals("redirect:/error/view")); 
+    }
+
+    @Test
+    public void ViewValid() throws Exception{
+        ContainerMeasurements c = new ContainerMeasurements();
+        c.setId("1234");
+        ContainerStorage.GetInstance().getContainers().add(c);
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.1");
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                post("/Container/View")
+                .param("ID","1234")
+                .session(session))
+            .andExpect(status().isOk())
+            .andReturn();
+        
+        String view_name = resultActions.getModelAndView().getViewName();       
+        assertTrue(view_name.equals("Container/View")); 
+    }
 }

@@ -183,17 +183,15 @@ public class JourneyController extends BaseController {
 
     
     @RequestMapping(value = {"/Measurements", "/Measurements/"}, method = RequestMethod.POST)
-    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) {
+    public String SetMeasurement2(HttpServletRequest req, Model m, HttpSession session) throws Exception {
     
         String ID = req.getParameter("ContainerID");                   
         Criteria<ContainerMeasurements> container = new CriteriaCID();
         ContainerMeasurements c = container.meetCriteria(new ArrayList<ContainerMeasurements>(ContainerStorage.GetInstance().getContainers()), ID).get(0);
         
-        try {
-            c.setLocation(Port.ofString("In Transit"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        
+        c.setLocation(Port.ofString("In Transit"));
+        
 
         for (String Param : c.getAllParameters()) {
             String value = req.getParameter(Param);
