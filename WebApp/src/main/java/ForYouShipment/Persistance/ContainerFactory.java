@@ -43,7 +43,6 @@ public class ContainerFactory {
         for  (int i = 0; i < obj.getInt("HistorySize"); i++){
             Criteria<JourneyInfo> criteria = new CriteriaJID();
             JourneyInfo j = criteria.meetCriteria(new ArrayList<>(JourneyStorage.GetInstance().getJourneys()), obj.getString("JourneyID" + i)).get(0);
-            System.out.println("AHAH"+j.toString());
             c.addToJourneyHistory(j);
         }
         JSONtoHistory(c, obj);

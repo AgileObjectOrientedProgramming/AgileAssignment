@@ -1,6 +1,6 @@
 package ForYouShipment.Controllers;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,42 +50,43 @@ public class LogisticsControllerTest {
 	@Test
 	public void TestUnSuccessfulLogisticsPage() throws Exception {
         MockHttpSession session = new MockHttpSession();
-        session.setAttribute("SignedUser", "1.2.3.4");
+        session.setAttribute("SignedUser", "1.2.3.1");
 
 		MvcResult resultActions = 
             this.mockMvc.perform(
                 get("/Logistics/Index")
+                .session(session)
             )
             .andExpect(status().is(302))
             .andReturn();
     }
 
-    // @Test
-	// public void TestSuccessfulLogisticsPage() throws Exception {
-    //     MockHttpSession session = new MockHttpSession();
-    //     session.setAttribute("SignedUser", "1.2.3.4");
+    @Test
+	public void TestSuccessfulLogisticsPage() throws Exception {
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("SignedUser", "1.2.3.4");
 
-	// 	MvcResult resultActions = 
-    //         this.mockMvc.perform(
-    //             get("/Logistics/Index")
-    //             .session(session)
-    //         )
-    //         .andExpect(status().isOk())
-    //         .andReturn();
+		MvcResult resultActions = 
+            this.mockMvc.perform(
+                get("/Logistics/Index")
+                .session(session)
+            )
+            .andExpect(status().isOk())
+            .andReturn();
         
         
-    //     String view_name = resultActions.getModelAndView().getViewName();
-    //     Map<String, Object> model = resultActions.getModelAndView().getModel();
+        String view_name = resultActions.getModelAndView().getViewName();
+        Map<String, Object> model = resultActions.getModelAndView().getModel();
 
-    //     UserModel SignedUser = (UserModel)model.get("SignedUser");
+        UserModel SignedUser = (UserModel)model.get("SignedUser");
 
-    //     assertTrue(
-    //         SignedUser
-    //         .getID()
-    //         .equals("1.2.3.4")
-    //     );  
-    //     assertTrue(view_name.equals("Logistics/Index"));
-    // }
+        assertTrue(
+            SignedUser
+            .getID()
+            .equals("1.2.3.4")
+        );  
+        assertTrue(view_name.equals("Logistics/Index"));
+    }
 
         
 }
