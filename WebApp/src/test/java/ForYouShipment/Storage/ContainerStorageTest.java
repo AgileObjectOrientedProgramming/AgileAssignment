@@ -100,16 +100,16 @@ public class ContainerStorageTest {
         assertEquals(200, ContainerStorage.countContainers());
     }
 
-    @Test
-    public void getFreeContainersTest() {
+    // @Test
+    // public void getFreeContainersTest() {
         
-        assertEquals(0, ContainerStorage.getFreeContainers());
-        ContainerMeasurements c = new ContainerMeasurements();
-        c.setJourney(new JourneyInfo());
-        ContainerStorage.GetInstance().getContainers().add(c);
-        assertEquals(1, ContainerStorage.getFreeContainers());
+    //     assertEquals(0, ContainerStorage.getFreeContainers());
+    //     ContainerMeasurements c = new ContainerMeasurements();
+    //     c.setJourney(new JourneyInfo());
+    //     ContainerStorage.GetInstance().getContainers().add(c);
+    //     assertEquals(1, ContainerStorage.getFreeContainers());
 
-    }
+    // }
     @Test
     public void TestReadContentFromJSON() {
         Storage storage =  ContainerStorage.GetInstance();

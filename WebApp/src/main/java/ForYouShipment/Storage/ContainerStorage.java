@@ -94,20 +94,20 @@ public class ContainerStorage implements Storage{
         return used;
     }
 
-        /**
-     * Gets the number of free containers (not in
-     * a journey)
-     * @return Number of available container as int
-     */
-    public static int getFreeContainers(){
-        int i = 0;
-        for (Container c : GetInstance().Containers){
-            if (!(c.getJourney()==null)){
-                i++;
-            }
-        }
-        return i;
-    }
+    //     /**
+    //  * Gets the number of free containers (not in
+    //  * a journey)
+    //  * @return Number of available container as int
+    //  */
+    // public static int getFreeContainers(){
+    //     int i = 0;
+    //     for (Container c : GetInstance().Containers){
+    //         if (!(c.getJourney()==null)){
+    //             i++;
+    //         }
+    //     }
+    //     return i;
+    // }
 
     /**
      * Returns the number of containters in each Port
