@@ -6,6 +6,9 @@ We will use this repository for our Agile project.
 
 ## Usage
 
+In order to log in on the application, you must use the `username: admin` and `password: admin`. Initially, you will be logged in as a `logistics` user. 
+By following the instructions of the applciation, you can create a new user(either a `client` or a `logistics` user).
+
 The web server is located in the [WebApp](WebApp/) folder. To run it, you need to have `maven` installed (IDEs like vscode install it automatically).
 
 The unit tests are located [here](WebApp/src/test/java/ForYouShipment).
@@ -13,9 +16,6 @@ For running a full test-coverage of the project, open a terminal in the project'
 ` $ ./mvnw clean jacoco:prepare-agent install jacoco:report`\
 This will generate a corevage file, which can be viewed using extensions such as `Coverage Gutters` for vscode.\
 More details about the test coverage can be seen [here](https://medium.com/@clarkjasonngo/junit-test-with-maven-in-vscode-7546eabd50f7).
-
-## Persistence Layer
-
 
 
 ### Our Team
